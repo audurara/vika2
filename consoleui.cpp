@@ -91,13 +91,13 @@ void ConsoleUI::displayListOfPerformers() //Prentar lista af tölvunarfræðingu
                                          << "\t\t" << pf[i].getbYear() << "\t\t\t" << pf[i].getdYear()
                                          << "\t\t\t" << pf[i].getNation();
             }
-            else if(pf[i].getName().length() < 16 && pf[i].getName().length() > 8)
+            else if(pf[i].getName().length() < 16 && pf[i].getName().length() > 7)
             {
             qDebug().noquote().nospace() << i+1 << "\t" << pf[i].getName() << "\t\t" << pf[i].getGender()
                                          << "\t\t" << pf[i].getbYear() << "\t\t\t" << pf[i].getdYear()
                                          << "\t\t\t" << pf[i].getNation();
             }
-            else if(pf[i].getName().length() <= 8)
+            else if(pf[i].getName().length() <= 7)
             {
             qDebug().noquote().nospace() << i+1 << "\t" << pf[i].getName() << "\t\t\t" << pf[i].getGender()
                                          << "\t\t" << pf[i].getbYear() << "\t\t\t" << pf[i].getdYear()

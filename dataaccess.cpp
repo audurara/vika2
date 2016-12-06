@@ -19,7 +19,7 @@ vector<Performer> DataAccess::readData() //Les upplýsingar úr skrá og setur �
     vector<Performer> logs;
 
     QSqlDatabase db = QSqlDatabase::addDatabase("QSQLITE");
-    db.setDatabaseName("C:\\USERS\\Tryggvi Þór\\Desktop\\VLN1-2016\\Verkefni1\\verklegt1\\database1.sqlite");
+    db.setDatabaseName("database1.sqlite");
     if(db.open())
     {
         qDebug();
