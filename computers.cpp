@@ -6,7 +6,7 @@ computers::computers()
 }
 
 
-computers::computers(Qstring name, Qstring type, Qstring bYear, Qstring constr)
+computers::computers(QString name, QString type, QString bYear, QString constr)
 {
    _name = name;
    _type = type;
