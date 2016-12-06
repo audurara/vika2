@@ -398,6 +398,7 @@ void ConsoleUI::commandHelp()
     cout << "search - Searches for a given computer scientist" << endl;
     cout << "sort   - Sorts the computer scientists by preferences" << endl;
     cout << "delete - This will remove the entry from the list" << endl;
+    cout << "PC     - This will display computers" << endl;
     cout << "help   - Displays list of commands" << endl;
     cout << "exit   - This will close the application" << endl;
 }
@@ -503,7 +504,16 @@ string ConsoleUI::deleteElement()
 void ConsoleUI::displayComputers()
 {
     vector<computers> pc = _service.getComputers();
-    displayTopTable();
+
+    cout << "Nr" << "\t" << "Name" << "\t\t\t" << "buildY";
+    cout << "\t\t" << "Brand" << "\t\t" << "Constr" << endl;
+    for (int i = 0; i < 42*2; ++i)
+    {
+        cout << "=";
+    }
+    cout << endl;
+
+
     for (size_t i = 0; i < pc.size(); ++i) //Prentar út listann miðað við lengd nafns svo það passi sem best
         {
 
