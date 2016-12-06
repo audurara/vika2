@@ -6,11 +6,11 @@ computers::computers()
 }
 
 
-computers::computers(QString name, QString type, QString bYear, QString constr)
+computers::computers(QString name, QString buildy, QString brand, QString constr)
 {
    _name = name;
-   _type = type;
-   _bYear = bYear;
+   _buildy = buildy;
+   _brand = brand;
    _constr = constr;
 
 }

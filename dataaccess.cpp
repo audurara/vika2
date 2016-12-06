@@ -13,7 +13,28 @@ bool operator == (const Performer& p1, const Performer& p2) //Yfirskrifa samasem
 {
     return p1.getName() == p2.getName();
 }
+vector<computers> DataAccess::readCpuData()
+{
+    vector<computers> pc;
 
+
+    QSqlQuery query;
+    query.exec("SELECT * FROM \"main\".\"Computers\"");
+    while (query.next())
+    {
+        QString name = query.value(0).toString();
+        QString buildy = query.value(1).toString();
+        QString brand = query.value(2).toString();
+        QString constr = query.value(3).toString();
+
+        computers P(name, buildy, brand, constr);
+        pc.push_back(P);
+
+
+    }
+
+    return pc;
+}
 vector<Performer> DataAccess::readData() //Les upplýsingar úr skrá og setur í vektor
 {
     vector<Performer> logs;
@@ -145,3 +166,5 @@ void DataAccess::openSqlFiles()
 
     }
 }
+
+

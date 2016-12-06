@@ -8,7 +8,7 @@ class computers
 {
 public:
     computers();
-    computers(QString name, QString type, QString bYear, QString constr);
+    computers(QString name, QString buildy, QString brand, QString constr);
     //nafn, kyn, fæðingarár, dánarár og þjóðerni.
 
     QString getName() const
@@ -16,14 +16,14 @@ public:
         return _name;
     }
 
-    QString getType() const
+    QString getBuildy() const
     {
-        return _type;
+        return _buildy;
     }
 
-    QString getbYear() const
+    QString getBrand() const
     {
-        return _bYear;
+        return _brand;
     }
 
     QString getConstr() const
@@ -32,8 +32,8 @@ public:
     }
 private:
     QString _name;
-    QString _type;
-    QString _bYear;
+    QString _buildy;
+    QString _brand;
     QString _constr;
 
 };

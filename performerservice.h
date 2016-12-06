@@ -17,6 +17,7 @@ public:
     vector<Performer> sortBybYear(); //Ber saman ár og raðar þeim frá því lægsta til þess hæsta
     vector<Performer> sortByGender(); //Ber saman kyn
     vector<Performer> sortByNationality(); //Ber saman þjóðerni og raðar þeim eftir stafrófsröð
+    vector<computers> getComputers(); //vektor fyrir computers.
     string removeElement(string name); //Skilar til baka streng eftir að hafa eytt einu tilviki.
     string addPerformer(string name, string gender, string birth, string death, string nation); //Bætir nýjum tölvunarfræðingi inn í skrána
 private:

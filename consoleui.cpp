@@ -40,6 +40,10 @@ void ConsoleUI::run()
         {
             displaySearch();
         }
+        else if (command == "PC")
+        {
+            displayComputers();
+        }
         /*else if (command == "Add Cpu")
         {
             addCpu();
@@ -495,3 +499,30 @@ string ConsoleUI::deleteElement()
     return name;
 }
 */
+void ConsoleUI::displayComputers()
+{
+    vector<computers> pc = _service.getComputers();
+    displayTopTable();
+    for (size_t i = 0; i < pc.size(); ++i) //Prentar út listann miðað við lengd nafns svo það passi sem best
+        {
+
+
+
+            if(pc[i].getName().length() > 16)
+            {
+                qDebug().noquote().nospace() << i+1 << "\t" << pc[i].getName() << "\t" << pc[i].getBuildy()
+                                         << "\t\t" << pc[i].getBrand() << "\t\t\t" << pc[i].getConstr();
+            }
+            else if(pc[i].getName().length() < 16 && pc[i].getName().length() > 7)
+            {
+                qDebug().noquote().nospace() << i+1 << "\t" << pc[i].getName() << "\t\t" << pc[i].getBuildy()
+                                         << "\t\t" << pc[i].getBrand() << "\t\t\t" << pc[i].getConstr();
+            }
+            else if(pc[i].getName().length() <= 7)
+            {
+                qDebug().noquote().nospace() << i+1 << "\t" << pc[i].getName() << "\t\t\t" << pc[i].getBuildy()
+                                         << "\t\t" << pc[i].getBrand() << "\t\t\t" << pc[i].getConstr();
+            }
+
+        }
+}

@@ -112,3 +112,11 @@ void PerformerService::openFiles()
 {
     _data.openSqlFiles();
 }
+
+vector<computers> PerformerService::getComputers() //Nær í gögn úr skrá og skilar þeim í vector
+{
+
+   vector<computers> getComputers = _data.readCpuData();
+
+   return getComputers;
+}

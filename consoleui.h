@@ -18,6 +18,7 @@ private:
     void commandAdd();//Bætir við tölvunarfræðing við listann
     void intro();//Prentar upphafsskilaboð
     void displayTopTable();//Prentar út lista af tölvunarfræðingum, sum önnur föll nota þetta fall.
+    void displayComputers();
     string deleteElement();//Eyðir staki úr vektor
     string inputName();
     string inputGender();

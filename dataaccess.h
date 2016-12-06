@@ -2,6 +2,7 @@
 #define DATAACCESS_H
 #include <vector>
 #include "performer.h"
+#include "computers.h"
 
 using namespace std;
 
@@ -18,6 +19,7 @@ public:
     void removeData(string name);//Þetta fall tekur út strenginn sem inniheldur ákveðið nafn
 
     DataAccess();
+    vector<computers> readCpuData();
     vector<Performer> readData();//Les upplýsingar úr skrá og setur í vektor
     friend bool operator ==(const Performer& p1, const Performer& p2);
 };
