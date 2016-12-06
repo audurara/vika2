@@ -40,11 +40,11 @@ void ConsoleUI::run()
         {
             displaySearch();
         }
-        /*else if (command == "Add Cpu")
+        else if (command == "addCpu")
         {
-            addCpu();
+            _data.addCpu();
         }
-
+/*
         else if(command == "sort")
         {
             chooseSort();
@@ -390,6 +390,7 @@ void ConsoleUI::commandHelp()
     cout << "-------- The commands are case-sensitive! --------" << endl << endl;
     cout << "list   - This will list all computer scientists in the system" << endl;
     cout << "add    - This will add a new computer scientists" << endl;
+    cout << "addCpu - This will add a new computer" << endl;
     cout << "search - Searches for a given computer scientist" << endl;
     cout << "sort   - Sorts the computer scientists by preferences" << endl;
     cout << "delete - This will remove the entry from the list" << endl;
