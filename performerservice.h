@@ -11,7 +11,7 @@ public:
     PerformerService();
     //
     vector<Performer> getPerformers(); //Nær í gögn úr skrá og skilar þeim í vector
-    vector<Performer> search(string name); //Leitar að ákveðnu nafni í listanum
+    vector<Performer> search(QString name); //Leitar að ákveðnu nafni í listanum
     vector<Performer> sortByName(); //Ber saman nöfn og raðar þeim í stafrófsröð
     vector<Performer> sortBybYear(); //Ber saman ár og raðar þeim frá því lægsta til þess hæsta
     vector<Performer> sortByGender(); //Ber saman kyn

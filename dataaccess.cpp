@@ -2,6 +2,7 @@
 #include <fstream>
 #include <algorithm>
 #include <iostream>
+#include <QtSql>
 
 DataAccess::DataAccess()
 {
@@ -16,13 +17,28 @@ bool operator == (const Performer& p1, const Performer& p2) //Yfirskrifa samasem
 vector<Performer> DataAccess::readData() //Les upplýsingar úr skrá og setur í vektor
 {
     vector<Performer> logs;
-    string name;
-    string gender;
-    string bYear;
-    string dYear;
-    string nation;
 
+    QSqlDatabase db = QSqlDatabase::addDatabase("QSQLITE");
+    db.setDatabaseName("C:\\USERS\\Tryggvi Þór\\Desktop\\VLN1-2016\\Verkefni1\\verklegt1\\database1.sqlite");
+    if(db.open())
+    {
+        qDebug();
+    }
+    QSqlQuery query;
+    query.exec("SELECT * FROM \"main\".\"list\"");
+    while (query.next())
+    {
+        QString name = query.value(0).toString();
+        QString gender = query.value(1).toString();
+        QString bYear = query.value(2).toString();
+        QString dYear = query.value(3).toString();
+        QString nation = query.value(4).toString();
 
+        Performer P(name, gender, bYear, dYear, nation);
+        logs.push_back(P);
+    }
+
+/*
     ifstream myfile ("Info.txt");
     if ( myfile.is_open() )
     {
@@ -43,7 +59,7 @@ vector<Performer> DataAccess::readData() //Les upplýsingar úr skrá og setur �
         }
         myfile.close();
     }
-
+*/
 
     return logs;
 }
@@ -57,7 +73,7 @@ void DataAccess::writeData (string all) //Með þessu falli má skrifa streng in
 
     outputFile.close();
 }
-
+/*
 void DataAccess::removeData(string name) //Þetta fall tekur út tölvunarfræðing sem inniheldur ákveðið nafn
 {
     vector<Performer> pf = readData();
@@ -94,3 +110,4 @@ void DataAccess::removeData(string name) //Þetta fall tekur út tölvunarfræð
     }
     outputFile.close();
 }
+*/

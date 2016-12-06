@@ -1,6 +1,7 @@
 #ifndef PERFORMER_H
 #define PERFORMER_H
 #include <string>
+#include <QtSql>
 
 using namespace std;
 
@@ -8,29 +9,29 @@ class Performer
 {
 public:
     Performer();
-    Performer(string name, string gender, string bYear, string dYear, string nation);
+    Performer(QString name, QString gender, QString bYear, QString dYear, QString nation);
     //nafn, kyn, fæðingarár, dánarár og þjóðerni.
 
-    string getName() const
+    QString getName() const
     {
         return _name;
     }
 
-    string getGender() const
+    QString getGender() const
     {
         return _gender;
     }
 
-    string getbYear() const
+    QString getbYear() const
     {
         return _bYear;
     }
 
-    string getdYear() const
+    QString getdYear() const
     {
         return _dYear;
     }
-    string getNation() const
+    QString getNation() const
     {
         return _nation;
     }
@@ -38,11 +39,11 @@ public:
 
 private:
 
-    string _name;
-    string _gender;
-    string _bYear;
-    string _dYear;
-    string _nation;
+    QString _name;
+    QString _gender;
+    QString _bYear;
+    QString _dYear;
+    QString _nation;
 };
 
 #endif // PERFORMER_H
