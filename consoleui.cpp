@@ -27,7 +27,32 @@ void ConsoleUI::run()
 
         if (command == "list")
         {
-            displayListOfPerformers();
+            {
+                int counter = 0;
+                do
+                {
+                    char choice;
+                    cout << "List Computer Scientists choose '1'" << endl << "List Computers choose '2'" << endl;
+                    cout << "choice: ";
+                    cin >> choice;
+                    if(choice == '1')
+                    {
+                        counter = 1;
+                        displayListOfPerformers();
+                    }
+                    else if(choice == '2')
+                    {
+                        counter = 1;
+                        displayComputers();
+                    }
+                    else
+                    {
+                        cout << "invalid choice!" << endl;
+                    }
+                }while(counter == 0);
+
+            }
+
         }
 
         else if (command == "add")
@@ -36,7 +61,7 @@ void ConsoleUI::run()
             do
             {
                 char choice;
-                cout << "Add Scientist = 1" << endl << "Add Computer = 2" << endl;
+                cout << "Add Computer Scientist choose '1'" << endl << "Add Computer choose '2'" << endl;
                 cout << "choice: ";
                 cin >> choice;
                 if(choice == '1')
@@ -56,19 +81,11 @@ void ConsoleUI::run()
             }while(counter == 0);
 
         }
-
         else if (command == "search")
         {
             displaySearch();
         }
-        else if (command == "PC")
-        {
-            displayComputers();
-        }
-        else if (command == "addCpu")
-        {
-            _data.addCpu();
-        }
+
 /*
         else if(command == "sort")
         {
@@ -413,13 +430,11 @@ void ConsoleUI::chooseSort() //Fall sem velur eftir hverju á að raða listanum
 void ConsoleUI::commandHelp()
 {
     cout << "-------- The commands are case-sensitive! --------" << endl << endl;
-    cout << "list   - This will list all computer scientists in the system" << endl;
-    cout << "add    - This will add a new computer scientists" << endl;
-    cout << "addCpu - This will add a new computer" << endl;
+    cout << "list   - Choose to list all Computer Scientist or all Computers" << endl;
+    cout << "add    - Choose to add a Computer Scientist or to add a Computer" << endl;
     cout << "search - Searches for a given computer scientist" << endl;
     cout << "sort   - Sorts the computer scientists by preferences" << endl;
     cout << "delete - This will remove the entry from the list" << endl;
-    cout << "PC     - This will display computers" << endl;
     cout << "help   - Displays list of commands" << endl;
     cout << "exit   - This will close the application" << endl;
 }
