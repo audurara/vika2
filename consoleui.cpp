@@ -91,13 +91,30 @@ void ConsoleUI::run()
         {
             chooseSort();
         }
-
+*/
         else if (command == "delete")
         {
-            string namedel = deleteElement(); //Ná í strenginn sem á að eyða
-            _service.removeElement(namedel); //Eyða völdu nafni með removeElement fallinu
-        }
+            /*
+            cout << "Delete ! " << endl;
+            int id;
+            //cin.ignore();
+            //getline(cin, id);
+            cin >> id;
+            //int Qid = fromStdString(id);
+            string str =  "DELETE FROM \"1st_table\" where ID = " + 5;
+            qDebug() << "DELETE FROM \"1st_table\" where ID = " + 5 << endl;
+            QString qstr = QString::fromStdString(str);
+            QSqlQuery query;
+            //query.prepare("DELETE FROM \"1st_table\" where ID = (id)");
+            //query.bindValue(":id", id);
+            query.exec("DELETE FROM \"1st_table\" where ID = 5");
+            cout << "deleted " << endl;
+            */
 
+            //string namedel = deleteElement(); //Ná í strenginn sem á að eyða
+            //_service.removeElement(namedel); //Eyða völdu nafni með removeElement fallinu
+        }
+/*
         else if (command == "help")
         {
             commandHelp();
