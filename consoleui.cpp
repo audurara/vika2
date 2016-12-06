@@ -15,11 +15,12 @@ void ConsoleUI::run()
 {
     intro(); // Prentar upphafsskilaboð
     commandHelp(); // Prentar lista yfir skipanir
-
+    _service.openFiles();
     string command;
 
     do
     {
+
         cout << endl << "Enter a command ('help' for list of commands): ";
         cin >> command;
         cout << endl;

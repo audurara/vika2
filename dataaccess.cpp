@@ -18,12 +18,7 @@ vector<Performer> DataAccess::readData() //Les upplýsingar úr skrá og setur �
 {
     vector<Performer> logs;
 
-    QSqlDatabase db = QSqlDatabase::addDatabase("QSQLITE");
-    db.setDatabaseName("database1.sqlite");
-    if(db.open())
-    {
-        qDebug();
-    }
+
     QSqlQuery query;
     query.exec("SELECT * FROM \"main\".\"list\"");
     while (query.next())
@@ -36,6 +31,7 @@ vector<Performer> DataAccess::readData() //Les upplýsingar úr skrá og setur �
 
         Performer P(name, gender, bYear, dYear, nation);
         logs.push_back(P);
+
     }
 
 /*
@@ -67,36 +63,42 @@ vector<Performer> DataAccess::readData() //Les upplýsingar úr skrá og setur �
 
 void DataAccess::writeData () //Með þessu falli má skrifa streng inn í skrána
 {
-    QSqlDatabase db = QSqlDatabase::addDatabase("QSQLITE");
-    db.setDatabaseName("C:\\USERS\\Tryggvi Þór\\Desktop\\VLN1-2016\\Verkefni1\\verklegt1\\database1.sqlite");
-    if(db.open())
+/*
+    db.setDatabaseName("database1.sqlite");
+    if(!db.isOpen())
     {
-        qDebug() << "opened" << endl;
-    }
-    string name, gender, bYear, dYear, nation;
-    cin.ignore();
-    getline(cin, name);
-    getline(cin, gender);
-    getline(cin, bYear);
-    getline(cin, dYear);
-    getline(cin, nation);
+        //QSqlDatabase db = QSqlDatabase::addDatabase("QSQLITE");
+        db.setDatabaseName("database1.sqlite");
+        qDebug() << "hello" << endl;
+    }*/
 
-    QString Qname = QString::fromStdString(name);
-    QString Qgender = QString::fromStdString(gender);
-    QString QbYear = QString::fromStdString(bYear);
-    QString QdYear = QString::fromStdString(dYear);
-    QString Qnation = QString::fromStdString(nation);
 
-    QSqlQuery query;
-    query.prepare("INSERT INTO \"main\".\"list\" (name, gender, bYear, dYear, nation) "
-                      "VALUES (:name, :gender, :bYear, :dYear, :nation)");
-        query.bindValue(":name", Qname);
-        query.bindValue(":gender", Qgender);
-        query.bindValue(":bYear", QbYear);
-        query.bindValue(":dYear", QdYear);
-        query.bindValue(":nation", Qnation);
-        query.exec();
+        string name, gender, bYear, dYear, nation;
+        cin.ignore();
+        getline(cin, name);
+        getline(cin, gender);
+        getline(cin, bYear);
+        getline(cin, dYear);
+        getline(cin, nation);
 
+        QString Qname = QString::fromStdString(name);
+        QString Qgender = QString::fromStdString(gender);
+        QString QbYear = QString::fromStdString(bYear);
+        QString QdYear = QString::fromStdString(dYear);
+        QString Qnation = QString::fromStdString(nation);
+
+        QSqlQuery query;
+        query.prepare("INSERT INTO \"main\".\"list\" (name, gender, bYear, dYear, nation) "
+                          "VALUES (:name, :gender, :bYear, :dYear, :nation)");
+            query.bindValue(":name", Qname);
+            query.bindValue(":gender", Qgender);
+            query.bindValue(":bYear", QbYear);
+            query.bindValue(":dYear", QdYear);
+            query.bindValue(":nation", Qnation);
+            query.exec();
+
+
+    //db.close();
 }
 /*
 void DataAccess::removeData(string name) //Þetta fall tekur út tölvunarfræðing sem inniheldur ákveðið nafn
@@ -136,3 +138,12 @@ void DataAccess::removeData(string name) //Þetta fall tekur út tölvunarfræð
     outputFile.close();
 }
 */
+void DataAccess::openSqlFiles()
+{
+    QSqlDatabase db = QSqlDatabase::addDatabase("QSQLITE");
+    db.setDatabaseName("database1.sqlite");
+    if(db.open())
+    {
+        qDebug();
+    }
+}

@@ -108,3 +108,7 @@ string PerformerService::removeElement(string name) //Skilar til baka streng eft
     return name;
 }
 */
+void PerformerService::openFiles()
+{
+    _data.openSqlFiles();
+}

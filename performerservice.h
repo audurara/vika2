@@ -10,6 +10,7 @@ class PerformerService
 public:
     PerformerService();
     //
+    void openFiles();//opnar sql files um leið og forritið er keyrt, einu sinni.
     vector<Performer> getPerformers(); //Nær í gögn úr skrá og skilar þeim í vector
     vector<Performer> search(QString name); //Leitar að ákveðnu nafni í listanum
     vector<Performer> sortByName(); //Ber saman nöfn og raðar þeim í stafrófsröð
