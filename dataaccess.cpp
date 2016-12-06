@@ -40,15 +40,6 @@ vector<Performer> DataAccess::readData() //Les upplýsingar úr skrá og setur �
 
 void DataAccess::writeData () //Með þessu falli má skrifa streng inn í skrána
 {
-/*
-    db.setDatabaseName("database1.sqlite");
-    if(!db.isOpen())
-    {
-        //QSqlDatabase db = QSqlDatabase::addDatabase("QSQLITE");
-        db.setDatabaseName("database1.sqlite");
-        qDebug() << "hello" << endl;
-    }*/
-
 
         string name, gender, bYear, dYear, nation;
         cin.ignore();
@@ -79,12 +70,7 @@ void DataAccess::writeData () //Með þessu falli má skrifa streng inn í skrá
 }
 void DataAccess::addCpu () //Með þessu falli má skrifa streng inn í skrána
 {
-    QSqlDatabase db = QSqlDatabase::addDatabase("QSQLITE");
-    db.setDatabaseName("C:\\USERS\\Davíð\\Desktop\\Verkefni1\\verklegt1\\database1.sqlite");
-    if(db.open())
-    {
-        qDebug() << "opened" << endl;
-    }
+
     string name, buildy, brand, constr;
     cin.ignore();
     getline(cin, name);
@@ -155,5 +141,7 @@ void DataAccess::openSqlFiles()
     if(db.open())
     {
         qDebug();
+
+
     }
 }
