@@ -38,29 +38,6 @@ vector<Performer> DataAccess::readData() //Les upplýsingar úr skrá og setur �
         logs.push_back(P);
     }
 
-/*
-    ifstream myfile ("Info.txt");
-    if ( myfile.is_open() )
-    {
-        while ( ! myfile.eof() )
-        {
-            //Á meðan skráin er ekki komin út á enda mun fara inn í vektorinn
-            //og lesa inn nafn, kyn, fæðingarár, dánarár og þjóðerni í þessari röð
-            getline(myfile, name, ',');
-            getline(myfile, gender, ',');
-            getline(myfile, bYear, ',');
-            getline(myfile, dYear, ',');
-            getline(myfile, nation, ',');
-
-            Performer P(name, gender, bYear, dYear, nation);
-            //Hvert stak í vektornum er strengur með nafni, kyni, fæðingarári, dánarári og þjóðerni
-
-            logs.push_back(P);
-        }
-        myfile.close();
-    }
-*/
-
     return logs;
 }
 
@@ -97,6 +74,33 @@ void DataAccess::writeData () //Með þessu falli má skrifa streng inn í skrá
         query.bindValue(":nation", Qnation);
         query.exec();
 
+}
+
+vector<Performer> DataAccess::addCpu() //Les upplýsingar úr skrá og setur í vektor
+{
+    vector<Performer> logs;
+
+    QSqlDatabase db = QSqlDatabase::addDatabase("QSQLITE");
+    db.setDatabaseName("database1.sqlite");
+    if(db.open())
+    {
+        qDebug();
+    }
+    QSqlQuery query;
+    query.exec("SELECT * FROM \"main\".\"list\"");
+    while (query.next())
+    {
+        QString name = query.value(0).toString();
+        QString gender = query.value(1).toString();
+        QString bYear = query.value(2).toString();
+        QString dYear = query.value(3).toString();
+        QString nation = query.value(4).toString();
+
+        Performer P(name, gender, bYear, dYear, nation);
+        logs.push_back(P);
+    }
+
+    return logs;
 }
 /*
 void DataAccess::removeData(string name) //Þetta fall tekur út tölvunarfræðing sem inniheldur ákveðið nafn
