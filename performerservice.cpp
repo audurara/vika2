@@ -93,14 +93,15 @@ vector <Performer> PerformerService:: search(QString name) //Leitar að ákveðn
      sort(pf.begin(), pf.end(), cmp);
      return pf;
  }
+ */
 
  string PerformerService::addPerformer(string name, string gender, string birth, string death, string nation) //Bætir nýjum tölvunarfræðingi inn í skrána
  {
     string all = "," + name + "," + gender + "," + birth + "," + death + "," + nation;
-    _data.writeData(all);
+    _data.writeData();
     return all;
  }
-
+/*
 string PerformerService::removeElement(string name) //Skilar til baka streng eftir að hafa eytt einu tilviki
 {
     _data.removeData(name);

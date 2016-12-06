@@ -28,12 +28,13 @@ void ConsoleUI::run()
         {
             displayListOfPerformers();
         }
-/*
+
         else if (command == "add")
         {
-            commandAdd();
+            //commandAdd();
+            _data.writeData();
         }
-*/
+
         else if (command == "search")
         {
             displaySearch();
@@ -179,7 +180,7 @@ void ConsoleUI::displaySort(vector<Performer> newVector) //Prentar út niðurst�
         }
     }
 }
-
+*/
 string ConsoleUI::inputName() //Setur inn nafn
 {
     string name;
@@ -316,7 +317,7 @@ string ConsoleUI::inputNation() //Setur inn þjóðerni
     return nation;
 }
 
-
+/*
 void ConsoleUI::chooseSort() //Fall sem velur eftir hverju á að raða listanum
 {
     int choice;
@@ -390,7 +391,7 @@ void ConsoleUI::commandHelp()
     cout << "help   - Displays list of commands" << endl;
     cout << "exit   - This will close the application" << endl;
 }
-/*
+
 void ConsoleUI::commandAdd() //Fall sem bætir við tölvunarfræðingum
 {
     string name = inputName();
@@ -421,7 +422,7 @@ void ConsoleUI::commandAdd() //Fall sem bætir við tölvunarfræðingum
     cout << endl;
     cout << name << " has been added to the database!" << endl;
 }
-*/
+
 void ConsoleUI::intro() //Fall sem útprentar upphafsskilaboð
 {
     cout << endl;

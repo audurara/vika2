@@ -65,13 +65,38 @@ vector<Performer> DataAccess::readData() //Les upplýsingar úr skrá og setur �
 }
 
 
-void DataAccess::writeData (string all) //Með þessu falli má skrifa streng inn í skrána
+void DataAccess::writeData () //Með þessu falli má skrifa streng inn í skrána
 {
-    ofstream outputFile;
-    outputFile.open("Info.txt", fstream::app);
-    outputFile << all;
+    QSqlDatabase db = QSqlDatabase::addDatabase("QSQLITE");
+    db.setDatabaseName("C:\\USERS\\Tryggvi Þór\\Desktop\\VLN1-2016\\Verkefni1\\verklegt1\\database1.sqlite");
+    if(db.open())
+    {
+        qDebug() << "opened" << endl;
+    }
+    string name, gender, bYear, dYear, nation;
+    cin.ignore();
+    getline(cin, name);
+    getline(cin, gender);
+    getline(cin, bYear);
+    getline(cin, dYear);
+    getline(cin, nation);
 
-    outputFile.close();
+    QString Qname = QString::fromStdString(name);
+    QString Qgender = QString::fromStdString(gender);
+    QString QbYear = QString::fromStdString(bYear);
+    QString QdYear = QString::fromStdString(dYear);
+    QString Qnation = QString::fromStdString(nation);
+
+    QSqlQuery query;
+    query.prepare("INSERT INTO \"main\".\"list\" (name, gender, bYear, dYear, nation) "
+                      "VALUES (:name, :gender, :bYear, :dYear, :nation)");
+        query.bindValue(":name", Qname);
+        query.bindValue(":gender", Qgender);
+        query.bindValue(":bYear", QbYear);
+        query.bindValue(":dYear", QdYear);
+        query.bindValue(":nation", Qnation);
+        query.exec();
+
 }
 /*
 void DataAccess::removeData(string name) //Þetta fall tekur út tölvunarfræðing sem inniheldur ákveðið nafn

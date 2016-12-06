@@ -10,7 +10,7 @@ class DataAccess
 
 public:
 
-    void writeData(string all);//Með þessu falli má skrifa streng inn í skrána
+    void writeData();//Með þessu falli má skrifa streng inn í skrána
     void removeData(string name);//Þetta fall tekur út strenginn sem inniheldur ákveðið nafn
 
     DataAccess();
