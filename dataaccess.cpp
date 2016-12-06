@@ -105,8 +105,8 @@ void DataAccess::addCpu () //Með þessu falli má skrifa streng inn í skrána
     QString Qconstr = QString::fromStdString(constr);
 
     QSqlQuery query;
-    query.prepare("INSERT INTO \"main\".\"list\" (name, gender, bYear, dYear, nation) "
-                      "VALUES (:name, :gender, :bYear, :dYear, :nation)");
+    query.prepare("INSERT INTO \"main\".\"Computers\" (name, buildy, brand, constr) "
+                      "VALUES (:name, :buildy, :brand, :constr)");
         query.bindValue(":name", Qname);
         query.bindValue(":buildy", Qbuildy);
         query.bindValue(":brand", Qbrand);
