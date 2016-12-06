@@ -32,8 +32,29 @@ void ConsoleUI::run()
 
         else if (command == "add")
         {
-            //commandAdd();
-            _data.writeData();
+            int counter = 0;
+            do
+            {
+                char choice;
+                cout << "Add Scientist = 1" << endl << "Add Computer = 2" << endl;
+                cout << "choice: ";
+                cin >> choice;
+                if(choice == '1')
+                {
+                    counter = 1;
+                    _data.writeData();
+                }
+                else if(choice == '2')
+                {
+                    counter = 1;
+                    _data.addCpu();
+                }
+                else
+                {
+                    cout << "invalid choice!" << endl;
+                }
+            }while(counter == 0);
+
         }
 
         else if (command == "search")
@@ -505,7 +526,7 @@ void ConsoleUI::displayComputers()
 {
     vector<computers> pc = _service.getComputers();
 
-    cout << "Nr" << "\t" << "Name" << "\t\t\t" << "buildY";
+    cout << "Nr" << "\t" << "Name" << "\t\t\t" << "build Year";
     cout << "\t\t" << "Brand" << "\t\t" << "Constr" << endl;
     for (int i = 0; i < 42*2; ++i)
     {
