@@ -75,33 +75,39 @@ void DataAccess::writeData () //Með þessu falli má skrifa streng inn í skrá
         query.exec();
 
 }
-
-vector<Performer> DataAccess::addCpu() //Les upplýsingar úr skrá og setur í vektor
+void DataAccess::addCpu () //Með þessu falli má skrifa streng inn í skrána
 {
-    vector<Performer> logs;
-
     QSqlDatabase db = QSqlDatabase::addDatabase("QSQLITE");
-    db.setDatabaseName("database1.sqlite");
+    db.setDatabaseName("C:\\USERS\\Davíð\\Desktop\\Verkefni1\\verklegt1\\database1.sqlite");
     if(db.open())
     {
-        qDebug();
+        qDebug() << "opened" << endl;
     }
+    string name, buildy, brand, constr;
+    cin.ignore();
+    getline(cin, name);
+    getline(cin, buildy);
+    getline(cin, brand);
+    getline(cin, constr);
+
+    QString Qname = QString::fromStdString(name);
+    QString Qbuildy = QString::fromStdString(buildy);
+    QString Qbrand = QString::fromStdString(brand);
+    QString Qconstr = QString::fromStdString(constr);
+
     QSqlQuery query;
-    query.exec("SELECT * FROM \"main\".\"list\"");
-    while (query.next())
-    {
-        QString name = query.value(0).toString();
-        QString gender = query.value(1).toString();
-        QString bYear = query.value(2).toString();
-        QString dYear = query.value(3).toString();
-        QString nation = query.value(4).toString();
+    query.prepare("INSERT INTO \"main\".\"list\" (name, gender, bYear, dYear, nation) "
+                      "VALUES (:name, :gender, :bYear, :dYear, :nation)");
+        query.bindValue(":name", Qname);
+        query.bindValue(":buildy", Qbuildy);
+        query.bindValue(":brand", Qbrand);
+        query.bindValue(":constr", Qconstr);
 
-        Performer P(name, gender, bYear, dYear, nation);
-        logs.push_back(P);
-    }
+        query.exec();
 
-    return logs;
 }
+
+
 /*
 void DataAccess::removeData(string name) //Þetta fall tekur út tölvunarfræðing sem inniheldur ákveðið nafn
 {

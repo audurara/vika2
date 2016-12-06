@@ -11,7 +11,7 @@ class DataAccess
 public:
 
     void writeData();//Með þessu falli má skrifa streng inn í skrána
-    void writeCpu();
+    void addCpu();
     void removeData(string name);//Þetta fall tekur út strenginn sem inniheldur ákveðið nafn
 
     DataAccess();
