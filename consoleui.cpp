@@ -93,33 +93,40 @@ void ConsoleUI::run()
         }
 */
         else if (command == "delete")
-        {
-            /*
-            cout << "Delete ! " << endl;
-            int id;
-            //cin.ignore();
-            //getline(cin, id);
-            cin >> id;
-            //int Qid = fromStdString(id);
-            string str =  "DELETE FROM \"1st_table\" where ID = " + 5;
-            qDebug() << "DELETE FROM \"1st_table\" where ID = " + 5 << endl;
-            QString qstr = QString::fromStdString(str);
-            QSqlQuery query;
-            //query.prepare("DELETE FROM \"1st_table\" where ID = (id)");
-            //query.bindValue(":id", id);
-            query.exec("DELETE FROM \"1st_table\" where ID = 5");
-            cout << "deleted " << endl;
-            */
+        {            
+            string namedel = deleteElement(); //Ná í strenginn sem á að eyða
 
-            //string namedel = deleteElement(); //Ná í strenginn sem á að eyða
-            //_service.removeElement(namedel); //Eyða völdu nafni með removeElement fallinu
+            int counter = 0;
+            do
+            {
+                char choice;
+                cout << "Remove Computer Scientist choose '1'" << endl << "Remove Computer choose '2'" << endl;
+                cout << "choice: ";
+                cin >> choice;
+                if(choice == '1')
+                {
+                    counter = 1;
+                    _service.removeScientist(namedel); //Eyða völdu nafni með removeElement fallinu
+                }
+                else if(choice == '2')
+                {
+                    counter = 1;
+                    _service.removeComputer(namedel); //Eyða völdu nafni með removeElement fallinu
+                }
+                else
+                {
+                    cout << "invalid choice!" << endl;
+                }
+            }while(counter == 0);
+
+
         }
-/*
+
         else if (command == "help")
         {
             commandHelp();
         }
-*/
+
         else if (command == "exit")
         {
             cout << "exiting" << endl;
@@ -521,16 +528,16 @@ void ConsoleUI::displayTopTable() //Fall sem prentar lista yfir alla tölvunarfr
     cout << endl;
 }
 
-/*
+
 string ConsoleUI::deleteElement()
 {
     string name;
-    vector<Performer> pf = _service.getPerformers();
+    //vector<Performer> pf = _service.getPerformers();
 
     cout << "Enter full name of person you want to delete from the database (case-sensitive): ";
     cin.ignore();
     getline(cin, name);
-
+/*
     size_t counter = 0;
 
     for(size_t i = 0; i < pf.size(); i++)
@@ -549,11 +556,11 @@ string ConsoleUI::deleteElement()
 
         }
     }
-
+*/
     cout << name << " has been deleted from database." << endl;
     return name;
 }
-*/
+
 void ConsoleUI::displayComputers()
 {
     vector<computers> pc = _service.getComputers();

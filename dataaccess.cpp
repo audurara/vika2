@@ -117,44 +117,25 @@ void DataAccess::addCpu () //Með þessu falli má skrifa streng inn í skrána
 }
 
 
-/*
-void DataAccess::removeData(string name) //Þetta fall tekur út tölvunarfræðing sem inniheldur ákveðið nafn
+
+void DataAccess::removeDataScientist(string name) //Þetta fall tekur út tölvunarfræðing sem inniheldur ákveðið nafn
 {
-    vector<Performer> pf = readData();
+    string str =  "DELETE FROM \"list\" where name = " + name;
+    QString qstr = QString::fromStdString(str);
+    QSqlQuery query;
+    query.exec(qstr);
 
-    for(size_t i = 0; i < pf.size(); i++) //Nöfn í strengjum borin saman við nafnið sem við viljum eyða
-    {
-        if(pf[i].getName() == name) //Ef nafn í vektornum er eins og innslegna nafnið er því eytt úr vektornum
-        {
-            pf.erase(std::remove(pf.begin(), pf.end(), pf[i]), pf.end());
-        }
-
-    }
-
-    ofstream outputFile;
-    outputFile.open("Info.txt");
-    for(size_t i = 0; i < pf.size(); i++) //Strengurinn skrifaður upp aftur án nafnsins sem var eytt
-    {
-
-        if(pf[i] == pf[0])
-        {
-            string all = pf[i].getName() + "," + pf[i].getGender() + "," + pf[i].getbYear() + "," + pf[i].getdYear() + "," + pf[i].getNation();
-            outputFile << all;
-        }
-        else //Ef strengurinn sem var eytt var inni í miðju fallinu þarf að bæta við kommmu.
-
-        {
-            string all = "," + pf[i].getName() + "," + pf[i].getGender() + "," + pf[i].getbYear() + "," + pf[i].getdYear() + "," + pf[i].getNation();
-
-            outputFile << all;
-        }
-
-
-
-    }
-    outputFile.close();
 }
-*/
+
+void DataAccess::removeDataComputer(string name)
+{
+    string str =  "DELETE FROM \"Computers\" where name = " + name;
+    QString qstr = QString::fromStdString(str);
+    qDebug() << qstr << endl;
+    QSqlQuery query;
+    query.exec(qstr);
+
+}
 void DataAccess::openSqlFiles()
 {
     QSqlDatabase db = QSqlDatabase::addDatabase("QSQLITE");
@@ -162,8 +143,6 @@ void DataAccess::openSqlFiles()
     if(db.open())
     {
         qDebug();
-
-
     }
 }
 

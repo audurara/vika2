@@ -101,13 +101,18 @@ vector <Performer> PerformerService:: search(QString name) //Leitar að ákveðn
     _data.writeData();
     return all;
  }
-/*
-string PerformerService::removeElement(string name) //Skilar til baka streng eftir að hafa eytt einu tilviki
+
+string PerformerService::removeScientist(string name) //Skilar til baka streng eftir að hafa eytt einu tilviki
 {
-    _data.removeData(name);
+    _data.removeDataScientist(name);
     return name;
 }
-*/
+
+string PerformerService::removeComputer(string name) //Skilar til baka streng eftir að hafa eytt einu tilviki
+{
+    _data.removeDataComputer(name);
+    return name;
+}
 void PerformerService::openFiles()
 {
     _data.openSqlFiles();

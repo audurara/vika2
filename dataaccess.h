@@ -16,7 +16,8 @@ public:
     void openSqlFiles();//opnar sql files.
 
     void addCpu();
-    void removeData(string name);//Þetta fall tekur út strenginn sem inniheldur ákveðið nafn
+    void removeDataScientist(string name);//Þetta fall tekur út strenginn sem inniheldur ákveðið nafn
+    void removeDataComputer(string name);
 
     DataAccess();
     vector<computers> readCpuData();
