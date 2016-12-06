@@ -40,7 +40,11 @@ void ConsoleUI::run()
         {
             displaySearch();
         }
-/*
+        /*else if (command == "Add Cpu")
+        {
+            addCpu();
+        }
+
         else if(command == "sort")
         {
             chooseSort();
@@ -457,6 +461,7 @@ void ConsoleUI::displayTopTable() //Fall sem prentar lista yfir alla tölvunarfr
     }
     cout << endl;
 }
+
 /*
 string ConsoleUI::deleteElement()
 {

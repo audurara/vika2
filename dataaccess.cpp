@@ -34,29 +34,6 @@ vector<Performer> DataAccess::readData() //Les upplýsingar úr skrá og setur �
 
     }
 
-/*
-    ifstream myfile ("Info.txt");
-    if ( myfile.is_open() )
-    {
-        while ( ! myfile.eof() )
-        {
-            //Á meðan skráin er ekki komin út á enda mun fara inn í vektorinn
-            //og lesa inn nafn, kyn, fæðingarár, dánarár og þjóðerni í þessari röð
-            getline(myfile, name, ',');
-            getline(myfile, gender, ',');
-            getline(myfile, bYear, ',');
-            getline(myfile, dYear, ',');
-            getline(myfile, nation, ',');
-
-            Performer P(name, gender, bYear, dYear, nation);
-            //Hvert stak í vektornum er strengur með nafni, kyni, fæðingarári, dánarári og þjóðerni
-
-            logs.push_back(P);
-        }
-        myfile.close();
-    }
-*/
-
     return logs;
 }
 
@@ -100,6 +77,39 @@ void DataAccess::writeData () //Með þessu falli má skrifa streng inn í skrá
 
     //db.close();
 }
+void DataAccess::addCpu () //Með þessu falli má skrifa streng inn í skrána
+{
+    QSqlDatabase db = QSqlDatabase::addDatabase("QSQLITE");
+    db.setDatabaseName("C:\\USERS\\Davíð\\Desktop\\Verkefni1\\verklegt1\\database1.sqlite");
+    if(db.open())
+    {
+        qDebug() << "opened" << endl;
+    }
+    string name, buildy, brand, constr;
+    cin.ignore();
+    getline(cin, name);
+    getline(cin, buildy);
+    getline(cin, brand);
+    getline(cin, constr);
+
+    QString Qname = QString::fromStdString(name);
+    QString Qbuildy = QString::fromStdString(buildy);
+    QString Qbrand = QString::fromStdString(brand);
+    QString Qconstr = QString::fromStdString(constr);
+
+    QSqlQuery query;
+    query.prepare("INSERT INTO \"main\".\"list\" (name, gender, bYear, dYear, nation) "
+                      "VALUES (:name, :gender, :bYear, :dYear, :nation)");
+        query.bindValue(":name", Qname);
+        query.bindValue(":buildy", Qbuildy);
+        query.bindValue(":brand", Qbrand);
+        query.bindValue(":constr", Qconstr);
+
+        query.exec();
+
+}
+
+
 /*
 void DataAccess::removeData(string name) //Þetta fall tekur út tölvunarfræðing sem inniheldur ákveðið nafn
 {
