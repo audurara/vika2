@@ -6,7 +6,7 @@ Performer::Performer()
 }
 
 
- Performer::Performer(string name, string gender, string bYear, string dYear, string nation)
+ Performer::Performer(QString name, QString gender, QString bYear, QString dYear, QString nation)
 {
     _name = name;
     _gender = gender;

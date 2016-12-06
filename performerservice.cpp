@@ -4,7 +4,7 @@
 #include <iostream>
 
 using namespace std;
-
+/*
 struct PerformerComparison { //Struct sem ber saman nöfn
   bool operator() (Performer i,Performer j) {
       return (i.getName()<j.getName());
@@ -30,7 +30,7 @@ struct CompareNationality{ //Þjóðerni borin saman
         return (i.getNation() <j.getNation());
     }
 };
-
+*/
 
 PerformerService::PerformerService() //Tómur smiður
 {
@@ -45,7 +45,7 @@ vector<Performer> PerformerService::getPerformers() //Nær í gögn úr skrá og
    return getPerformers;
 }
 
-vector <Performer> PerformerService:: search(string name) //Leitar að ákveðnu nafni í listanum
+vector <Performer> PerformerService:: search(QString name) //Leitar að ákveðnu nafni í listanum
 {
     vector<Performer> pf = getPerformers();
     vector<Performer> newVector;
@@ -56,10 +56,11 @@ vector <Performer> PerformerService:: search(string name) //Leitar að ákveðnu
         {
            newVector.push_back(pf[i]);
         }
+
     }
      return newVector;
 }
-
+/*
  vector<Performer> PerformerService::sortByName() { //Ber saman nöfn og raðar þeim í stafrófsröð
 
        vector<Performer> pf = getPerformers();
@@ -105,4 +106,4 @@ string PerformerService::removeElement(string name) //Skilar til baka streng eft
     _data.removeData(name);
     return name;
 }
-
+*/

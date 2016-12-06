@@ -2,6 +2,7 @@
 #include "consoleui.h"
 #include "performer.h"
 #include "dataaccess.h"
+#include <QtSql>
 
 using namespace std;
 
@@ -27,17 +28,17 @@ void ConsoleUI::run()
         {
             displayListOfPerformers();
         }
-
+/*
         else if (command == "add")
         {
             commandAdd();
         }
-
+*/
         else if (command == "search")
         {
             displaySearch();
         }
-
+/*
         else if(command == "sort")
         {
             chooseSort();
@@ -53,7 +54,7 @@ void ConsoleUI::run()
         {
             commandHelp();
         }
-
+*/
         else if (command == "exit")
         {
             cout << "exiting" << endl;
@@ -80,38 +81,42 @@ void ConsoleUI::displayListOfPerformers() //Prentar lista af tölvunarfræðingu
 
     for (size_t i = 0; i < pf.size(); ++i) //Prentar út listann miðað við lengd nafns svo það passi sem best
         {
+
+
+
             if(pf[i].getName().length() > 16)
             {
-                cout << i+1 << "\t" << pf[i].getName();
-                cout << "\t"  << pf[i].getGender() << "\t" << "\t";
-                cout << pf[i].getbYear() << "\t\t\t" << pf[i].getdYear();
-                cout << "\t\t\t" << pf[i].getNation() << endl;
+            qDebug().noquote().nospace() << i+1 << "\t" << pf[i].getName() << "\t" << pf[i].getGender()
+                                         << "\t\t" << pf[i].getbYear() << "\t\t\t" << pf[i].getdYear()
+                                         << "\t\t\t" << pf[i].getNation();
             }
             else if(pf[i].getName().length() < 16 && pf[i].getName().length() > 8)
             {
-                cout << i+1 << "\t" << pf[i].getName();
-                cout << "\t\t"  << pf[i].getGender() << "\t" << "\t";
-                cout << pf[i].getbYear() << "\t\t\t" << pf[i].getdYear();
-                cout << "\t\t\t" << pf[i].getNation() << endl;
+            qDebug().noquote().nospace() << i+1 << "\t" << pf[i].getName() << "\t\t" << pf[i].getGender()
+                                         << "\t\t" << pf[i].getbYear() << "\t\t\t" << pf[i].getdYear()
+                                         << "\t\t\t" << pf[i].getNation();
             }
             else if(pf[i].getName().length() <= 8)
             {
-                cout << i+1 << "\t" << pf[i].getName();
-                cout << "\t\t\t"  << pf[i].getGender() << "\t" << "\t";
-                cout << pf[i].getbYear() << "\t\t\t" << pf[i].getdYear();
-                cout << "\t\t\t" << pf[i].getNation() << endl;
+            qDebug().noquote().nospace() << i+1 << "\t" << pf[i].getName() << "\t\t\t" << pf[i].getGender()
+                                         << "\t\t" << pf[i].getbYear() << "\t\t\t" << pf[i].getdYear()
+                                         << "\t\t\t" << pf[i].getNation();
             }
+
         }
 }
 
 void ConsoleUI::displaySearch() //Prentar út leitarniðurstöður
 {
     string input;
+
     cout << "Enter full name of computer scientist (the search is case-sensitive): ";
     cin.ignore();
     getline(cin, input);
+    QString nafn = QString::fromStdString(input);
 
-    vector <Performer> newVector = _service.search(input);
+
+    vector <Performer> newVector = _service.search(nafn);
     if(newVector.size() == 0)
     {
         cout << "Nothing was found! Please enter 'search' to try again" << endl;
@@ -129,57 +134,52 @@ void ConsoleUI::displaySearch() //Prentar út leitarniðurstöður
     {
         if(newVector[i].getName().length() > 16)
         {
-            cout << i+1 << "\t" << newVector[i].getName();
-            cout << "\t" << newVector[i].getGender() << "\t" << "\t";
-            cout << newVector[i].getbYear() << "\t\t\t" << newVector[i].getdYear();
-            cout << "\t\t\t" << newVector[i].getNation() << endl;
+        qDebug().noquote().nospace() << i+1 << "\t" << newVector[i].getName() << "\t" << newVector[i].getGender()
+                                     << "\t\t" << newVector[i].getbYear() << "\t\t\t" << newVector[i].getdYear()
+                                     << "\t\t\t" << newVector[i].getNation();
         }
         else if(newVector[i].getName().length() < 16 && newVector[i].getName().length() > 8)
         {
-            cout << i+1 << "\t" << newVector[i].getName();
-            cout << "\t\t" << newVector[i].getGender() << "\t" << "\t";
-            cout << newVector[i].getbYear() << "\t\t\t" << newVector[i].getdYear();
-            cout << "\t\t\t" << newVector[i].getNation() << endl;
+        qDebug().noquote().nospace() << i+1 << "\t" << newVector[i].getName() << "\t\t" << newVector[i].getGender()
+                                     << "\t\t" << newVector[i].getbYear() << "\t\t\t" << newVector[i].getdYear()
+                                     << "\t\t\t" << newVector[i].getNation();
         }
         else if(newVector[i].getName().length() <= 8)
         {
-            cout << i+1 << "\t" << newVector[i].getName();
-            cout << "\t\t\t" << newVector[i].getGender() << "\t" << "\t";
-            cout << newVector[i].getbYear() << "\t\t\t" << newVector[i].getdYear();
-            cout << "\t\t\t" << newVector[i].getNation() << endl;
+        qDebug().noquote().nospace() << i+1 << "\t" << newVector[i].getName() << "\t\t\t" << newVector[i].getGender()
+                                     << "\t\t" << newVector[i].getbYear() << "\t\t\t" << newVector[i].getdYear()
+                                     << "\t\t\t" << newVector[i].getNation();
         }
     }
 
 
 }
-
+/*
 void ConsoleUI::displaySort(vector<Performer> newVector) //Prentar út niðurstöður úr röðun
 {
     for(size_t i = 0; i < newVector.size(); i++) //Forlykkja prentar niðurstöður miðað við lengd nafns svo það passi sem best
     {
         if(newVector[i].getName().length() > 16)
         {
-            cout << i+1 << "\t" << newVector[i].getName();
-            cout << "\t" << newVector[i].getGender() << "\t" << "\t";
-            cout << newVector[i].getbYear() << "\t\t\t" << newVector[i].getdYear();
-            cout << "\t\t\t" << newVector[i].getNation() << endl;
+        qDebug().noquote().nospace() << i+1 << "\t" << newVector[i].getName() << "\t" << newVector[i].getGender()
+                                     << "\t\t" << newVector[i].getbYear() << "\t\t\t" << newVector[i].getdYear()
+                                     << "\t\t\t" << newVector[i].getNation();
         }
         else if(newVector[i].getName().length() < 16 && newVector[i].getName().length() > 8)
         {
-            cout << i+1 << "\t" << newVector[i].getName();
-            cout << "\t\t" << newVector[i].getGender() << "\t" << "\t";
-            cout << newVector[i].getbYear() << "\t\t\t" << newVector[i].getdYear();
-            cout << "\t\t\t" << newVector[i].getNation() << endl;
+        qDebug().noquote().nospace() << i+1 << "\t" << newVector[i].getName() << "\t\t" << newVector[i].getGender()
+                                     << "\t\t" << newVector[i].getbYear() << "\t\t\t" << newVector[i].getdYear()
+                                     << "\t\t\t" << newVector[i].getNation();
         }
         else if(newVector[i].getName().length() <= 8)
         {
-            cout << i+1 << "\t" << newVector[i].getName();
-            cout << "\t\t\t" << newVector[i].getGender() << "\t" << "\t";
-            cout << newVector[i].getbYear() << "\t\t\t" << newVector[i].getdYear();
-            cout << "\t\t\t" << newVector[i].getNation() << endl;
+        qDebug().noquote().nospace() << i+1 << "\t" << newVector[i].getName() << "\t\t\t" << newVector[i].getGender()
+                                     << "\t\t" << newVector[i].getbYear() << "\t\t\t" << newVector[i].getdYear()
+                                     << "\t\t\t" << newVector[i].getNation();
         }
     }
 }
+
 string ConsoleUI::inputName() //Setur inn nafn
 {
     string name;
@@ -378,7 +378,7 @@ void ConsoleUI::chooseSort() //Fall sem velur eftir hverju á að raða listanum
         cout << "Invalid choice!";
     }
 }
-
+*/
 void ConsoleUI::commandHelp()
 {
     cout << "-------- The commands are case-sensitive! --------" << endl << endl;
@@ -390,7 +390,7 @@ void ConsoleUI::commandHelp()
     cout << "help   - Displays list of commands" << endl;
     cout << "exit   - This will close the application" << endl;
 }
-
+/*
 void ConsoleUI::commandAdd() //Fall sem bætir við tölvunarfræðingum
 {
     string name = inputName();
@@ -421,7 +421,7 @@ void ConsoleUI::commandAdd() //Fall sem bætir við tölvunarfræðingum
     cout << endl;
     cout << name << " has been added to the database!" << endl;
 }
-
+*/
 void ConsoleUI::intro() //Fall sem útprentar upphafsskilaboð
 {
     cout << endl;
@@ -455,6 +455,7 @@ void ConsoleUI::displayTopTable() //Fall sem prentar lista yfir alla tölvunarfr
     }
     cout << endl;
 }
+/*
 string ConsoleUI::deleteElement()
 {
     string name;
@@ -486,3 +487,4 @@ string ConsoleUI::deleteElement()
     cout << name << " has been deleted from database." << endl;
     return name;
 }
+*/
