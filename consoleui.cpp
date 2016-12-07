@@ -94,8 +94,7 @@ void ConsoleUI::run()
 */
         else if (command == "delete")
         {            
-            string namedel = deleteElement(); //Ná í strenginn sem á að eyða
-
+            string namedel; //Ná í strenginn sem á að eyða
             int counter = 0;
             do
             {
@@ -105,11 +104,13 @@ void ConsoleUI::run()
                 cin >> choice;
                 if(choice == '1')
                 {
+                    namedel = deleteElement();
                     counter = 1;
                     _service.removeScientist(namedel); //Eyða völdu nafni með removeElement fallinu
                 }
                 else if(choice == '2')
                 {
+                    namedel = deleteElement();
                     counter = 1;
                     _service.removeComputer(namedel); //Eyða völdu nafni með removeElement fallinu
                 }
@@ -118,8 +119,7 @@ void ConsoleUI::run()
                     cout << "invalid choice!" << endl;
                 }
             }while(counter == 0);
-
-
+            cout << namedel << " has been deleted from database." << endl;
         }
 
         else if (command == "help")
@@ -557,7 +557,6 @@ string ConsoleUI::deleteElement()
         }
     }
 */
-    cout << name << " has been deleted from database." << endl;
     return name;
 }
 
