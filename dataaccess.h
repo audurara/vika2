@@ -16,6 +16,7 @@ public:
     void openSqlFiles();//opnar sql files.
 
     void addCpu();
+    void sortCpu();
     void removeDataScientist(string name);//Þetta fall tekur út strenginn sem inniheldur ákveðið nafn
     void removeDataComputer(string name);
 

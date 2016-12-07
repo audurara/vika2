@@ -86,12 +86,12 @@ void ConsoleUI::run()
             displaySearch();
         }
 
-/*
+
         else if(command == "sort")
         {
-            chooseSort();
+            _data.sortCpu();
         }
-*/
+
         else if (command == "delete")
         {            
             string namedel; //Ná í strenginn sem á að eyða
@@ -250,7 +250,7 @@ void ConsoleUI::displaySearch() //Prentar út leitarniðurstöður
              cout << "                            " << "---- Result of your search in the system ----" << endl;
              cout << endl;
 
-             displayTopTable();
+             displayComputers();
          }
          for(size_t i = 0; i < newVector.size(); i++) //Forlykkja prentar niðurstöður miðað við lengd nafns svo það passi sem best
          {
