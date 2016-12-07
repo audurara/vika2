@@ -15,11 +15,13 @@ SOURCES += main.cpp \
     performerservice.cpp \
     performer.cpp \
     dataaccess.cpp \
-    computers.cpp
+    computers.cpp \
+    relations.cpp
 
 HEADERS += \
     consoleui.h \
     performerservice.h \
     performer.h \
     dataaccess.h \
-    computers.h
+    computers.h \
+    relations.h

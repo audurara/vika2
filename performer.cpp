@@ -6,8 +6,9 @@ Performer::Performer()
 }
 
 
- Performer::Performer(QString name, QString gender, QString bYear, QString dYear, QString nation)
+ Performer::Performer(int id, QString name, QString gender, QString bYear, QString dYear, QString nation)
 {
+    _id = id;
     _name = name;
     _gender = gender;
     _bYear = bYear;

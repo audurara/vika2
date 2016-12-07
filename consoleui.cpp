@@ -131,6 +131,19 @@ void ConsoleUI::run()
         {
             cout << "exiting" << endl;
         }
+        else if (command == "join")
+        {
+           int id;
+           cin >> id;
+           vector<Relations> pf = _service.startJoin(id);
+
+           for(size_t i = 0; i < pf.size(); i++)
+           {
+               qDebug().noquote().nospace() << pf[i].getSName() << "\t\t" << pf[i].getCName();
+           }
+
+
+        }
 
         else
         {
@@ -158,19 +171,19 @@ void ConsoleUI::displayListOfPerformers() //Prentar lista af tölvunarfræðingu
 
             if(pf[i].getName().length() > 16)
             {
-            qDebug().noquote().nospace() << i+1 << "\t" << pf[i].getName() << "\t" << pf[i].getGender()
+            qDebug().noquote().nospace() << pf[i].getId() << "\t" << pf[i].getName() << "\t" << pf[i].getGender()
                                          << "\t\t" << pf[i].getbYear() << "\t\t\t" << pf[i].getdYear()
                                          << "\t\t\t" << pf[i].getNation();
             }
             else if(pf[i].getName().length() < 16 && pf[i].getName().length() > 7)
             {
-            qDebug().noquote().nospace() << i+1 << "\t" << pf[i].getName() << "\t\t" << pf[i].getGender()
+            qDebug().noquote().nospace() << pf[i].getId() << "\t" << pf[i].getName() << "\t\t" << pf[i].getGender()
                                          << "\t\t" << pf[i].getbYear() << "\t\t\t" << pf[i].getdYear()
                                          << "\t\t\t" << pf[i].getNation();
             }
             else if(pf[i].getName().length() <= 7)
             {
-            qDebug().noquote().nospace() << i+1 << "\t" << pf[i].getName() << "\t\t\t" << pf[i].getGender()
+            qDebug().noquote().nospace() << pf[i].getId() << "\t" << pf[i].getName() << "\t\t\t" << pf[i].getGender()
                                          << "\t\t" << pf[i].getbYear() << "\t\t\t" << pf[i].getdYear()
                                          << "\t\t\t" << pf[i].getNation();
             }

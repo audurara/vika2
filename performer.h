@@ -9,9 +9,13 @@ class Performer
 {
 public:
     Performer();
-    Performer(QString name, QString gender, QString bYear, QString dYear, QString nation);
+    Performer(int id, QString name, QString gender, QString bYear, QString dYear, QString nation);
     //nafn, kyn, fæðingarár, dánarár og þjóðerni.
 
+    int getId() const
+    {
+        return _id;
+    }
     QString getName() const
     {
         return _name;
@@ -39,6 +43,7 @@ public:
 
 private:
 
+    int _id;
     QString _name;
     QString _gender;
     QString _bYear;

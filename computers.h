@@ -8,8 +8,13 @@ class computers
 {
 public:
     computers();
-    computers(QString name, QString buildy, QString brand, QString constr);
+    computers(int id, QString name, QString buildy, QString brand, QString constr);
     //nafn, kyn, fæðingarár, dánarár og þjóðerni.
+
+    int getId() const
+    {
+        return _id;
+    }
 
     QString getName() const
     {
@@ -31,6 +36,8 @@ public:
         return _constr;
     }
 private:
+
+    int _id;
     QString _name;
     QString _buildy;
     QString _brand;

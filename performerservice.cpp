@@ -143,3 +143,9 @@ vector<computers> PerformerService::searchcomputer(QString computer) //Leitar a√
      return newVector;
 }
 
+vector<Relations> PerformerService::startJoin(int id)
+{
+    vector<Relations> join = _data.joinSql(id);
+
+    return join;
+}

@@ -3,6 +3,7 @@
 #include <vector>
 #include "performer.h"
 #include "computers.h"
+#include "relations.h"
 
 using namespace std;
 
@@ -19,6 +20,7 @@ public:
     void sortCpu();
     void removeDataScientist(string name);//Þetta fall tekur út strenginn sem inniheldur ákveðið nafn
     void removeDataComputer(string name);
+    vector<Relations> joinSql(int id);
 
     DataAccess();
     vector<computers> readCpuData();
