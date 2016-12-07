@@ -181,51 +181,99 @@ void ConsoleUI::displayListOfPerformers() //Prentar lista af tölvunarfræðingu
 void ConsoleUI::displaySearch() //Prentar út leitarniðurstöður
 {
     string input;
+    char choice;
 
-    cout << "Enter full name of computer scientist (the search is case-sensitive): ";
-    cin.ignore();
-    getline(cin, input);
-    QString nafn = QString::fromStdString(input);
+    cout << "To search for computer scientist press 1" << endl;
+    cout << "To search for computer press 2" << endl;
+    cin >> choice;
 
-
-    vector <Performer> newVector = _service.search(nafn);
-    if(newVector.size() == 0)
+    if(choice == '1')
     {
-        cout << "Nothing was found! Please enter 'search' to try again" << endl;
+            cout << "Enter full name of computer scientist (the search is case-sensitive): ";
+            cin.ignore();
+            getline(cin, input);
+            QString nafn = QString::fromStdString(input);
+
+
+            vector <Performer> newVector = _service.searchpeople(nafn);
+            if(newVector.size() == 0)
+            {
+                cout << "Nothing was found! Please enter 'search' to try again" << endl;
+            }
+            if(newVector.size() > 0)
+            {
+                cout << endl;
+                cout << "                            " << "---- Result of your search in the system ----" << endl;
+                cout << endl;
+
+                displayTopTable();
+            }
+
+            for(size_t i = 0; i < newVector.size(); i++) //Forlykkja prentar niðurstöður miðað við lengd nafns svo það passi sem best
+            {
+                if(newVector[i].getName().length() > 16)
+                {
+                qDebug().noquote().nospace() << i+1 << "\t" << newVector[i].getName() << "\t" << newVector[i].getGender()
+                                             << "\t\t" << newVector[i].getbYear() << "\t\t\t" << newVector[i].getdYear()
+                                             << "\t\t\t" << newVector[i].getNation();
+                }
+                else if(newVector[i].getName().length() < 16 && newVector[i].getName().length() > 8)
+                {
+                qDebug().noquote().nospace() << i+1 << "\t" << newVector[i].getName() << "\t\t" << newVector[i].getGender()
+                                             << "\t\t" << newVector[i].getbYear() << "\t\t\t" << newVector[i].getdYear()
+                                             << "\t\t\t" << newVector[i].getNation();
+                }
+                else if(newVector[i].getName().length() <= 8)
+                {
+                qDebug().noquote().nospace() << i+1 << "\t" << newVector[i].getName() << "\t\t\t" << newVector[i].getGender()
+                                             << "\t\t" << newVector[i].getbYear() << "\t\t\t" << newVector[i].getdYear()
+                                             << "\t\t\t" << newVector[i].getNation();
+                }
+            }
     }
-    if(newVector.size() > 0)
-    {
-        cout << endl;
-        cout << "                            " << "---- Result of your search in the system ----" << endl;
-        cout << endl;
-
-        displayTopTable();
-    }
-
-    for(size_t i = 0; i < newVector.size(); i++) //Forlykkja prentar niðurstöður miðað við lengd nafns svo það passi sem best
-    {
-        if(newVector[i].getName().length() > 16)
-        {
-        qDebug().noquote().nospace() << i+1 << "\t" << newVector[i].getName() << "\t" << newVector[i].getGender()
-                                     << "\t\t" << newVector[i].getbYear() << "\t\t\t" << newVector[i].getdYear()
-                                     << "\t\t\t" << newVector[i].getNation();
-        }
-        else if(newVector[i].getName().length() < 16 && newVector[i].getName().length() > 8)
-        {
-        qDebug().noquote().nospace() << i+1 << "\t" << newVector[i].getName() << "\t\t" << newVector[i].getGender()
-                                     << "\t\t" << newVector[i].getbYear() << "\t\t\t" << newVector[i].getdYear()
-                                     << "\t\t\t" << newVector[i].getNation();
-        }
-        else if(newVector[i].getName().length() <= 8)
-        {
-        qDebug().noquote().nospace() << i+1 << "\t" << newVector[i].getName() << "\t\t\t" << newVector[i].getGender()
-                                     << "\t\t" << newVector[i].getbYear() << "\t\t\t" << newVector[i].getdYear()
-                                     << "\t\t\t" << newVector[i].getNation();
-        }
-    }
+     if(choice == '2')
+     {
+         cout << "Enter the name of the computer (the search is case-sensitive): ";
+         cin.ignore();
+         getline(cin, input);
+         QString computer = QString::fromStdString(input);
 
 
+         vector <computers> newVector = _service.searchcomputer(computer);
+         if(newVector.size() == 0)
+         {
+             cout << "Nothing was found! Please enter 'search' to try again" << endl;
+         }
+         if(newVector.size() > 0)
+         {
+             cout << endl;
+             cout << "                            " << "---- Result of your search in the system ----" << endl;
+             cout << endl;
+
+             displayTopTable();
+         }
+         for(size_t i = 0; i < newVector.size(); i++) //Forlykkja prentar niðurstöður miðað við lengd nafns svo það passi sem best
+         {
+             if(newVector[i].getName().length() > 16)
+             {
+             qDebug().noquote().nospace() << i+1 << "\t" << newVector[i].getName() << "\t" << newVector[i].getBuildy()
+                                          << "\t\t" << newVector[i].getBrand() << "\t\t\t" << newVector[i].getConstr();
+             }
+             else if(newVector[i].getName().length() < 16 && newVector[i].getName().length() > 8)
+             {
+             qDebug().noquote().nospace() << i+1 << "\t" << newVector[i].getName() << "\t\t" << newVector[i].getBuildy()
+                                          << "\t\t" << newVector[i].getBrand() << "\t\t\t" << newVector[i].getConstr();
+             }
+             else if(newVector[i].getName().length() <= 8)
+             {
+             qDebug().noquote().nospace() << i+1 << "\t" << newVector[i].getName() << "\t\t\t" << newVector[i].getBuildy()
+                                          << "\t\t" << newVector[i].getBrand() << "\t\t\t" << newVector[i].getConstr();
+             }
+         }
+     }
 }
+
+
 /*
 void ConsoleUI::displaySort(vector<Performer> newVector) //Prentar út niðurstöður úr röðun
 {

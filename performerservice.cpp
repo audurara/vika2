@@ -45,7 +45,7 @@ vector<Performer> PerformerService::getPerformers() //Nær í gögn úr skrá og
    return getPerformers;
 }
 
-vector <Performer> PerformerService:: search(QString name) //Leitar að ákveðnu nafni í listanum
+vector <Performer> PerformerService:: searchpeople(QString name) //Leitar að ákveðnu nafni í listanum
 {
     vector<Performer> pf = getPerformers();
     vector<Performer> newVector;
@@ -60,6 +60,7 @@ vector <Performer> PerformerService:: search(QString name) //Leitar að ákveðn
     }
      return newVector;
 }
+
 /*
  vector<Performer> PerformerService::sortByName() { //Ber saman nöfn og raðar þeim í stafrófsröð
 
@@ -125,3 +126,20 @@ vector<computers> PerformerService::getComputers() //Nær í gögn úr skrá og 
 
    return getComputers;
 }
+
+vector<computers> PerformerService::searchcomputer(QString computer) //Leitar að ákveðnari tölvu í listanum
+{
+    vector<computers> pf = getComputers();
+    vector<computers> newVector;
+    for(size_t i = 0; i < pf.size(); i++)
+    {
+
+        if(pf[i].getName() == computer)
+        {
+           newVector.push_back(pf[i]);
+        }
+
+    }
+     return newVector;
+}
+
