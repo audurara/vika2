@@ -200,3 +200,49 @@ vector<Relations> DataAccess::joinSql(int id)
     return join;
 }
 
+vector<Performer> DataAccess::searchScientist(QString name) //Les upplýsingar úr skrá og setur í vektor
+{
+    vector<Performer> newVector;
+
+    QString qstr = "SELECT * FROM \"Scientists\" WHERE name LIKE \'%" + name + "%\'";
+    QSqlQuery query;
+    query.exec(qstr);
+    while (query.next())
+    {
+        int id = query.value(0).toInt();
+        QString name = query.value(1).toString();
+        QString gender = query.value(2).toString();
+        QString bYear = query.value(3).toString();
+        QString dYear = query.value(4).toString();
+        QString nation = query.value(5).toString();
+
+        Performer P(id, name, gender, bYear, dYear, nation);
+        newVector.push_back(P);
+
+    }
+
+    return newVector;
+}
+vector<computers> DataAccess::searchComputer(QString name)
+{
+    vector<computers> newVector;
+
+    QString qstr = "SELECT * FROM \"Computers\" WHERE name LIKE \'%" + name + "%\'";
+    QSqlQuery query;
+    query.exec(qstr);
+    while (query.next())
+    {
+        int id = query.value(0).toInt();
+        QString name = query.value(1).toString();
+        QString buildY = query.value(2).toString();
+        QString type = query.value(3).toString();
+        QString constr = query.value(4).toString();
+        QString nation = query.value(5).toString();
+
+        computers P(id, name, buildY, type, constr);
+        newVector.push_back(P);
+
+    }
+
+    return newVector;
+}

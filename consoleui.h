@@ -19,6 +19,7 @@ private:
     void intro();//Prentar upphafsskilaboð
     void displayTopTable();//Prentar út lista af tölvunarfræðingum, sum önnur föll nota þetta fall.
     void displayComputers();
+    void displayTopComputers();
     string deleteElement();//Eyðir staki úr vektor
     string inputName();
     string inputGender();
