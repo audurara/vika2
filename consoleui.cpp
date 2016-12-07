@@ -110,12 +110,14 @@ void ConsoleUI::run()
                 cin >> choice;
                 if(choice == '1')
                 {
+                    cout << "Input name of scientist: ";
                     namedel = deleteElement();
                     counter = 1;
                     _service.removeScientist(namedel); //Eyða völdu nafni með removeElement fallinu
                 }
                 else if(choice == '2')
                 {
+                    cout << "Input name of computer: ";
                     namedel = deleteElement();
                     counter = 1;
                     _service.removeComputer(namedel); //Eyða völdu nafni með removeElement fallinu
@@ -601,7 +603,7 @@ string ConsoleUI::deleteElement()
     string name;
     //vector<Performer> pf = _service.getPerformers();
 
-    cout << "Enter full name of person you want to delete from the database (case-sensitive): ";
+
     cin.ignore();
     getline(cin, name);
 /*
