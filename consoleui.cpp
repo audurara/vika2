@@ -90,6 +90,7 @@ void ConsoleUI::run()
         else if(command == "sort")
         {
             _data.sortCpu();
+            displayComputers();
         }
 
         else if (command == "delete")
