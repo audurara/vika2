@@ -89,7 +89,13 @@ void ConsoleUI::run()
 
         else if(command == "sort")
         {
-            _data.sortCpu();
+            vector <computers> pf = _data.sortCpu();
+            for(size_t i = 0; i < pf.size(); i++)
+            {
+                qDebug().noquote().nospace() << pf[i].getId() << "\t" << pf[i].getName() << "\t" << pf[i].getBuildy()
+                                             << "\t\t" << pf[i].getBrand() << "\t\t\t" << pf[i].getConstr();
+            }
+            //displayComputers();
         }
 
         else if (command == "delete")

@@ -17,12 +17,12 @@ public:
     void openSqlFiles();//opnar sql files.
 
     void addCpu();
-    void sortCpu();
     void removeDataScientist(string name);//Þetta fall tekur út strenginn sem inniheldur ákveðið nafn
     void removeDataComputer(string name);
     vector<Relations> joinSql(int id);
 
     DataAccess();
+    vector<computers> sortCpu();
     vector<computers> readCpuData();
     vector<Performer> readData();//Les upplýsingar úr skrá og setur í vektor
     friend bool operator ==(const Performer& p1, const Performer& p2);

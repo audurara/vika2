@@ -148,27 +148,29 @@ void DataAccess::openSqlFiles()
     }
 }
 
-void DataAccess::sortCpu ()
+vector<computers> DataAccess::sortCpu()
 {
+    vector<computers> sort;
+    string str = "SELECT * FROM \"Computers\" ORDER BY Name ASC";
+    QString qstr = QString::fromStdString(str);
+    QSqlQuery query;
+    query.exec(qstr);
+    while (query.next())
+    {
+        int id = query.value(0).toInt();
+        QString name = query.value(1).toString();
+        QString buildy = query.value(2).toString();
+        QString brand = query.value(3).toString();
+        QString constr = query.value(4).toString();
 
-        string name, buildy, brand, constr;
-        cin.ignore();
 
-        QString Qname = QString::fromStdString(name);
-        QString Qbuildy = QString::fromStdString(buildy);
-        QString Qbrand = QString::fromStdString(brand);
-        QString Qconstr = QString::fromStdString(constr);
+        computers P(id, name, buildy, brand, constr);
+        sort.push_back(P);
 
-        QSqlQuery query;
-        query.prepare("SELECT * FROM \"Computers\"ORDER BY buildy ASC" );
-            query.bindValue(":name", Qname);
-            query.bindValue(":buildy", Qbuildy);
-            query.bindValue(":brand", Qbrand);
-            query.bindValue(":constr", Qconstr);
-            cout << "virkar";
 
-            query.exec();
+    }
 
+    return sort;
 }
 
 vector<Relations> DataAccess::joinSql(int id)
