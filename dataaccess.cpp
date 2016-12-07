@@ -67,10 +67,15 @@ void DataAccess::writeData () //Með þessu falli má skrifa streng inn í skrá
 
         string name, gender, bYear, dYear, nation;
         cin.ignore();
+        cout << "Name: ";
         getline(cin, name);
+        cout << "Gender: ";
         getline(cin, gender);
+        cout << "Birth year: ";
         getline(cin, bYear);
+        cout << "Death year: ";
         getline(cin, dYear);
+        cout << "Nationality: ";
         getline(cin, nation);
 
         QString Qname = QString::fromStdString(name);
@@ -97,9 +102,13 @@ void DataAccess::addCpu () //Með þessu falli má skrifa streng inn í skrána
 
     string name, buildy, brand, constr;
     cin.ignore();
+    cout << "Name: ";
     getline(cin, name);
+    cout << "Build year: ";
     getline(cin, buildy);
+    cout << "Brand: ";
     getline(cin, brand);
+    cout << "Constr: ";
     getline(cin, constr);
 
     QString Qname = QString::fromStdString(name);
