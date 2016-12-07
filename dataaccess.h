@@ -22,6 +22,8 @@ public:
     vector<Relations> joinSql(int id);
 
     DataAccess();
+    vector<Performer> searchScientist(QString name);
+    vector<computers> searchComputer(QString name);
     vector<computers> sortCpu();
     vector<computers> readCpuData();
     vector<Performer> readData();//Les upplýsingar úr skrá og setur í vektor

@@ -211,10 +211,10 @@ void ConsoleUI::displaySearch() //Prentar út leitarniðurstöður
             cout << "Enter full name of computer scientist (the search is case-sensitive): ";
             cin.ignore();
             getline(cin, input);
-            QString nafn = QString::fromStdString(input);
+            QString name = QString::fromStdString(input);
 
 
-            vector <Performer> newVector = _service.searchpeople(nafn);
+            vector <Performer> newVector = _service.searchpeople(name);
             if(newVector.size() == 0)
             {
                 cout << "Nothing was found! Please enter 'search' to try again" << endl;
@@ -255,10 +255,10 @@ void ConsoleUI::displaySearch() //Prentar út leitarniðurstöður
          cout << "Enter the name of the computer (the search is case-sensitive): ";
          cin.ignore();
          getline(cin, input);
-         QString computer = QString::fromStdString(input);
+         QString name = QString::fromStdString(input);
 
 
-         vector <computers> newVector = _service.searchcomputer(computer);
+         vector <computers> newVector = _service.searchcomputer(name);
          if(newVector.size() == 0)
          {
              cout << "Nothing was found! Please enter 'search' to try again" << endl;
@@ -268,8 +268,8 @@ void ConsoleUI::displaySearch() //Prentar út leitarniðurstöður
              cout << endl;
              cout << "                            " << "---- Result of your search in the system ----" << endl;
              cout << endl;
+             displayTopComputers();
 
-             displayComputers();
          }
          for(size_t i = 0; i < newVector.size(); i++) //Forlykkja prentar niðurstöður miðað við lengd nafns svo það passi sem best
          {
@@ -631,13 +631,7 @@ void ConsoleUI::displayComputers()
 {
     vector<computers> pc = _service.getComputers();
 
-    cout << "Nr" << "\t" << "Name" << "\t\t\t" << "build Year";
-    cout << "\t\t" << "Brand" << "\t\t" << "Constr" << endl;
-    for (int i = 0; i < 42*2; ++i)
-    {
-        cout << "=";
-    }
-    cout << endl;
+    displayTopComputers();
 
 
     for (size_t i = 0; i < pc.size(); ++i) //Prentar út listann miðað við lengd nafns svo það passi sem best
@@ -662,4 +656,15 @@ void ConsoleUI::displayComputers()
             }
 
         }
+}
+
+void ConsoleUI::displayTopComputers()
+{
+    cout << "Nr" << "\t" << "Name" << "\t\t\t" << "build Year";
+    cout << "\t\t" << "Brand" << "\t\t" << "Constr" << endl;
+    for (int i = 0; i < 42*2; ++i)
+    {
+        cout << "=";
+    }
+    cout << endl;
 }

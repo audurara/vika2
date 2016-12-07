@@ -47,18 +47,14 @@ vector<Performer> PerformerService::getPerformers() //Nær í gögn úr skrá og
 
 vector <Performer> PerformerService:: searchpeople(QString name) //Leitar að ákveðnu nafni í listanum
 {
-    vector<Performer> pf = getPerformers();
-    vector<Performer> newVector;
-    for(size_t i = 0; i < pf.size(); i++)
-    {
+    vector<Performer> newVector = _data.searchScientist(name);
+    return newVector;
+}
 
-        if(pf[i].getName() == name)
-        {
-           newVector.push_back(pf[i]);
-        }
-
-    }
-     return newVector;
+vector<computers> PerformerService::searchcomputer(QString name) //Leitar að ákveðnari tölvu í listanum
+{
+    vector<computers> newVector = _data.searchComputer(name);
+    return newVector;
 }
 
 /*
@@ -125,22 +121,6 @@ vector<computers> PerformerService::getComputers() //Nær í gögn úr skrá og 
    vector<computers> getComputers = _data.readCpuData();
 
    return getComputers;
-}
-
-vector<computers> PerformerService::searchcomputer(QString computer) //Leitar að ákveðnari tölvu í listanum
-{
-    vector<computers> pf = getComputers();
-    vector<computers> newVector;
-    for(size_t i = 0; i < pf.size(); i++)
-    {
-
-        if(pf[i].getName() == computer)
-        {
-           newVector.push_back(pf[i]);
-        }
-
-    }
-     return newVector;
 }
 
 vector<Relations> PerformerService::startJoin(int id)
