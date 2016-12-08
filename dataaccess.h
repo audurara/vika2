@@ -19,12 +19,13 @@ public:
     void addCpu();
     void removeDataScientist(string name);//Þetta fall tekur út strenginn sem inniheldur ákveðið nafn
     void removeDataComputer(string name);
-    vector<Relations> joinSql(int id);
+    vector<Relations> joinScientists(string CS, int id);
 
     DataAccess();
     vector<Performer> searchScientist(QString name);
     vector<computers> searchComputer(QString name);
-    vector<computers> sortCpu();
+    vector<computers> sortCpu(string input, string input2);
+    vector<Performer> sortScientists(string input, string input2);
     vector<computers> readCpuData();
     vector<Performer> readData();//Les upplýsingar úr skrá og setur í vektor
     friend bool operator ==(const Performer& p1, const Performer& p2);

@@ -60,8 +60,6 @@ vector<Performer> DataAccess::readData() //Les upplýsingar úr skrá og setur �
 
     return logs;
 }
-
-
 void DataAccess::writeData () //Með þessu falli má skrifa streng inn í skrána
 {
 
@@ -127,9 +125,6 @@ void DataAccess::addCpu () //Með þessu falli má skrifa streng inn í skrána
         query.exec();
 
 }
-
-
-
 void DataAccess::removeDataScientist(string name) //Þetta fall tekur út tölvunarfræðing sem inniheldur ákveðið nafn
 {
     string str =  "DELETE FROM \"Scientists\" where name = \"" + name + "\" ";
@@ -138,7 +133,6 @@ void DataAccess::removeDataScientist(string name) //Þetta fall tekur út tölvu
     query.exec(qstr);
 
 }
-
 void DataAccess::removeDataComputer(string name)
 {
     string str =  "DELETE FROM \"Computers\" where name = \"" + name + "\" ";
@@ -156,11 +150,10 @@ void DataAccess::openSqlFiles()
         qDebug();
     }
 }
-
-vector<computers> DataAccess::sortCpu()
+vector<computers> DataAccess::sortCpu(string input, string input2)
 {
     vector<computers> sort;
-    string str = "SELECT * FROM \"Computers\" ORDER BY Name ASC";
+    string str = "SELECT * FROM \"Computers\" ORDER BY " + input + " " + input2;
     QString qstr = QString::fromStdString(str);
     QSqlQuery query;
     query.exec(qstr);
@@ -181,12 +174,11 @@ vector<computers> DataAccess::sortCpu()
 
     return sort;
 }
-
-vector<Relations> DataAccess::joinSql(int id)
+vector<Relations> DataAccess::joinScientists(string CS, int id)
 {
     vector<Relations> join;
     string s = std::to_string(id);
-    string str =  "SELECT S.name, C.name From \"Scientists\" S Join relations R on R.Sid = S.id Join Computers C on R.cid = C.id WHERE s.ID = \"" + s + "\"";
+    string str =  "SELECT S.name, C.name From \"Scientists\" S Join relations R on R.Sid = S.id Join Computers C on R.cid = C.id WHERE " + CS + " = " + s;
     QString qstr = QString::fromStdString(str);
     QSqlQuery query;
     query.exec(qstr);
@@ -199,7 +191,6 @@ vector<Relations> DataAccess::joinSql(int id)
     }
     return join;
 }
-
 vector<Performer> DataAccess::searchScientist(QString name) //Les upplýsingar úr skrá og setur í vektor
 {
     vector<Performer> newVector;
@@ -245,4 +236,29 @@ vector<computers> DataAccess::searchComputer(QString name)
     }
 
     return newVector;
+}
+vector<Performer> DataAccess::sortScientists(string input, string input2)
+{
+    vector<Performer> sort;
+    string str = "SELECT * FROM \"Scientists\" ORDER BY " + input + " " + input2;
+    QString qstr = QString::fromStdString(str);
+    QSqlQuery query;
+    query.exec(qstr);
+    while (query.next())
+    {
+        int id = query.value(0).toInt();
+        QString name = query.value(1).toString();
+        QString gender = query.value(2).toString();
+        QString bYear = query.value(3).toString();
+        QString dYear = query.value(4).toString();
+        QString nation = query.value(5).toString();
+
+
+        Performer P(id, name, gender, bYear, dYear, nation);
+        sort.push_back(P);
+
+
+    }
+
+    return sort;
 }

@@ -11,7 +11,7 @@ public:
     PerformerService();
     //
     void openFiles();//opnar sql files um leið og forritið er keyrt, einu sinni.
-    vector<Relations> startJoin(int id);
+    vector<Relations> startJoin(string CS, int id);
     vector<Performer> getPerformers(); //Nær í gögn úr skrá og skilar þeim í vector
     vector<Performer> searchpeople(QString name); //Leitar að ákveðnu nafni í listanum
     vector<computers> searchcomputer(QString name); //Leitar að ákveðnu nafni í listanum

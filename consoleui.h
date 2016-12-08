@@ -10,7 +10,7 @@ public:
 
 private:
 
-    void displayListOfPerformers(); //Prentar lista af tölvunarfræðingum eins og þeir eru í skránni.
+    void displayListOfPerformers(vector<Performer> pf); //Prentar lista af tölvunarfræðingum eins og þeir eru í skránni.
     void displaySearch(); // Prentar niðurstöður leitar
     void displaySort(vector<Performer> newVector);//Prentar út raðaða lista
     void chooseSort(); //Velur eftir hverju á að raða
@@ -18,8 +18,10 @@ private:
     void commandAdd();//Bætir við tölvunarfræðing við listann
     void intro();//Prentar upphafsskilaboð
     void displayTopTable();//Prentar út lista af tölvunarfræðingum, sum önnur föll nota þetta fall.
-    void displayComputers();
+    void displayComputers(vector<computers> pc);
     void displayTopComputers();
+    void sortComputers(); // sortar tölvur.
+    void sortScientists(); // sortar tölvufræðinga.
     string deleteElement();//Eyðir staki úr vektor
     string inputName();
     string inputGender();

@@ -35,15 +35,16 @@ void ConsoleUI::run()
                     cout << "List Computer Scientists choose '1'" << endl << "List Computers choose '2'" << endl;
                     cout << "choice: ";
                     cin >> choice;
+                    cout << endl;
                     if(choice == '1')
                     {
                         counter = 1;
-                        displayListOfPerformers();
+                        sortScientists();
                     }
                     else if(choice == '2')
                     {
                         counter = 1;
-                        displayComputers();
+                        sortComputers();
                     }
                     else
                     {
@@ -54,7 +55,6 @@ void ConsoleUI::run()
             }
 
         }
-
         else if (command == "add")
         {
             int counter = 0;
@@ -85,19 +85,6 @@ void ConsoleUI::run()
         {
             displaySearch();
         }
-
-
-        else if(command == "sort")
-        {
-            vector <computers> pf = _data.sortCpu();
-            for(size_t i = 0; i < pf.size(); i++)
-            {
-                qDebug().noquote().nospace() << pf[i].getId() << "\t" << pf[i].getName() << "\t" << pf[i].getBuildy()
-                                             << "\t\t" << pf[i].getBrand() << "\t\t\t" << pf[i].getConstr();
-            }
-            //displayComputers();
-        }
-
         else if (command == "delete")
         {            
             string namedel; //Ná í strenginn sem á að eyða
@@ -129,30 +116,50 @@ void ConsoleUI::run()
             }while(counter == 0);
             cout << namedel << " has been deleted from database." << endl;
         }
-
         else if (command == "help")
         {
             commandHelp();
         }
-
         else if (command == "exit")
         {
             cout << "exiting" << endl;
         }
         else if (command == "join")
         {
-           int id;
-           cin >> id;
-           vector<Relations> pf = _service.startJoin(id);
-
-           for(size_t i = 0; i < pf.size(); i++)
+           int number;
+           cout << "choose '1' to see wich Scientist made wich Computer." << endl;
+           cout << "choose '2' to see wich computer was made by wich Scientist" << endl;
+           cin >> number;
+           cout << endl;
+           if(number == 1)
            {
-               qDebug().noquote().nospace() << pf[i].getSName() << "\t\t" << pf[i].getCName();
+               string sId = "S.id";
+               int id;
+               cout << "Enter Scientist ID: ";
+               cin >> id;
+               cout << endl;
+               vector<Relations> pf = _service.startJoin(sId, id);
+
+               for(size_t i = 0; i < pf.size(); i++)
+               {
+                   qDebug().noquote().nospace() << pf[i].getSName() << "\t\t" << pf[i].getCName();
+               }
            }
+           else if(number == 2)
+           {
+               string cId = "C.id";
+               int id;
+               cout << "Enter Scientist ID: ";
+               cin >> id;
+               cout << endl;
+               vector<Relations> pf = _service.startJoin(cId, id);
 
-
+               for(size_t i = 0; i < pf.size(); i++)
+               {
+                   qDebug().noquote().nospace() << pf[i].getSName() << "\t\t" << pf[i].getCName();
+               }
+           }
         }
-
         else
         {
             cout << "invalid command." << endl;
@@ -161,9 +168,9 @@ void ConsoleUI::run()
 
     }while (command != "exit");
 }
-
-void ConsoleUI::displayListOfPerformers() //Prentar lista af tölvunarfræðingum
+void ConsoleUI::displayListOfPerformers(vector<Performer> pf) //Prentar lista af tölvunarfræðingum
 {
+    /*
     cout << endl;
     cout << "                      " << "---- List of all computer scientists in the system ----" << endl;
     cout << endl;
@@ -171,6 +178,7 @@ void ConsoleUI::displayListOfPerformers() //Prentar lista af tölvunarfræðingu
     displayTopTable();
 
     vector<Performer> pf = _service.getPerformers();
+    */
 
     for (size_t i = 0; i < pf.size(); ++i) //Prentar út listann miðað við lengd nafns svo það passi sem best
         {
@@ -198,7 +206,6 @@ void ConsoleUI::displayListOfPerformers() //Prentar lista af tölvunarfræðingu
 
         }
 }
-
 void ConsoleUI::displaySearch() //Prentar út leitarniðurstöður
 {
     string input;
@@ -293,34 +300,6 @@ void ConsoleUI::displaySearch() //Prentar út leitarniðurstöður
          }
      }
 }
-
-
-/*
-void ConsoleUI::displaySort(vector<Performer> newVector) //Prentar út niðurstöður úr röðun
-{
-    for(size_t i = 0; i < newVector.size(); i++) //Forlykkja prentar niðurstöður miðað við lengd nafns svo það passi sem best
-    {
-        if(newVector[i].getName().length() > 16)
-        {
-        qDebug().noquote().nospace() << i+1 << "\t" << newVector[i].getName() << "\t" << newVector[i].getGender()
-                                     << "\t\t" << newVector[i].getbYear() << "\t\t\t" << newVector[i].getdYear()
-                                     << "\t\t\t" << newVector[i].getNation();
-        }
-        else if(newVector[i].getName().length() < 16 && newVector[i].getName().length() > 8)
-        {
-        qDebug().noquote().nospace() << i+1 << "\t" << newVector[i].getName() << "\t\t" << newVector[i].getGender()
-                                     << "\t\t" << newVector[i].getbYear() << "\t\t\t" << newVector[i].getdYear()
-                                     << "\t\t\t" << newVector[i].getNation();
-        }
-        else if(newVector[i].getName().length() <= 8)
-        {
-        qDebug().noquote().nospace() << i+1 << "\t" << newVector[i].getName() << "\t\t\t" << newVector[i].getGender()
-                                     << "\t\t" << newVector[i].getbYear() << "\t\t\t" << newVector[i].getdYear()
-                                     << "\t\t\t" << newVector[i].getNation();
-        }
-    }
-}
-*/
 string ConsoleUI::inputName() //Setur inn nafn
 {
     string name;
@@ -342,7 +321,6 @@ string ConsoleUI::inputName() //Setur inn nafn
     }
     return name;
 }
-
 string ConsoleUI::inputGender() //Setur inn kyn
 {
     string gender;
@@ -376,7 +354,6 @@ string ConsoleUI::inputGender() //Setur inn kyn
     }while(1 == 1);
     return gender;
 }
-
 string ConsoleUI::inputBirth() //Setur inn fæðingarár
 {
     string birth;
@@ -404,7 +381,6 @@ string ConsoleUI::inputBirth() //Setur inn fæðingarár
     }
     return birth;
 }
-
 string ConsoleUI::inputDeath() //Setur inn dánarár
 {
     string death;
@@ -456,82 +432,16 @@ string ConsoleUI::inputNation() //Setur inn þjóðerni
 
     return nation;
 }
-
-/*
-void ConsoleUI::chooseSort() //Fall sem velur eftir hverju á að raða listanum
-{
-    int choice;
-    cout << "Choose '1' to display a list sorted in alphabetical order" << endl;
-    cout << "Choose '2' to display a list sorted by birth year" << endl;
-    cout << "Choose '3' to display a list sorted by gender" << endl;
-    cout << "Choose '4' to display a list sorted by nationality" << endl;
-    cout << "Enter a number to continue: ";
-    cin >> choice;
-
-    if(choice == 1) //Raðar listanum eftir nafni
-    {
-        vector<Performer> newVector = _service.sortByName();
-        cout << endl;
-        cout << "                        " << "---- List ordered alphabetically by first name ----" << endl;
-        cout << endl;
-
-        displayTopTable();
-
-        displaySort(newVector);
-    }
-
-    else if(choice == 2) //Raðar listanum eftir fæðingarári
-    {
-        cout << endl;
-        cout << "                                " << "---- List ordered by birth year ----" << endl;
-        cout << endl;
-
-        displayTopTable();
-
-        vector <Performer> newVector = _service.sortBybYear();
-        displaySort(newVector);
-    }
-
-    else if(choice == 3) //Raðar listanum eftir kyni
-    {
-        cout << endl;
-        cout << "                                 " << "---- List ordered by gender ----" << endl;
-        cout << endl;
-
-        displayTopTable();
-
-        vector <Performer> newVector = _service.sortByGender();
-        displaySort(newVector);
-    }
-    else if(choice == 4) //Raðar listanum eftir þjóðerni
-    {
-        vector<Performer> newVector = _service.sortByNationality();
-        cout << endl;
-        cout << "                        " << "---- List ordered alphabetically by nationality ----" << endl;
-        cout << endl;
-
-        displayTopTable();
-        displaySort(newVector);
-    }
-
-    else
-    {
-        cout << "Invalid choice!";
-    }
-}
-*/
 void ConsoleUI::commandHelp()
 {
     cout << "-------- The commands are case-sensitive! --------" << endl << endl;
     cout << "list   - Choose to list all Computer Scientist or all Computers" << endl;
     cout << "add    - Choose to add a Computer Scientist or to add a Computer" << endl;
     cout << "search - Searches for a given computer scientist" << endl;
-    cout << "sort   - Sorts the computer scientists by preferences" << endl;
     cout << "delete - This will remove the entry from the list" << endl;
     cout << "help   - Displays list of commands" << endl;
     cout << "exit   - This will close the application" << endl;
 }
-
 void ConsoleUI::commandAdd() //Fall sem bætir við tölvunarfræðingum
 {
     string name = inputName();
@@ -562,7 +472,6 @@ void ConsoleUI::commandAdd() //Fall sem bætir við tölvunarfræðingum
     cout << endl;
     cout << name << " has been added to the database!" << endl;
 }
-
 void ConsoleUI::intro() //Fall sem útprentar upphafsskilaboð
 {
     cout << endl;
@@ -585,10 +494,9 @@ void ConsoleUI::intro() //Fall sem útprentar upphafsskilaboð
     cout << "Please enter one of the following commands to continue:" << endl;
     cout << endl;
 }
-
 void ConsoleUI::displayTopTable() //Fall sem prentar lista yfir alla tölvunarfræðinga í skránni
 {
-    cout << "Nr" << "\t" << "Name" << "\t\t\t" << "Gender";
+    cout << "ID" << "\t" << "Name" << "\t\t\t" << "Gender";
     cout << "\t\t" << "Birth year" << "\t\t" << "Deceased" << "\t\t" <<"Nationality" << endl;
     for (int i = 0; i < 54*2; ++i)
     {
@@ -596,42 +504,16 @@ void ConsoleUI::displayTopTable() //Fall sem prentar lista yfir alla tölvunarfr
     }
     cout << endl;
 }
-
-
 string ConsoleUI::deleteElement()
 {
     string name;
-    //vector<Performer> pf = _service.getPerformers();
-
-
     cin.ignore();
     getline(cin, name);
-/*
-    size_t counter = 0;
 
-    for(size_t i = 0; i < pf.size(); i++)
-    {
-        if(name == pf[i].getName())
-        {
-            cout << name << " has been deleted from database." << endl;
-            return name;
-        }
-        counter++;
-        if(counter == pf.size())
-        {
-            cout << "name not found!" << endl;
-            cout << "Enter full name of person you want to delete from the database (case-sensitive): ";
-            getline(cin, name);
-
-        }
-    }
-*/
     return name;
 }
-
-void ConsoleUI::displayComputers()
+void ConsoleUI::displayComputers(vector<computers> pc)
 {
-    vector<computers> pc = _service.getComputers();
 
     displayTopComputers();
 
@@ -659,14 +541,246 @@ void ConsoleUI::displayComputers()
 
         }
 }
-
 void ConsoleUI::displayTopComputers()
 {
-    cout << "Nr" << "\t" << "Name" << "\t\t\t" << "build Year";
+    cout << "ID" << "\t" << "Name" << "\t\t\t" << "build Year";
     cout << "\t\t" << "Brand" << "\t\t" << "Constr" << endl;
     for (int i = 0; i < 42*2; ++i)
     {
         cout << "=";
     }
     cout << endl;
+}
+void ConsoleUI::sortComputers()
+{
+    int choice;
+    cout << "Choose '1' to display a list sorted in alphabetical order" << endl;
+    cout << "Choose '2' to display a list sorted by build year" << endl;
+    cout << "Choose '3' to display a list sorted by Brand" << endl;
+    cout << "Choose '4' to display a list sorted by Constr" << endl;
+    cout << "Enter a number to continue: ";
+    cin >> choice;
+    cout << endl;
+    if(choice == 1)
+    {
+        int number;
+        cout << "choose '1' for Ascending list." << endl;
+        cout << "choose '2' for Descending list." << endl;
+        cout << "Enter a number to continue: ";
+        cin >> number;
+        if(number == 1)
+        {
+            string ASC = "ASC";
+            string name = "name";
+            vector <computers> pf = _data.sortCpu(name, ASC);
+            displayComputers(pf);
+        }
+        if(number == 2)
+        {
+            string DESC = "DESC";
+            string name = "name";
+            vector <computers> pf = _data.sortCpu(name, DESC);
+            displayComputers(pf);
+        }
+    }
+    else if(choice == 2)
+    {
+        int number;
+        cout << "choose '1' for Ascending list." << endl;
+        cout << "choose '2' for Descending list." << endl;
+        cout << "Enter a number to continue: ";
+        cin >> number;
+        if(number == 1)
+        {
+            string ASC = "ASC";
+            string buildY = "buildy";
+            vector <computers> pf = _data.sortCpu(buildY, ASC);
+            displayComputers(pf);
+
+        }
+        if(number == 2)
+        {
+            string DESC = "DESC";
+            string buildY = "buildy";
+            vector <computers> pf = _data.sortCpu(buildY, DESC);
+            displayComputers(pf);
+        }
+    }
+    else if(choice == 3)
+    {
+        int number;
+        cout << "choose '1' for Ascending list." << endl;
+        cout << "choose '2' for Descending list." << endl;
+        cout << "Enter a number to continue: ";
+        cin >> number;
+        if(number == 1)
+        {
+            string ASC = "ASC";
+            string brand = "type";
+            vector <computers> pf = _data.sortCpu(brand, ASC);
+            displayComputers(pf);
+        }
+        if(number == 2)
+        {
+            string DESC = "DESC";
+            string brand = "type";
+            vector <computers> pf = _data.sortCpu(brand, DESC);
+            displayComputers(pf);
+        }
+    }
+    else if(choice == 4)
+    {
+        int number;
+        cout << "choose '1' for Ascending list." << endl;
+        cout << "choose '2' for Descending list." << endl;
+        cout << "Enter a number to continue: ";
+        cin >> number;
+        if(number == 1)
+        {
+            string ASC = "ASC";
+            string constr = "constr";
+            vector <computers> pf = _data.sortCpu(constr, ASC);
+            displayComputers(pf);
+        }
+        if(number == 2)
+        {
+            string DESC = "DESC";
+            string constr = "constr";
+            vector <computers> pf = _data.sortCpu(constr, DESC);
+            displayComputers(pf);
+        }
+    }
+}
+void ConsoleUI::sortScientists()
+{
+    int choice;
+    cout << "Choose '1' to display a list sorted in alphabetical order" << endl;
+    cout << "Choose '2' to display a list sorted by gender" << endl;
+    cout << "Choose '3' to display a list sorted by birth Year" << endl;
+    cout << "Choose '4' to display a list sorted by death Year" << endl;
+    cout << "Choose '5' to display a list sorted by nation" << endl;
+    cout << "Enter a number to continue: ";
+    cin >> choice;
+    cout << endl;
+    if(choice == 1)
+    {
+        int number;
+        cout << "choose '1' for Ascending list." << endl;
+        cout << "choose '2' for Descending list." << endl;
+        cout << "Enter a number to continue: ";
+        cin >> number;
+        if(number == 1)
+        {
+            string ASC = "ASC";
+            string name = "name";
+            vector<Performer> pf = _data.sortScientists(name, ASC);
+            displayTopTable();
+            displayListOfPerformers(pf);
+        }
+        if(number == 2)
+        {
+            string DESC = "DESC";
+            string name = "name";
+            vector<Performer> pf = _data.sortScientists(name, DESC);
+            displayTopTable();
+            displayListOfPerformers(pf);
+        }
+    }
+    else if(choice == 2)
+    {
+        int number;
+        cout << "choose '1' for Ascending list." << endl;
+        cout << "choose '2' for Descending list." << endl;
+        cout << "Enter a number to continue: ";
+        cin >> number;
+        if(number == 1)
+        {
+            string ASC = "ASC";
+            string gender = "gender";
+            vector<Performer> pf = _data.sortScientists(gender, ASC);
+            displayTopTable();
+            displayListOfPerformers(pf);
+        }
+        if(number == 2)
+        {
+            string DESC = "DESC";
+            string gender = "gender";
+            vector<Performer> pf = _data.sortScientists(gender, DESC);
+            displayTopTable();
+            displayListOfPerformers(pf);
+        }
+    }
+    else if(choice == 3)
+    {
+        int number;
+        cout << "choose '1' for Ascending list." << endl;
+        cout << "choose '2' for Descending list." << endl;
+        cout << "Enter a number to continue: ";
+        cin >> number;
+        if(number == 1)
+        {
+            string ASC = "ASC";
+            string bYear = "byear";
+            vector<Performer> pf = _data.sortScientists(bYear, ASC);
+            displayTopTable();
+            displayListOfPerformers(pf);
+        }
+        if(number == 2)
+        {
+            string DESC = "DESC";
+            string bYear = "byear";
+            vector<Performer> pf = _data.sortScientists(bYear, DESC);
+            displayTopTable();
+            displayListOfPerformers(pf);
+        }
+    }
+    else if(choice == 4)
+    {
+        int number;
+        cout << "choose '1' for Ascending list." << endl;
+        cout << "choose '2' for Descending list." << endl;
+        cout << "Enter a number to continue: ";
+        cin >> number;
+        if(number == 1)
+        {
+            string ASC = "ASC";
+            string dYear = "dyear";
+            vector<Performer> pf = _data.sortScientists(dYear, ASC);
+            displayTopTable();
+            displayListOfPerformers(pf);
+        }
+        if(number == 2)
+        {
+            string DESC = "DESC";
+            string dYear = "dyear";
+            vector<Performer> pf = _data.sortScientists(dYear, DESC);
+            displayTopTable();
+            displayListOfPerformers(pf);
+        }
+    }
+    else if(choice == 5)
+    {
+        int number;
+        cout << "choose '1' for Ascending list." << endl;
+        cout << "choose '2' for Descending list." << endl;
+        cout << "Enter a number to continue: ";
+        cin >> number;
+        if(number == 1)
+        {
+            string ASC = "ASC";
+            string nation = "nation";
+            vector<Performer> pf = _data.sortScientists(nation, ASC);
+            displayTopTable();
+            displayListOfPerformers(pf);
+        }
+        if(number == 2)
+        {
+            string DESC = "DESC";
+            string nation = "nation";
+            vector<Performer> pf = _data.sortScientists(nation, DESC);
+            displayTopTable();
+            displayListOfPerformers(pf);
+        }
+    }
+
 }
