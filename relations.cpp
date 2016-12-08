@@ -18,3 +18,9 @@ RelationsTable::RelationsTable(int sId, QString sName, int cId, QString cName)
     _cId = cId;
     _cName = cName;
 }
+
+RelationsTable2::RelationsTable2(int sId, QString sName)
+{
+    _sName = sName;
+    _sId = sId;
+}

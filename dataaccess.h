@@ -30,6 +30,8 @@ public:
     vector<Performer> sortScientists(string input, string input2);
     vector<RelationsTable> readCpuData();
     vector<RelationsTable> readData();//Les upplýsingar úr skrá og setur í vektor
+    vector<RelationsTable2> viewScientist();
+    vector<RelationsTable2> viewComputer();
     friend bool operator ==(const Performer& p1, const Performer& p2);
 };
 

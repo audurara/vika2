@@ -258,3 +258,43 @@ vector<RelationsID> DataAccess::viewJoin()
 
     return sort;
 }
+vector<RelationsTable2> DataAccess::viewScientist()
+{
+    vector<RelationsTable2> logs;
+
+
+    QSqlQuery query;
+    query.exec("SELECT id, name FROM \"Scientists\" ");
+    while (query.next())
+    {
+        int sId = query.value(0).toInt();
+        QString sName = query.value(1).toString();
+
+
+        RelationsTable2 P(sId, sName);
+        logs.push_back(P);
+
+    }
+
+    return logs;
+}
+vector<RelationsTable2> DataAccess::viewComputer()
+{
+    vector<RelationsTable2> logs;
+
+
+    QSqlQuery query;
+    query.exec("SELECT id, name FROM \"Computers\" ");
+    while (query.next())
+    {
+        int sId = query.value(0).toInt();
+        QString sName = query.value(1).toString();
+
+
+        RelationsTable2 P(sId, sName);
+        logs.push_back(P);
+
+    }
+
+    return logs;
+}

@@ -53,4 +53,24 @@ private:
     int _cId;
 };
 
+class RelationsTable2
+{
+public:
+    RelationsTable2();
+    RelationsTable2(int sId, QString sName);
+
+    QString getSName()
+    {
+        return _sName;
+    }
+    int getSId()
+    {
+        return _sId;
+    }
+
+private:
+    QString _sName;
+    int _sId;
+};
+
 #endif // RELATIONS_H

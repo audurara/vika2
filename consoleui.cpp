@@ -143,9 +143,10 @@ void ConsoleUI::run()
             int choice;
             cout << "Choose '1' to see join list" << endl;
             cout << "Choose '2' to add to join" << endl;
-            cout << "Choose '3' to remove join" << endl;
+            cout << "Choose '3' to remove join" << endl << endl;
             cout << "Enter a number: ";
             cin >> choice;
+            cout << endl;
 
             if(choice == 1)
             {
@@ -782,36 +783,65 @@ void ConsoleUI::displayJoin()
 {
     int number;
     cout << "choose '1' to see wich Scientist made wich Computer." << endl;
-    cout << "choose '2' to see wich computer was made by wich Scientist" << endl;
+    cout << "choose '2' to see wich computer was made by wich Scientist" << endl << endl;
+    cout << "Enter a number: ";
     cin >> number;
     cout << endl;
     if(number == 1)
     {
+        vector<RelationsTable2> S = _data.viewScientist();
+
+        for(size_t i = 0; i < S.size(); i++)
+        {
+            qDebug().noquote().nospace() << S[i].getSId() << "\t\t" << S[i].getSName();
+        }
         string sId = "S.id";
         int id;
-        cout << "Enter Scientist ID: ";
+        cout << endl << "Enter Scientist ID: ";
         cin >> id;
         cout << endl;
         vector<Relations> pf = _service.startJoin(sId, id);
-
-        for(size_t i = 0; i < pf.size(); i++)
+        if(pf.size() == 0)
         {
-            qDebug().noquote().nospace() << pf[i].getSName() << "\t\t" << pf[i].getCName();
+            cout << "no computer listed to this scientist!" << endl;
         }
+
+        else
+        {
+            for(size_t i = 0; i < pf.size(); i++)
+            {
+                qDebug().noquote().nospace() << pf[i].getSName() << "\t\t" << pf[i].getCName();
+            }
+        }
+
+
     }
     else if(number == 2)
     {
+        vector<RelationsTable2> S = _data.viewComputer();
+
+        for(size_t i = 0; i < S.size(); i++)
+        {
+            qDebug().noquote().nospace() << S[i].getSId() << "\t\t" << S[i].getSName();
+        }
         string cId = "C.id";
         int id;
-        cout << "Enter Computer ID: ";
+        cout << endl << "Enter Computer ID: ";
         cin >> id;
         cout << endl;
         vector<Relations> pf = _service.startJoin(cId, id);
-
-        for(size_t i = 0; i < pf.size(); i++)
+        if(pf.size() == 0)
         {
-            qDebug().noquote().nospace() << pf[i].getSName() << "\t\t" << pf[i].getCName();
+            cout << "Computer has no creator!" << endl;
         }
+        else
+        {
+            for(size_t i = 0; i < pf.size(); i++)
+            {
+                qDebug().noquote().nospace() << pf[i].getSName() << "\t\t" << pf[i].getCName();
+            }
+        }
+
     }
 }
 void ConsoleUI::addJoin()
