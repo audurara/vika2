@@ -8,7 +8,7 @@ PerformerService::PerformerService() //Tómur smiður
 {
 
 }
-
+/*
 vector<Performer> PerformerService::getPerformers() //Nær í gögn úr skrá og skilar þeim í vector
 {
 
@@ -16,7 +16,7 @@ vector<Performer> PerformerService::getPerformers() //Nær í gögn úr skrá og
 
    return getPerformers;
 }
-
+*/
 vector <Performer> PerformerService:: searchpeople(QString name) //Leitar að ákveðnu nafni í listanum
 {
     vector<Performer> newVector = _data.searchScientist(name);
@@ -52,7 +52,7 @@ void PerformerService::openFiles()
 {
     _data.openSqlFiles();
 }
-
+/*
 vector<computers> PerformerService::getComputers() //Nær í gögn úr skrá og skilar þeim í vector
 {
 
@@ -60,7 +60,7 @@ vector<computers> PerformerService::getComputers() //Nær í gögn úr skrá og 
 
    return getComputers;
 }
-
+*/
 vector<Relations> PerformerService::startJoin(string CS,int id)
 {
     vector<Relations> join = _data.joinScientists(CS, id);

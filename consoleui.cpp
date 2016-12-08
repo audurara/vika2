@@ -88,7 +88,6 @@ void ConsoleUI::run()
             }while(counter == 0);
 
      }
-
         else if (command == "search")
         {
             displaySearch();
@@ -140,12 +139,14 @@ void ConsoleUI::run()
             cout << "Choose '3' to remove join" << endl;
             cout << "Enter a number: ";
             cin >> choice;
+
             if(choice == 1)
             {
                 displayJoin();
             }
             if(choice == 2)
             {
+                displayTable();
                 addJoin();
             }
             if(choice == 3)
@@ -795,7 +796,7 @@ void ConsoleUI::addJoin()
 {
     int sId;
     int cId;
-    cout << "add join" << endl;
+    cout << endl;
     cout << "enter ID of scientist: ";
     cin >> sId;
     cout << "enter ID of computer: ";
@@ -815,4 +816,19 @@ void ConsoleUI::removeJoin()
     _data.removeJoin(id);
 
 
+}
+void ConsoleUI::displayTable()
+{
+    vector<RelationsTable> pf = _data.readData();
+
+    cout << "ID\t\t\tNAME\t\t\t\tID\t\t\tNAME" << endl;
+    for(int i = 0; i < 52 * 2; i++)
+    {
+        cout << "=";
+    }
+    cout << endl;
+    for(size_t i = 0; i < pf.size(); i++)
+    {
+        qDebug().noquote().nospace() << pf[i].getSId() << "\t\t\t" << pf[i].getSName()  << "\t\t\t" << pf[i].getCId() << "\t\t\t" << pf[i].getCName();
+    }
 }

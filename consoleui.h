@@ -26,6 +26,7 @@ private:
     void addJoin();
     void removeJoin();
     void addComputer();
+    void displayTable();
     string deleteElement();//Eyðir staki úr vektor
     string inputName();
     string inputGender();
