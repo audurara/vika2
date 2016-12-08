@@ -42,11 +42,13 @@ void ConsoleUI::run()
                     {
                         sortScientists();
                         found = true;
+                        break;
                     }
                     else if(value == 2)
                     {
                         sortComputers();
                         found = true;
+                        break;
                     }
                     if(choice.length() != 1)
                     {
@@ -571,7 +573,8 @@ void ConsoleUI::sortComputers()
 
     if(choice == 1)
     {
-        int number = displayChoice();
+        displayChoice();
+        int number = checkInput(0,3);
 
 
         if(number == 1)
@@ -591,7 +594,8 @@ void ConsoleUI::sortComputers()
     }
     else if(choice == 2)
     {
-        int number = displayChoice();
+        displayChoice();
+        int number = checkInput(0,3);
 
         if(number == 1)
         {
@@ -611,7 +615,8 @@ void ConsoleUI::sortComputers()
     }
     else if(choice == 3)
     {
-        int number = displayChoice();
+        displayChoice();
+        int number = checkInput(0,3);
 
         if(number == 1)
         {
@@ -630,7 +635,8 @@ void ConsoleUI::sortComputers()
     }
     else if(choice == 4)
     {
-        int number = displayChoice();
+        displayChoice();
+        int number = checkInput(0,3);
 
         if(number == 1)
         {
@@ -658,11 +664,14 @@ void ConsoleUI::sortScientists()
     cout << "Choose '4' to display a list sorted by death Year" << endl;
     cout << "Choose '5' to display a list sorted by nation" << endl;
     cout << "Enter a number to continue: ";
-    int choice = checkInput();
+
+    int choice = checkInput(0,6);
+
 
     if(choice == 1)
     {
-        int number = displayChoice();
+        displayChoice();
+        int number = checkInput(0,3);
 
         if(number == 1)
         {
@@ -681,7 +690,9 @@ void ConsoleUI::sortScientists()
     }
     else if(choice == 2)
     {
-        int number = displayChoice();
+        displayChoice();
+        int number = checkInput(0,3);
+
         if(number == 1)
         {
             string ASC = "ASC";
@@ -699,7 +710,8 @@ void ConsoleUI::sortScientists()
     }
     else if(choice == 3)
     {
-        int number = displayChoice();
+        displayChoice();
+        int number = checkInput(0,3);
         if(number == 1)
         {
             string ASC = "ASC";
@@ -717,7 +729,8 @@ void ConsoleUI::sortScientists()
     }
     else if(choice == 4)
     {
-        int number = displayChoice();
+        displayChoice();
+        int number = checkInput(0,3);
         if(number == 1)
         {
             string ASC = "ASC";
@@ -735,8 +748,8 @@ void ConsoleUI::sortScientists()
     }
     else if(choice == 5)
     {
-        int number = displayChoice();
-
+        displayChoice();
+        int number = checkInput(0,3);
         if(number == 1)
         {
             string ASC = "ASC";
@@ -754,31 +767,11 @@ void ConsoleUI::sortScientists()
     }
 }
 
-int ConsoleUI::displayChoice()
+void ConsoleUI::displayChoice()
 {
-    bool found = false;
-    string choice;
-    int value;
-
     cout << "Choose '1' for ascending list." << endl;
     cout << "Choose '2' for descending list." << endl;
     cout << "Enter a number to continue: ";
-
-    do
-    {
-        getline(cin, choice);
-        value = atoi(choice.c_str());
-
-        if(choice.length() != 1)
-        {
-            cout << "Invalid input" << endl;
-        }
-        else if(value > 0 && value < 3)
-        {
-            found = true;
-        }
-    }while(!found);
-        return value;
 }
 void ConsoleUI::displayJoin()
 {
@@ -857,7 +850,7 @@ void ConsoleUI::displayTable()
     }
 }
 
-int ConsoleUI::checkInput()
+int ConsoleUI::checkInput(int val1, int val2)
 {
     //cin.ignore();
     bool found = false;
@@ -874,7 +867,7 @@ int ConsoleUI::checkInput()
             cout << "Invalid input, try again:";
         }
 
-        else if(value > 0 && value < 6)
+        else if(value > val1 && value < val2)
         {
             found = true;
         }
