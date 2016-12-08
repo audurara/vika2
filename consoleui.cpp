@@ -511,15 +511,10 @@ string ConsoleUI::deleteElement()
 }
 void ConsoleUI::displayComputers(vector<computers> pc)
 {
-
     displayTopComputers();
-
 
     for (size_t i = 0; i < pc.size(); ++i) //Prentar út listann miðað við lengd nafns svo það passi sem best
         {
-
-
-
             if(pc[i].getName().length() > 16)
             {
                 qDebug().noquote().nospace() << i+1 << "\t" << pc[i].getName() << "\t" << pc[i].getBuildy()
@@ -535,7 +530,6 @@ void ConsoleUI::displayComputers(vector<computers> pc)
                 qDebug().noquote().nospace() << i+1 << "\t" << pc[i].getName() << "\t\t\t" << pc[i].getBuildy()
                                          << "\t\t" << pc[i].getBrand() << "\t\t\t" << pc[i].getConstr();
             }
-
         }
 }
 void ConsoleUI::displayTopComputers()
@@ -561,9 +555,7 @@ void ConsoleUI::sortComputers()
     if(choice == 1)
     {
         int number;
-        cout << "choose '1' for ascending list." << endl;
-        cout << "choose '2' for descending list." << endl;
-        cout << "Enter a number to continue: ";
+        displayChoice();
         cin >> number;
         if(number == 1)
         {
@@ -583,9 +575,7 @@ void ConsoleUI::sortComputers()
     else if(choice == 2)
     {
         int number;
-        cout << "choose '1' for ascending list." << endl;
-        cout << "choose '2' for descending list." << endl;
-        cout << "Enter a number to continue: ";
+        displayChoice();
         cin >> number;
         if(number == 1)
         {
@@ -606,9 +596,7 @@ void ConsoleUI::sortComputers()
     else if(choice == 3)
     {
         int number;
-        cout << "choose '1' for ascending list." << endl;
-        cout << "choose '2' for descending list." << endl;
-        cout << "Enter a number to continue: ";
+        displayChoice();
         cin >> number;
         if(number == 1)
         {
@@ -628,9 +616,7 @@ void ConsoleUI::sortComputers()
     else if(choice == 4)
     {
         int number;
-        cout << "choose '1' for ascending list." << endl;
-        cout << "choose '2' for descending list." << endl;
-        cout << "Enter a number to continue: ";
+        displayChoice();
         cin >> number;
         if(number == 1)
         {
@@ -662,9 +648,7 @@ void ConsoleUI::sortScientists()
     if(choice == 1)
     {
         int number;
-        cout << "choose '1' for ascending list." << endl;
-        cout << "choose '2' for descending list." << endl;
-        cout << "Enter a number to continue: ";
+        displayChoice();
         cin >> number;
         if(number == 1)
         {
@@ -684,9 +668,7 @@ void ConsoleUI::sortScientists()
     else if(choice == 2)
     {
         int number;
-        cout << "choose '1' for ascending list." << endl;
-        cout << "choose '2' for descending list." << endl;
-        cout << "Enter a number to continue: ";
+        displayChoice();
         cin >> number;
         if(number == 1)
         {
@@ -706,9 +688,7 @@ void ConsoleUI::sortScientists()
     else if(choice == 3)
     {
         int number;
-        cout << "choose '1' for ascending list." << endl;
-        cout << "choose '2' for descending list." << endl;
-        cout << "Enter a number to continue: ";
+        displayChoice();
         cin >> number;
         if(number == 1)
         {
@@ -728,9 +708,7 @@ void ConsoleUI::sortScientists()
     else if(choice == 4)
     {
         int number;
-        cout << "choose '1' for ascending list." << endl;
-        cout << "choose '2' for descending list." << endl;
-        cout << "Enter a number to continue: ";
+        displayChoice();
         cin >> number;
         if(number == 1)
         {
@@ -750,9 +728,7 @@ void ConsoleUI::sortScientists()
     else if(choice == 5)
     {
         int number;
-        cout << "choose '1' for ascending list." << endl;
-        cout << "choose '2' for descending list." << endl;
-        cout << "Enter a number to continue: ";
+        displayChoice();
         cin >> number;
         if(number == 1)
         {
@@ -769,5 +745,11 @@ void ConsoleUI::sortScientists()
             displayListOfPerformers(pf);
         }
     }
+}
 
+void ConsoleUI::displayChoice()
+{
+    cout << "choose '1' for ascending list." << endl;
+    cout << "choose '2' for descending list." << endl;
+    cout << "Enter a number to continue: ";
 }
