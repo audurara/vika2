@@ -643,8 +643,10 @@ void ConsoleUI::sortScientists()
     cout << "Choose '4' to display a list sorted by death Year" << endl;
     cout << "Choose '5' to display a list sorted by nation" << endl;
     cout << "Enter a number to continue: ";
+
     cin >> choice;
     cout << endl;
+
     if(choice == 1)
     {
         int number;
@@ -749,7 +751,7 @@ void ConsoleUI::sortScientists()
 
 void ConsoleUI::displayChoice()
 {
-    cout << "choose '1' for ascending list." << endl;
-    cout << "choose '2' for descending list." << endl;
+    cout << "Choose '1' for ascending list." << endl;
+    cout << "Choose '2' for descending list." << endl;
     cout << "Enter a number to continue: ";
 }
