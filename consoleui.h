@@ -33,8 +33,8 @@ private:
     string inputBirth();
     string inputDeath();
     string inputNation();
-    char displayChoice();
-    int checkInput();
+    void displayChoice();
+    int checkInput(int val1, int val2);
 
 
 private: //Eftirfarandi breytur sækja upplýsingar og leyfa virkni sitthvort úr PerformerService og DataAccess.

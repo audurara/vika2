@@ -42,11 +42,13 @@ void ConsoleUI::run()
                     {
                         sortScientists();
                         found = true;
+                        break;
                     }
                     else if(value == 2)
                     {
                         sortComputers();
                         found = true;
+                        break;
                     }
                     if(choice.length() != 1)
                     {
@@ -572,16 +574,18 @@ void ConsoleUI::sortComputers()
 
     if(choice == 1)
     {
-        char number = displayChoice();
+        displayChoice();
+        int number = checkInput(0,3);
 
-        if(number == '1')
+
+        if(number == 1)
         {
             string ASC = "ASC";
             string name = "name";
             vector <computers> pf = _data.sortCpu(name, ASC);
             displayComputers(pf);
         }
-        if(number == '2')
+        if(number == 2)
         {
             string DESC = "DESC";
             string name = "name";
@@ -591,9 +595,10 @@ void ConsoleUI::sortComputers()
     }
     else if(choice == 2)
     {
-        char number = displayChoice();
+        displayChoice();
+        int number = checkInput(0,3);
 
-        if(number == '1')
+        if(number == 1)
         {
             string ASC = "ASC";
             string buildY = "buildy";
@@ -601,7 +606,7 @@ void ConsoleUI::sortComputers()
             displayComputers(pf);
 
         }
-        if(number == '2')
+        if(number == 2)
         {
             string DESC = "DESC";
             string buildY = "buildy";
@@ -611,16 +616,17 @@ void ConsoleUI::sortComputers()
     }
     else if(choice == 3)
     {
-        char number = displayChoice();
+        displayChoice();
+        int number = checkInput(0,3);
 
-        if(number == '1')
+        if(number == 1)
         {
             string ASC = "ASC";
             string brand = "type";
             vector <computers> pf = _data.sortCpu(brand, ASC);
             displayComputers(pf);
         }
-        if(number == '2')
+        if(number == 2)
         {
             string DESC = "DESC";
             string brand = "type";
@@ -630,16 +636,17 @@ void ConsoleUI::sortComputers()
     }
     else if(choice == 4)
     {
-        char number = displayChoice();
+        displayChoice();
+        int number = checkInput(0,3);
 
-        if(number == '1')
+        if(number == 1)
         {
             string ASC = "ASC";
             string constr = "constr";
             vector <computers> pf = _data.sortCpu(constr, ASC);
             displayComputers(pf);
         }
-        if(number == '2')
+        if(number == 2)
         {
             string DESC = "DESC";
             string constr = "constr";
@@ -659,21 +666,22 @@ void ConsoleUI::sortScientists()
     cout << "Choose '5' to display a list sorted by nation" << endl;
     cout << "Enter a number to continue: ";
 
+    int choice = checkInput(0,6);
 
-    int choice = checkInput();
 
     if(choice == 1)
     {
-        char number = displayChoice();
+        displayChoice();
+        int number = checkInput(0,3);
 
-        if(number == '1')
+        if(number == 1)
         {
             string ASC = "ASC";
             string name = "name";
             vector<Performer> pf = _data.sortScientists(name, ASC);
             displayListOfPerformers(pf);
         }
-        if(number == '2')
+        if(number == 2)
         {
             string DESC = "DESC";
             string name = "name";
@@ -683,15 +691,17 @@ void ConsoleUI::sortScientists()
     }
     else if(choice == 2)
     {
-        char number = displayChoice();
-        if(number == '1')
+        displayChoice();
+        int number = checkInput(0,3);
+
+        if(number == 1)
         {
             string ASC = "ASC";
             string gender = "gender";
             vector<Performer> pf = _data.sortScientists(gender, ASC);
             displayListOfPerformers(pf);
         }
-        if(number == '2')
+        if(number == 2)
         {
             string DESC = "DESC";
             string gender = "gender";
@@ -701,8 +711,9 @@ void ConsoleUI::sortScientists()
     }
     else if(choice == 3)
     {
-        char number = displayChoice();
-        if(number == '1')
+        displayChoice();
+        int number = checkInput(0,3);
+        if(number == 1)
         {
             string ASC = "ASC";
             string bYear = "byear";
@@ -719,8 +730,8 @@ void ConsoleUI::sortScientists()
     }
     else if(choice == 4)
     {
-        char number = displayChoice();
-
+        displayChoice();
+        int number = checkInput(0,3);
         if(number == 1)
         {
             string ASC = "ASC";
@@ -738,8 +749,8 @@ void ConsoleUI::sortScientists()
     }
     else if(choice == 5)
     {
-        char number = displayChoice();
-
+        displayChoice();
+        int number = checkInput(0,3);
         if(number == 1)
         {
             string ASC = "ASC";
@@ -757,27 +768,11 @@ void ConsoleUI::sortScientists()
     }
 }
 
-char ConsoleUI::displayChoice()
+void ConsoleUI::displayChoice()
 {
-    int counter =0;
-    char choice;
-    do
-    {
-        counter = 0;
-        cout << "Choose '1' for ascending list." << endl;
-        cout << "Choose '2' for descending list." << endl;
-        cout << "Enter a number to continue: ";
-        cin >> choice;
-        if(!((choice == '1') ||(choice == '2')))
-        {
-            cout << "Invalid choice" << endl;
-        }
-        else
-        {
-            counter = 1;
-        }
-    }while(counter == 0);
-        return choice;
+    cout << "Choose '1' for ascending list." << endl;
+    cout << "Choose '2' for descending list." << endl;
+    cout << "Enter a number to continue: ";
 }
 void ConsoleUI::displayJoin()
 {
@@ -885,15 +880,15 @@ void ConsoleUI::displayTable()
     }
 }
 
-int ConsoleUI::checkInput()
+int ConsoleUI::checkInput(int val1, int val2)
 {
-    string choice;
-    cin.ignore();
-    int value;
+    //cin.ignore();
     bool found = false;
+    int value;
+
 
     do {
-
+        string choice;
         getline(cin, choice);
         value = atoi(choice.c_str());
 
@@ -902,7 +897,7 @@ int ConsoleUI::checkInput()
             cout << "Invalid input, try again:";
         }
 
-        else if(value > 0 && value < 6)
+        else if(value > val1 && value < val2)
         {
             found = true;
         }
