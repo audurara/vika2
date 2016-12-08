@@ -14,46 +14,23 @@ bool operator == (const Performer& p1, const Performer& p2) //Yfirskrifa samasem
 {
     return p1.getName() == p2.getName();
 }
-vector<computers> DataAccess::readCpuData()
+
+vector<RelationsTable> DataAccess::readData() //Les upplýsingar úr skrá og setur í vektor
 {
-    vector<computers> pc;
+    vector<RelationsTable> logs;
 
 
     QSqlQuery query;
-    query.exec("SELECT * FROM \"Computers\"");
+    query.exec("SELECT S.id, S.name,C.id, C.name From Scientists S LEFT OUTER JOIN Computers C on C.id = S.id ");
     while (query.next())
     {
-        int id = query.value(0).toInt();
-        QString name = query.value(1).toString();
-        QString buildy = query.value(2).toString();
-        QString brand = query.value(3).toString();
-        QString constr = query.value(4).toString();
-
-        computers P(id, name, buildy, brand, constr);
-        pc.push_back(P);
+        int sId = query.value(0).toInt();
+        QString sName = query.value(1).toString();
+        int cId = query.value(2).toInt();
+        QString cName = query.value(3).toString();
 
 
-    }
-
-    return pc;
-}
-vector<Performer> DataAccess::readData() //Les upplýsingar úr skrá og setur í vektor
-{
-    vector<Performer> logs;
-
-
-    QSqlQuery query;
-    query.exec("SELECT * FROM \"Scientists\"");
-    while (query.next())
-    {
-        int id = query.value(0).toInt();
-        QString name = query.value(1).toString();
-        QString gender = query.value(2).toString();
-        QString bYear = query.value(3).toString();
-        QString dYear = query.value(4).toString();
-        QString nation = query.value(5).toString();
-
-        Performer P(id, name, gender, bYear, dYear, nation);
+        RelationsTable P(sId, sName, cId, cName);
         logs.push_back(P);
 
     }

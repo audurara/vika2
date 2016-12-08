@@ -28,8 +28,8 @@ public:
     vector<computers> searchComputer(QString name);
     vector<computers> sortCpu(string input, string input2);
     vector<Performer> sortScientists(string input, string input2);
-    vector<computers> readCpuData();
-    vector<Performer> readData();//Les upplýsingar úr skrá og setur í vektor
+    vector<RelationsTable> readCpuData();
+    vector<RelationsTable> readData();//Les upplýsingar úr skrá og setur í vektor
     friend bool operator ==(const Performer& p1, const Performer& p2);
 };
 
