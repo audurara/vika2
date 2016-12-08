@@ -28,29 +28,36 @@ void ConsoleUI::run()
         if (command == "list")
         {
             {
-                int counter = 0;
+                bool found = false;
+                cin.ignore();
+                cout << "List Computer Scientists choose '1'" << endl << "List Computers choose '2'" << endl;
+                cout << "Choice:";
                 do
                 {
-                    char choice;
-                    cout << "List Computer Scientists choose '1'" << endl << "List Computers choose '2'" << endl;
-                    cout << "choice: ";
-                    cin >> choice;
-                    cout << endl;
-                    if(choice == '1')
+                    string choice;
+                    getline(cin, choice);
+                    int value = atoi(choice.c_str());
+
+                    if(value == 1)
                     {
-                        counter = 1;
                         sortScientists();
+                        found = true;
                     }
-                    else if(choice == '2')
+                    else if(value == 2)
                     {
-                        counter = 1;
                         sortComputers();
+                        found = true;
+                    }
+                    if(choice.length() != 1)
+                    {
+
+                        cout << "Invalid choice, try again:";
                     }
                     else
                     {
-                        cout << "Invalid choice!" << endl;
+                        cout << "Invalid choice, try again:";
                     }
-                }while(counter == 0);
+                }while(!found);
 
             }
 
@@ -624,7 +631,7 @@ void ConsoleUI::sortComputers()
 }
 void ConsoleUI::sortScientists()
 {
-    int choice;
+
     cout << "Choose '1' to display a list sorted in alphabetical order" << endl;
     cout << "Choose '2' to display a list sorted by gender" << endl;
     cout << "Choose '3' to display a list sorted by birth Year" << endl;
@@ -632,14 +639,8 @@ void ConsoleUI::sortScientists()
     cout << "Choose '5' to display a list sorted by nation" << endl;
     cout << "Enter a number to continue: ";
 
-    cin >> choice;
-    cout << endl;
-    while(choice > 5 || choice < 1)
-    {
-        cout << "Invalid command!";
-        cout << "Enter a number to continue: ";
-        cin >> choice;
-    }
+    int choice = checkInput();
+
     if(choice == 1)
     {
         int number = displayChoice();
@@ -809,4 +810,34 @@ void ConsoleUI::removeJoin()
         cin >> id;
         _data.removeJoin(cId, id);
     }
+}
+
+int ConsoleUI::checkInput()
+{
+    string choice;
+    cin.ignore();
+    int value;
+    bool found = false;
+
+    do {
+
+        getline(cin, choice);
+        value = atoi(choice.c_str());
+
+        if(choice.length() != 1)
+        {
+            cout << "Invalid input, try again:";
+        }
+
+        else if(value > 0 && value < 6)
+        {
+            found = true;
+        }
+        else {
+            cout << "Invalid, try again:";
+        }
+
+    } while (!found);
+
+        return value;
 }
