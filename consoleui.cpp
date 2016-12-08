@@ -48,7 +48,7 @@ void ConsoleUI::run()
                     }
                     else
                     {
-                        cout << "invalid choice!" << endl;
+                        cout << "Invalid choice!" << endl;
                     }
                 }while(counter == 0);
 
@@ -62,7 +62,7 @@ void ConsoleUI::run()
             {
                 char choice;
                 cout << "Add Computer Scientist choose '1'" << endl << "Add Computer choose '2'" << endl;
-                cout << "choice: ";
+                cout << "Choice: ";
                 cin >> choice;
                 if(choice == '1')
                 {
@@ -76,7 +76,7 @@ void ConsoleUI::run()
                 }
                 else
                 {
-                    cout << "invalid choice!" << endl;
+                    cout << "Invalid choice!" << endl;
                 }
             }while(counter == 0);
 
@@ -93,7 +93,7 @@ void ConsoleUI::run()
             {
                 char choice;
                 cout << "Remove Computer Scientist choose '1'" << endl << "Remove Computer choose '2'" << endl;
-                cout << "choice: ";
+                cout << "Choice: ";
                 cin >> choice;
                 if(choice == '1')
                 {
@@ -111,7 +111,7 @@ void ConsoleUI::run()
                 }
                 else
                 {
-                    cout << "invalid choice!" << endl;
+                    cout << "Invalid choice!" << endl;
                 }
             }while(counter == 0);
             cout << namedel << " has been deleted from database." << endl;
@@ -147,7 +147,7 @@ void ConsoleUI::run()
         }
         else
         {
-            cout << "invalid command." << endl;
+            cout << "Invalid command." << endl;
             cout << "Enter 'help' to see list of commands" << endl;
         }
 
@@ -155,15 +155,12 @@ void ConsoleUI::run()
 }
 void ConsoleUI::displayListOfPerformers(vector<Performer> pf) //Prentar lista af tölvunarfræðingum
 {
-    /*
+
     cout << endl;
     cout << "                      " << "---- List of all computer scientists in the system ----" << endl;
     cout << endl;
 
     displayTopTable();
-
-    vector<Performer> pf = _service.getPerformers();
-    */
 
     for (size_t i = 0; i < pf.size(); ++i) //Prentar út listann miðað við lengd nafns svo það passi sem best
         {
@@ -499,15 +496,10 @@ string ConsoleUI::deleteElement()
 }
 void ConsoleUI::displayComputers(vector<computers> pc)
 {
-
     displayTopComputers();
-
 
     for (size_t i = 0; i < pc.size(); ++i) //Prentar út listann miðað við lengd nafns svo það passi sem best
         {
-
-
-
             if(pc[i].getName().length() > 16)
             {
                 qDebug().noquote().nospace() << i+1 << "\t" << pc[i].getName() << "\t" << pc[i].getBuildy()
@@ -523,7 +515,6 @@ void ConsoleUI::displayComputers(vector<computers> pc)
                 qDebug().noquote().nospace() << i+1 << "\t" << pc[i].getName() << "\t\t\t" << pc[i].getBuildy()
                                          << "\t\t" << pc[i].getBrand() << "\t\t\t" << pc[i].getConstr();
             }
-
         }
 }
 void ConsoleUI::displayTopComputers()
@@ -541,18 +532,15 @@ void ConsoleUI::sortComputers()
     int choice;
     cout << "Choose '1' to display a list sorted in alphabetical order" << endl;
     cout << "Choose '2' to display a list sorted by build year" << endl;
-    cout << "Choose '3' to display a list sorted by Brand" << endl;
-    cout << "Choose '4' to display a list sorted by Constr" << endl;
+    cout << "Choose '3' to display a list sorted by brand" << endl;
+    cout << "Choose '4' to display a list sorted by constructor" << endl;
     cout << "Enter a number to continue: ";
     cin >> choice;
     cout << endl;
+
     if(choice == 1)
     {
-        int number;
-        cout << "choose '1' for Ascending list." << endl;
-        cout << "choose '2' for Descending list." << endl;
-        cout << "Enter a number to continue: ";
-        cin >> number;
+        int number = displayChoice();
         if(number == 1)
         {
             string ASC = "ASC";
@@ -570,11 +558,7 @@ void ConsoleUI::sortComputers()
     }
     else if(choice == 2)
     {
-        int number;
-        cout << "choose '1' for Ascending list." << endl;
-        cout << "choose '2' for Descending list." << endl;
-        cout << "Enter a number to continue: ";
-        cin >> number;
+        int number = displayChoice();
         if(number == 1)
         {
             string ASC = "ASC";
@@ -593,11 +577,7 @@ void ConsoleUI::sortComputers()
     }
     else if(choice == 3)
     {
-        int number;
-        cout << "choose '1' for Ascending list." << endl;
-        cout << "choose '2' for Descending list." << endl;
-        cout << "Enter a number to continue: ";
-        cin >> number;
+        int number = displayChoice();
         if(number == 1)
         {
             string ASC = "ASC";
@@ -615,11 +595,7 @@ void ConsoleUI::sortComputers()
     }
     else if(choice == 4)
     {
-        int number;
-        cout << "choose '1' for Ascending list." << endl;
-        cout << "choose '2' for Descending list." << endl;
-        cout << "Enter a number to continue: ";
-        cin >> number;
+        int number = displayChoice();
         if(number == 1)
         {
             string ASC = "ASC";
@@ -645,21 +621,18 @@ void ConsoleUI::sortScientists()
     cout << "Choose '4' to display a list sorted by death Year" << endl;
     cout << "Choose '5' to display a list sorted by nation" << endl;
     cout << "Enter a number to continue: ";
+
     cin >> choice;
     cout << endl;
+
     if(choice == 1)
     {
-        int number;
-        cout << "choose '1' for Ascending list." << endl;
-        cout << "choose '2' for Descending list." << endl;
-        cout << "Enter a number to continue: ";
-        cin >> number;
+        int number = displayChoice();
         if(number == 1)
         {
             string ASC = "ASC";
             string name = "name";
             vector<Performer> pf = _data.sortScientists(name, ASC);
-            displayTopTable();
             displayListOfPerformers(pf);
         }
         if(number == 2)
@@ -667,23 +640,17 @@ void ConsoleUI::sortScientists()
             string DESC = "DESC";
             string name = "name";
             vector<Performer> pf = _data.sortScientists(name, DESC);
-            displayTopTable();
             displayListOfPerformers(pf);
         }
     }
     else if(choice == 2)
     {
-        int number;
-        cout << "choose '1' for Ascending list." << endl;
-        cout << "choose '2' for Descending list." << endl;
-        cout << "Enter a number to continue: ";
-        cin >> number;
+        int number = displayChoice();
         if(number == 1)
         {
             string ASC = "ASC";
             string gender = "gender";
             vector<Performer> pf = _data.sortScientists(gender, ASC);
-            displayTopTable();
             displayListOfPerformers(pf);
         }
         if(number == 2)
@@ -691,23 +658,17 @@ void ConsoleUI::sortScientists()
             string DESC = "DESC";
             string gender = "gender";
             vector<Performer> pf = _data.sortScientists(gender, DESC);
-            displayTopTable();
             displayListOfPerformers(pf);
         }
     }
     else if(choice == 3)
     {
-        int number;
-        cout << "choose '1' for Ascending list." << endl;
-        cout << "choose '2' for Descending list." << endl;
-        cout << "Enter a number to continue: ";
-        cin >> number;
+        int number = displayChoice();
         if(number == 1)
         {
             string ASC = "ASC";
             string bYear = "byear";
             vector<Performer> pf = _data.sortScientists(bYear, ASC);
-            displayTopTable();
             displayListOfPerformers(pf);
         }
         if(number == 2)
@@ -715,23 +676,17 @@ void ConsoleUI::sortScientists()
             string DESC = "DESC";
             string bYear = "byear";
             vector<Performer> pf = _data.sortScientists(bYear, DESC);
-            displayTopTable();
             displayListOfPerformers(pf);
         }
     }
     else if(choice == 4)
     {
-        int number;
-        cout << "choose '1' for Ascending list." << endl;
-        cout << "choose '2' for Descending list." << endl;
-        cout << "Enter a number to continue: ";
-        cin >> number;
+        int number = displayChoice();
         if(number == 1)
         {
             string ASC = "ASC";
             string dYear = "dyear";
             vector<Performer> pf = _data.sortScientists(dYear, ASC);
-            displayTopTable();
             displayListOfPerformers(pf);
         }
         if(number == 2)
@@ -739,23 +694,17 @@ void ConsoleUI::sortScientists()
             string DESC = "DESC";
             string dYear = "dyear";
             vector<Performer> pf = _data.sortScientists(dYear, DESC);
-            displayTopTable();
             displayListOfPerformers(pf);
         }
     }
     else if(choice == 5)
     {
-        int number;
-        cout << "choose '1' for Ascending list." << endl;
-        cout << "choose '2' for Descending list." << endl;
-        cout << "Enter a number to continue: ";
-        cin >> number;
+        int number = displayChoice();
         if(number == 1)
         {
             string ASC = "ASC";
             string nation = "nation";
             vector<Performer> pf = _data.sortScientists(nation, ASC);
-            displayTopTable();
             displayListOfPerformers(pf);
         }
         if(number == 2)
@@ -763,11 +712,19 @@ void ConsoleUI::sortScientists()
             string DESC = "DESC";
             string nation = "nation";
             vector<Performer> pf = _data.sortScientists(nation, DESC);
-            displayTopTable();
             displayListOfPerformers(pf);
         }
     }
+}
 
+int ConsoleUI::displayChoice()
+{
+    int number;
+    cout << "Choose '1' for ascending list." << endl;
+    cout << "Choose '2' for descending list." << endl;
+    cout << "Enter a number to continue: ";
+    cin >> number;
+        return number;
 }
 void ConsoleUI::displayJoin()
 {
