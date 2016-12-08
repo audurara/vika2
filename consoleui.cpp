@@ -147,7 +147,7 @@ void ConsoleUI::run()
             cout << "Choose '2' to add to join" << endl;
             cout << "Choose '3' to remove join" << endl << endl;
             cout << "Enter a number: ";
-
+            cin.ignore();
             int choice = checkInput(0,4);
             cout << endl;
 
@@ -779,9 +779,10 @@ void ConsoleUI::displayJoin()
 
     cout << "choose '1' to see wich Scientist made wich Computer." << endl;
     cout << "choose '2' to see wich computer was made by wich Scientist" << endl << endl;
-    cout << "Enter a number: ";
+    cout << "Enter a number:";
 
     int number = checkInput(0,3);
+    cout << number;
     if(number == 1)
     {
         vector<RelationsTable2> S = _data.viewScientist();
@@ -823,6 +824,11 @@ void ConsoleUI::displayJoin()
         int id;
         cout << endl << "Enter Computer ID: ";
         cin >> id;
+        if(id > S.size() || id < 0)
+        {
+            cout << "Invalid HALLO";
+        }
+
         cout << endl;
         vector<Relations> pf = _service.startJoin(cId, id);
         if(pf.size() == 0)
