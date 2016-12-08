@@ -29,13 +29,14 @@ vector<computers> PerformerService::searchcomputer(QString name) //Leitar að á
     return newVector;
 }
 
- string PerformerService::addPerformer(string name, string gender, string birth, string death, string nation) //Bætir nýjum tölvunarfræðingi inn í skrána
- {
-    string all = "," + name + "," + gender + "," + birth + "," + death + "," + nation;
-    _data.writeData();
-    return all;
- }
-
+void PerformerService::addPerformer(string name, string gender, string birth, string death, string nation) //Bætir nýjum tölvunarfræðingi inn í skrána
+{
+   _data.writeData(name, gender, birth, death, nation);
+}
+void PerformerService::addComputer(string name, string buildy, string brand, string constr) //Bætir nýjum tölvunarfræðingi inn í skrána
+{
+   _data.addCpu(name, buildy, brand, constr);
+}
 string PerformerService::removeScientist(string name) //Skilar til baka streng eftir að hafa eytt einu tilviki
 {
     _data.removeDataScientist(name);

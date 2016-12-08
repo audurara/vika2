@@ -77,12 +77,12 @@ void ConsoleUI::run()
                     if(a == '1')
                     {
                         counter = 1;
-                        _data.writeData();
+                        commandAdd();
                     }
                     else if(a == '2')
                     {
                         counter = 1;
-                        _data.addCpu();
+                        addComputer();
                     }
                 }
             }while(counter == 0);
@@ -463,6 +463,20 @@ void ConsoleUI::commandAdd() //Fall sem bætir við tölvunarfræðingum
     cout << endl;
     cout << name << " has been added to the database!" << endl;
 }
+void ConsoleUI::addComputer()
+{
+    string name, buildy, brand, constr;
+    cout << "Enter name of computer: ";
+    cin >> name;
+    cout << "Enter build year of computer: ";
+    cin >> buildy;
+    cout << "Enter type of computer: ";
+    cin >> brand;
+    cout << "was it built or not?(Yes/No): ";
+    cin >> constr;
+    _service.addComputer(name, buildy, brand, constr);
+}
+
 void ConsoleUI::intro() //Fall sem útprentar upphafsskilaboð
 {
     cout << endl;

@@ -13,11 +13,9 @@ class DataAccess
 
 public:
 
-    void writeData();//Með þessu falli má skrifa streng inn í skrána
-
+    void writeData(string name, string gender, string bYear, string dYear, string nation);//Með þessu falli má skrifa streng inn í skrána
     void openSqlFiles();//opnar sql files.
-
-    void addCpu();
+    void addCpu(string name, string buildy, string brand, string constr);
     void removeDataScientist(string name);//Þetta fall tekur út strenginn sem inniheldur ákveðið nafn
     void removeDataComputer(string name);
     void addRelations(int sId, int cId);
