@@ -32,7 +32,7 @@ private:
     string inputBirth();
     string inputDeath();
     string inputNation();
-    char displayChoice();
+    int displayChoice();
     int checkInput();
 
 
