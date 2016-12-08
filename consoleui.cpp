@@ -556,16 +556,16 @@ void ConsoleUI::sortComputers()
     int choice;
     cout << "Choose '1' to display a list sorted in alphabetical order" << endl;
     cout << "Choose '2' to display a list sorted by build year" << endl;
-    cout << "Choose '3' to display a list sorted by Brand" << endl;
-    cout << "Choose '4' to display a list sorted by Constr" << endl;
+    cout << "Choose '3' to display a list sorted by brand" << endl;
+    cout << "Choose '4' to display a list sorted by constructor" << endl;
     cout << "Enter a number to continue: ";
     cin >> choice;
     cout << endl;
     if(choice == 1)
     {
         int number;
-        cout << "choose '1' for Ascending list." << endl;
-        cout << "choose '2' for Descending list." << endl;
+        cout << "choose '1' for ascending list." << endl;
+        cout << "choose '2' for descending list." << endl;
         cout << "Enter a number to continue: ";
         cin >> number;
         if(number == 1)
@@ -586,8 +586,8 @@ void ConsoleUI::sortComputers()
     else if(choice == 2)
     {
         int number;
-        cout << "choose '1' for Ascending list." << endl;
-        cout << "choose '2' for Descending list." << endl;
+        cout << "choose '1' for ascending list." << endl;
+        cout << "choose '2' for descending list." << endl;
         cout << "Enter a number to continue: ";
         cin >> number;
         if(number == 1)
@@ -609,8 +609,8 @@ void ConsoleUI::sortComputers()
     else if(choice == 3)
     {
         int number;
-        cout << "choose '1' for Ascending list." << endl;
-        cout << "choose '2' for Descending list." << endl;
+        cout << "choose '1' for ascending list." << endl;
+        cout << "choose '2' for descending list." << endl;
         cout << "Enter a number to continue: ";
         cin >> number;
         if(number == 1)
@@ -631,8 +631,8 @@ void ConsoleUI::sortComputers()
     else if(choice == 4)
     {
         int number;
-        cout << "choose '1' for Ascending list." << endl;
-        cout << "choose '2' for Descending list." << endl;
+        cout << "choose '1' for ascending list." << endl;
+        cout << "choose '2' for descending list." << endl;
         cout << "Enter a number to continue: ";
         cin >> number;
         if(number == 1)
@@ -665,8 +665,8 @@ void ConsoleUI::sortScientists()
     if(choice == 1)
     {
         int number;
-        cout << "choose '1' for Ascending list." << endl;
-        cout << "choose '2' for Descending list." << endl;
+        cout << "choose '1' for ascending list." << endl;
+        cout << "choose '2' for descending list." << endl;
         cout << "Enter a number to continue: ";
         cin >> number;
         if(number == 1)
@@ -689,8 +689,8 @@ void ConsoleUI::sortScientists()
     else if(choice == 2)
     {
         int number;
-        cout << "choose '1' for Ascending list." << endl;
-        cout << "choose '2' for Descending list." << endl;
+        cout << "choose '1' for ascending list." << endl;
+        cout << "choose '2' for descending list." << endl;
         cout << "Enter a number to continue: ";
         cin >> number;
         if(number == 1)
@@ -713,8 +713,8 @@ void ConsoleUI::sortScientists()
     else if(choice == 3)
     {
         int number;
-        cout << "choose '1' for Ascending list." << endl;
-        cout << "choose '2' for Descending list." << endl;
+        cout << "choose '1' for ascending list." << endl;
+        cout << "choose '2' for descending list." << endl;
         cout << "Enter a number to continue: ";
         cin >> number;
         if(number == 1)
@@ -737,8 +737,8 @@ void ConsoleUI::sortScientists()
     else if(choice == 4)
     {
         int number;
-        cout << "choose '1' for Ascending list." << endl;
-        cout << "choose '2' for Descending list." << endl;
+        cout << "choose '1' for ascending list." << endl;
+        cout << "choose '2' for descending list." << endl;
         cout << "Enter a number to continue: ";
         cin >> number;
         if(number == 1)
@@ -761,8 +761,8 @@ void ConsoleUI::sortScientists()
     else if(choice == 5)
     {
         int number;
-        cout << "choose '1' for Ascending list." << endl;
-        cout << "choose '2' for Descending list." << endl;
+        cout << "choose '1' for ascending list." << endl;
+        cout << "choose '2' for descending list." << endl;
         cout << "Enter a number to continue: ";
         cin >> number;
         if(number == 1)
