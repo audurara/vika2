@@ -504,25 +504,25 @@ void ConsoleUI::displayComputers(vector<computers> pc)
             if(pc[i].getName().length() > 16)
             {
                 qDebug().noquote().nospace() << i+1 << "\t" << pc[i].getName() << "\t" << pc[i].getBuildy()
-                                         << "\t\t" << pc[i].getBrand() << "\t\t\t" << pc[i].getConstr();
+                                         << "\t\t\t" << pc[i].getBrand() << "\t\t" << pc[i].getConstr();
             }
             else if(pc[i].getName().length() < 16 && pc[i].getName().length() > 7)
             {
                 qDebug().noquote().nospace() << i+1 << "\t" << pc[i].getName() << "\t\t" << pc[i].getBuildy()
-                                         << "\t\t" << pc[i].getBrand() << "\t\t\t" << pc[i].getConstr();
+                                         << "\t\t\t" << pc[i].getBrand() << "\t\t" << pc[i].getConstr();
             }
             else if(pc[i].getName().length() <= 7)
             {
                 qDebug().noquote().nospace() << i+1 << "\t" << pc[i].getName() << "\t\t\t" << pc[i].getBuildy()
-                                         << "\t\t" << pc[i].getBrand() << "\t\t\t" << pc[i].getConstr();
+                                         << "\t\t\t" << pc[i].getBrand() << "\t\t" << pc[i].getConstr();
             }
         }
 }
 void ConsoleUI::displayTopComputers()
 {
     cout << "ID" << "\t" << "Name" << "\t\t\t" << "build Year";
-    cout << "\t\t" << "Brand" << "\t\t" << "Constr" << endl;
-    for (int i = 0; i < 42*2; ++i)
+    cout << "\t\t" << "Brand" << "\t\t\t" << "Constructed" << endl;
+    for (int i = 0; i < 46*2; ++i)
     {
         cout << "=";
     }
@@ -776,23 +776,15 @@ void ConsoleUI::addJoin()
 }
 void ConsoleUI::removeJoin()
 {
-    int choice;
-    cout << "1 sID or 2 cID: " << endl;
-    cin >> choice;
-    if (choice == 1)
+    vector<RelationsID> pf = _data.viewJoin();
+    for(size_t i = 0; i < pf.size(); i++)
     {
-        string sId = "SID";
-        int id;
-        cout << "Enter Scientist ID: ";
-        cin >> id;
-        _data.removeJoin(sId, id);
+        qDebug().noquote().nospace() << pf[i].get_id() << "\t\t" << pf[i].get_SName() << "\t\t" << pf[i].get_cName();
     }
-    if (choice == 2)
-    {
-        string cId = "CID";
-        int id;
-        cout << "Enter Computer ID: ";
-        cin >> id;
-        _data.removeJoin(cId, id);
-    }
+    int id;
+    cout << "Enter ID: ";
+    cin >> id;
+    _data.removeJoin(id);
+
+
 }

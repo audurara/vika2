@@ -275,12 +275,35 @@ vector<Performer> DataAccess::sortScientists(string input, string input2)
 
     return sort;
 }
-void DataAccess::removeJoin(string CS, int id) //Þetta fall tekur út tölvunarfræðing sem inniheldur ákveðið nafn
+void DataAccess::removeJoin(int id) //Þetta fall tekur út tölvunarfræðing sem inniheldur ákveðið nafn
 {
     std::string s = std::to_string(id);
-    string str =  "DELETE FROM \"Relations\" where " + CS + " = " + s;
+    string str =  "DELETE FROM \"Relations\" where ID  = " + s;
     QString qstr = QString::fromStdString(str);
     QSqlQuery query;
     query.exec(qstr);
 
+}
+vector<RelationsID> DataAccess::viewJoin()
+{
+    vector<RelationsID> sort;
+    string str = "SELECT R.ID, S.name, C.name From \"Scientists\" S Join relations R on R.Sid = S.id Join Computers C on R.cid = C.id";
+    QString qstr = QString::fromStdString(str);
+    QSqlQuery query;
+    query.exec(qstr);
+    while (query.next())
+    {
+        int id = query.value(0).toInt();
+        QString sName = query.value(1).toString();
+        QString cName = query.value(2).toString();
+
+
+
+        RelationsID P(id, sName, cName);
+        sort.push_back(P);
+
+
+    }
+
+    return sort;
 }

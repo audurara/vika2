@@ -4,6 +4,7 @@
 #include "performer.h"
 #include "computers.h"
 #include "relations.h"
+#include "relationsid.h"
 
 using namespace std;
 
@@ -20,7 +21,8 @@ public:
     void removeDataScientist(string name);//Þetta fall tekur út strenginn sem inniheldur ákveðið nafn
     void removeDataComputer(string name);
     void addRelations(int sId, int cId);
-    void removeJoin(string CS,int id);
+    void removeJoin(int id);
+    vector<RelationsID> viewJoin();
     vector<Relations> joinScientists(string CS, int id);
 
     DataAccess();

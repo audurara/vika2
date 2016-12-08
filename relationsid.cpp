@@ -1,7 +1,7 @@
 #include "relationsid.h"
 #include <QtSql>
 
-RelationsID::RelationsID(QString sName, QString cName, int id)
+RelationsID::RelationsID(int id, QString sName, QString cName)
 {
     _sName = sName;
     _cName = cName;
