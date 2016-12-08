@@ -122,43 +122,28 @@ void ConsoleUI::run()
         }
         else if (command == "exit")
         {
-            cout << "exiting" << endl;
+            cout << "Exiting!" << endl;
         }
         else if (command == "join")
         {
-           int number;
-           cout << "choose '1' to see wich Scientist made wich Computer." << endl;
-           cout << "choose '2' to see wich computer was made by wich Scientist" << endl;
-           cin >> number;
-           cout << endl;
-           if(number == 1)
-           {
-               string sId = "S.id";
-               int id;
-               cout << "Enter Scientist ID: ";
-               cin >> id;
-               cout << endl;
-               vector<Relations> pf = _service.startJoin(sId, id);
-
-               for(size_t i = 0; i < pf.size(); i++)
-               {
-                   qDebug().noquote().nospace() << pf[i].getSName() << "\t\t" << pf[i].getCName();
-               }
-           }
-           else if(number == 2)
-           {
-               string cId = "C.id";
-               int id;
-               cout << "Enter Scientist ID: ";
-               cin >> id;
-               cout << endl;
-               vector<Relations> pf = _service.startJoin(cId, id);
-
-               for(size_t i = 0; i < pf.size(); i++)
-               {
-                   qDebug().noquote().nospace() << pf[i].getSName() << "\t\t" << pf[i].getCName();
-               }
-           }
+            int choice;
+            cout << "Choose '1' to see join list" << endl;
+            cout << "Choose '2' to add to join" << endl;
+            cout << "Choose '3' to remove join" << endl;
+            cout << "Enter a number: ";
+            cin >> choice;
+            if(choice == 1)
+            {
+                displayJoin();
+            }
+            if(choice == 2)
+            {
+                addJoin();
+            }
+            if(choice == 3)
+            {
+                removeJoin();
+            }
         }
         else
         {
@@ -783,4 +768,73 @@ void ConsoleUI::sortScientists()
         }
     }
 
+}
+void ConsoleUI::displayJoin()
+{
+    int number;
+    cout << "choose '1' to see wich Scientist made wich Computer." << endl;
+    cout << "choose '2' to see wich computer was made by wich Scientist" << endl;
+    cin >> number;
+    cout << endl;
+    if(number == 1)
+    {
+        string sId = "S.id";
+        int id;
+        cout << "Enter Scientist ID: ";
+        cin >> id;
+        cout << endl;
+        vector<Relations> pf = _service.startJoin(sId, id);
+
+        for(size_t i = 0; i < pf.size(); i++)
+        {
+            qDebug().noquote().nospace() << pf[i].getSName() << "\t\t" << pf[i].getCName();
+        }
+    }
+    else if(number == 2)
+    {
+        string cId = "C.id";
+        int id;
+        cout << "Enter Computer ID: ";
+        cin >> id;
+        cout << endl;
+        vector<Relations> pf = _service.startJoin(cId, id);
+
+        for(size_t i = 0; i < pf.size(); i++)
+        {
+            qDebug().noquote().nospace() << pf[i].getSName() << "\t\t" << pf[i].getCName();
+        }
+    }
+}
+void ConsoleUI::addJoin()
+{
+    int sId;
+    int cId;
+    cout << "add join" << endl;
+    cout << "enter ID of scientist: ";
+    cin >> sId;
+    cout << "enter ID of computer: ";
+    cin >> cId;
+    _data.addRelations(sId, cId);
+}
+void ConsoleUI::removeJoin()
+{
+    int choice;
+    cout << "1 sID or 2 cID: " << endl;
+    cin >> choice;
+    if (choice == 1)
+    {
+        string sId = "SID";
+        int id;
+        cout << "Enter Scientist ID: ";
+        cin >> id;
+        _data.removeJoin(sId, id);
+    }
+    if (choice == 2)
+    {
+        string cId = "CID";
+        int id;
+        cout << "Enter Computer ID: ";
+        cin >> id;
+        _data.removeJoin(cId, id);
+    }
 }

@@ -22,6 +22,9 @@ private:
     void displayTopComputers();
     void sortComputers(); // sortar tölvur.
     void sortScientists(); // sortar tölvufræðinga.
+    void displayJoin();
+    void addJoin();
+    void removeJoin();
     string deleteElement();//Eyðir staki úr vektor
     string inputName();
     string inputGender();
