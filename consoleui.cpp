@@ -784,7 +784,7 @@ void ConsoleUI::displayJoin()
     if(number == 1)
     {
         vector<RelationsTable2> S = _data.viewScientist();
-
+        tableLook();
         for(size_t i = 0; i < S.size(); i++)
         {
             qDebug().noquote().nospace() << S[i].getSId() << "\t\t" << S[i].getSName();
@@ -813,7 +813,7 @@ void ConsoleUI::displayJoin()
     else if(number == 2)
     {
         vector<RelationsTable2> S = _data.viewComputer();
-
+        tableLook();
         for(size_t i = 0; i < S.size(); i++)
         {
             qDebug().noquote().nospace() << S[i].getSId() << "\t\t" << S[i].getSName();
@@ -907,4 +907,13 @@ int ConsoleUI::checkInput(int val1, int val2)
     } while (!found);
 
         return value;
+}
+void ConsoleUI::tableLook()
+{
+    cout << "ID\t\tNAME" << endl;
+    for(int i = 0; i < 24 * 2; i++)
+    {
+        cout << "=";
+    }
+    cout << endl;
 }
