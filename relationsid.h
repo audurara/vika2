@@ -7,7 +7,7 @@ class RelationsID
 {
 public:
     RelationsID();
-    RelationsID(QString sName, QString cName, int id);
+    RelationsID( int id, QString sName, QString cName);
 
     QString get_SName()
     {

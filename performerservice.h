@@ -22,7 +22,8 @@ public:
     vector<computers> getComputers(); //vektor fyrir computers.
     string removeScientist(string name); //Skilar til baka streng eftir að hafa eytt einu tilviki.
     string removeComputer(string name);
-    string addPerformer(string name, string gender, string birth, string death, string nation); //Bætir nýjum tölvunarfræðingi inn í skrána
+    void addPerformer(string name, string gender, string birth, string death, string nation); //Bætir nýjum tölvunarfræðingi inn í skrána
+    void addComputer(string name, string buildy, string brand, string constr);
 private:
     DataAccess _data;// Sækir upplýsingar og leyfir virkni úr DataAccess.
 };

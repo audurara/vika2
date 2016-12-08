@@ -25,14 +25,16 @@ private:
     void displayJoin();
     void addJoin();
     void removeJoin();
+    void addComputer();
     string deleteElement();//Eyðir staki úr vektor
     string inputName();
     string inputGender();
     string inputBirth();
     string inputDeath();
     string inputNation();
-    int displayChoice();
+    char displayChoice();
     int checkInput();
+
 
 private: //Eftirfarandi breytur sækja upplýsingar og leyfa virkni sitthvort úr PerformerService og DataAccess.
     PerformerService _service;

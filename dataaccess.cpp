@@ -60,20 +60,10 @@ vector<Performer> DataAccess::readData() //Les upplýsingar úr skrá og setur �
 
     return logs;
 }
-void DataAccess::writeData () //Með þessu falli má skrifa streng inn í skrána
+void DataAccess::writeData (string name, string gender, string bYear, string dYear, string nation) //Með þessu falli má skrifa streng inn í skrána
 {
 
-        string name, gender, bYear, dYear, nation;
-        cout << "Name: ";
-        getline(cin, name);
-        cout << "Gender: ";
-        getline(cin, gender);
-        cout << "Birth year: ";
-        getline(cin, bYear);
-        cout << "Death year: ";
-        getline(cin, dYear);
-        cout << "Nationality: ";
-        getline(cin, nation);
+
 
         QString Qname = QString::fromStdString(name);
         QString Qgender = QString::fromStdString(gender);
@@ -90,34 +80,20 @@ void DataAccess::writeData () //Með þessu falli má skrifa streng inn í skrá
             query.bindValue(":dYear", QdYear);
             query.bindValue(":nation", Qnation);
             query.exec();
-
-
-    //db.close();
 }
-void DataAccess::addCpu () //Með þessu falli má skrifa streng inn í skrána
+void DataAccess::addCpu (string name, string buildy, string brand, string constr) //Með þessu falli má skrifa streng inn í skrána
 {
-
-    string name, buildy, brand, constr;
-    cout << "Name: ";
-    getline(cin, name);
-    cout << "Build year: ";
-    getline(cin, buildy);
-    cout << "Brand: ";
-    getline(cin, brand);
-    cout << "Constr: ";
-    getline(cin, constr);
-
     QString Qname = QString::fromStdString(name);
     QString Qbuildy = QString::fromStdString(buildy);
     QString Qbrand = QString::fromStdString(brand);
     QString Qconstr = QString::fromStdString(constr);
 
     QSqlQuery query;
-    query.prepare("INSERT INTO \"Computers\" (name, buildy, brand, constr) "
-                      "VALUES (:name, :buildy, :brand, :constr)");
+    query.prepare("INSERT INTO \"Computers\" (name, buildy, type, constr) "
+                      "VALUES (:name, :buildy, :type, :constr)");
         query.bindValue(":name", Qname);
         query.bindValue(":buildy", Qbuildy);
-        query.bindValue(":brand", Qbrand);
+        query.bindValue(":type", Qbrand);
         query.bindValue(":constr", Qconstr);
 
         query.exec();
@@ -273,12 +249,35 @@ vector<Performer> DataAccess::sortScientists(string input, string input2)
 
     return sort;
 }
-void DataAccess::removeJoin(string CS, int id) //Þetta fall tekur út tölvunarfræðing sem inniheldur ákveðið nafn
+void DataAccess::removeJoin(int id) //Þetta fall tekur út tölvunarfræðing sem inniheldur ákveðið nafn
 {
     std::string s = std::to_string(id);
-    string str =  "DELETE FROM \"Relations\" where " + CS + " = " + s;
+    string str =  "DELETE FROM \"Relations\" where ID  = " + s;
     QString qstr = QString::fromStdString(str);
     QSqlQuery query;
     query.exec(qstr);
 
+}
+vector<RelationsID> DataAccess::viewJoin()
+{
+    vector<RelationsID> sort;
+    string str = "SELECT R.ID, S.name, C.name From \"Scientists\" S Join relations R on R.Sid = S.id Join Computers C on R.cid = C.id";
+    QString qstr = QString::fromStdString(str);
+    QSqlQuery query;
+    query.exec(qstr);
+    while (query.next())
+    {
+        int id = query.value(0).toInt();
+        QString sName = query.value(1).toString();
+        QString cName = query.value(2).toString();
+
+
+
+        RelationsID P(id, sName, cName);
+        sort.push_back(P);
+
+
+    }
+
+    return sort;
 }

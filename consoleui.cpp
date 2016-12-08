@@ -84,12 +84,12 @@ void ConsoleUI::run()
                     if(a == '1')
                     {
                         counter = 1;
-                        _data.writeData();
+                        commandAdd();
                     }
                     else if(a == '2')
                     {
                         counter = 1;
-                        _data.addCpu();
+                        addComputer();
                     }
                 }
             }while(counter == 0);
@@ -470,6 +470,20 @@ void ConsoleUI::commandAdd() //Fall sem bætir við tölvunarfræðingum
     cout << endl;
     cout << name << " has been added to the database!" << endl;
 }
+void ConsoleUI::addComputer()
+{
+    string name, buildy, brand, constr;
+    cout << "Enter name of computer: ";
+    cin >> name;
+    cout << "Enter build year of computer: ";
+    cin >> buildy;
+    cout << "Enter type of computer: ";
+    cin >> brand;
+    cout << "was it built or not?(Yes/No): ";
+    cin >> constr;
+    _service.addComputer(name, buildy, brand, constr);
+}
+
 void ConsoleUI::intro() //Fall sem útprentar upphafsskilaboð
 {
     cout << endl;
@@ -478,8 +492,8 @@ void ConsoleUI::intro() //Fall sem útprentar upphafsskilaboð
     cout << "This program is designed to keep track of some details on known computer scientists. " << endl;
     cout << "The user is able to enter known persons from the history of computer science into a database." << endl;
     cout << "The user can remove persons from the database." << endl;
-    cout << "The program can display a list of the characters that have been entered into the database." << endl;
-    cout << "The user is able to enter known characters from the history of computer science into a database." << endl;
+    cout << "The program can display a list of the numbers that have been entered into the database." << endl;
+    cout << "The user is able to enter known numbers from the history of computer science into a database." << endl;
     cout << "The program can display a list of the persons that have been entered into the database." << endl;
     cout << "The program can sort a list by the user's preferences" << endl;
     cout << "It is possible for the user to perform a search of a specific person from the list." << endl << endl;
@@ -519,25 +533,25 @@ void ConsoleUI::displayComputers(vector<computers> pc)
             if(pc[i].getName().length() > 16)
             {
                 qDebug().noquote().nospace() << i+1 << "\t" << pc[i].getName() << "\t" << pc[i].getBuildy()
-                                         << "\t\t" << pc[i].getBrand() << "\t\t\t" << pc[i].getConstr();
+                                         << "\t\t\t" << pc[i].getBrand() << "\t\t" << pc[i].getConstr();
             }
             else if(pc[i].getName().length() < 16 && pc[i].getName().length() > 7)
             {
                 qDebug().noquote().nospace() << i+1 << "\t" << pc[i].getName() << "\t\t" << pc[i].getBuildy()
-                                         << "\t\t" << pc[i].getBrand() << "\t\t\t" << pc[i].getConstr();
+                                         << "\t\t\t" << pc[i].getBrand() << "\t\t" << pc[i].getConstr();
             }
             else if(pc[i].getName().length() <= 7)
             {
                 qDebug().noquote().nospace() << i+1 << "\t" << pc[i].getName() << "\t\t\t" << pc[i].getBuildy()
-                                         << "\t\t" << pc[i].getBrand() << "\t\t\t" << pc[i].getConstr();
+                                         << "\t\t\t" << pc[i].getBrand() << "\t\t" << pc[i].getConstr();
             }
         }
 }
 void ConsoleUI::displayTopComputers()
 {
     cout << "ID" << "\t" << "Name" << "\t\t\t" << "build Year";
-    cout << "\t\t" << "Brand" << "\t\t" << "Constr" << endl;
-    for (int i = 0; i < 42*2; ++i)
+    cout << "\t\t" << "Brand" << "\t\t\t" << "Constructed" << endl;
+    for (int i = 0; i < 46*2; ++i)
     {
         cout << "=";
     }
@@ -556,15 +570,16 @@ void ConsoleUI::sortComputers()
 
     if(choice == 1)
     {
-        int number = displayChoice();
-        if(number == 1)
+        char number = displayChoice();
+
+        if(number == '1')
         {
             string ASC = "ASC";
             string name = "name";
             vector <computers> pf = _data.sortCpu(name, ASC);
             displayComputers(pf);
         }
-        if(number == 2)
+        if(number == '2')
         {
             string DESC = "DESC";
             string name = "name";
@@ -574,8 +589,9 @@ void ConsoleUI::sortComputers()
     }
     else if(choice == 2)
     {
-        int number = displayChoice();
-        if(number == 1)
+        char number = displayChoice();
+
+        if(number == '1')
         {
             string ASC = "ASC";
             string buildY = "buildy";
@@ -583,7 +599,7 @@ void ConsoleUI::sortComputers()
             displayComputers(pf);
 
         }
-        if(number == 2)
+        if(number == '2')
         {
             string DESC = "DESC";
             string buildY = "buildy";
@@ -593,15 +609,16 @@ void ConsoleUI::sortComputers()
     }
     else if(choice == 3)
     {
-        int number = displayChoice();
-        if(number == 1)
+        char number = displayChoice();
+
+        if(number == '1')
         {
             string ASC = "ASC";
             string brand = "type";
             vector <computers> pf = _data.sortCpu(brand, ASC);
             displayComputers(pf);
         }
-        if(number == 2)
+        if(number == '2')
         {
             string DESC = "DESC";
             string brand = "type";
@@ -611,15 +628,16 @@ void ConsoleUI::sortComputers()
     }
     else if(choice == 4)
     {
-        int number = displayChoice();
-        if(number == 1)
+        char number = displayChoice();
+
+        if(number == '1')
         {
             string ASC = "ASC";
             string constr = "constr";
             vector <computers> pf = _data.sortCpu(constr, ASC);
             displayComputers(pf);
         }
-        if(number == 2)
+        if(number == '2')
         {
             string DESC = "DESC";
             string constr = "constr";
@@ -639,19 +657,21 @@ void ConsoleUI::sortScientists()
     cout << "Choose '5' to display a list sorted by nation" << endl;
     cout << "Enter a number to continue: ";
 
+
     int choice = checkInput();
 
     if(choice == 1)
     {
-        int number = displayChoice();
-        if(number == 1)
+        char number = displayChoice();
+
+        if(number == '1')
         {
             string ASC = "ASC";
             string name = "name";
             vector<Performer> pf = _data.sortScientists(name, ASC);
             displayListOfPerformers(pf);
         }
-        if(number == 2)
+        if(number == '2')
         {
             string DESC = "DESC";
             string name = "name";
@@ -661,15 +681,15 @@ void ConsoleUI::sortScientists()
     }
     else if(choice == 2)
     {
-        int number = displayChoice();
-        if(number == 1)
+        char number = displayChoice();
+        if(number == '1')
         {
             string ASC = "ASC";
             string gender = "gender";
             vector<Performer> pf = _data.sortScientists(gender, ASC);
             displayListOfPerformers(pf);
         }
-        if(number == 2)
+        if(number == '2')
         {
             string DESC = "DESC";
             string gender = "gender";
@@ -679,8 +699,8 @@ void ConsoleUI::sortScientists()
     }
     else if(choice == 3)
     {
-        int number = displayChoice();
-        if(number == 1)
+        char number = displayChoice();
+        if(number == '1')
         {
             string ASC = "ASC";
             string bYear = "byear";
@@ -697,7 +717,8 @@ void ConsoleUI::sortScientists()
     }
     else if(choice == 4)
     {
-        int number = displayChoice();
+        char number = displayChoice();
+
         if(number == 1)
         {
             string ASC = "ASC";
@@ -715,7 +736,8 @@ void ConsoleUI::sortScientists()
     }
     else if(choice == 5)
     {
-        int number = displayChoice();
+        char number = displayChoice();
+
         if(number == 1)
         {
             string ASC = "ASC";
@@ -733,14 +755,27 @@ void ConsoleUI::sortScientists()
     }
 }
 
-int ConsoleUI::displayChoice()
+char ConsoleUI::displayChoice()
 {
-    int number;
-    cout << "Choose '1' for ascending list." << endl;
-    cout << "Choose '2' for descending list." << endl;
-    cout << "Enter a number to continue: ";
-    cin >> number;
-        return number;
+    int counter =0;
+    char choice;
+    do
+    {
+        counter = 0;
+        cout << "Choose '1' for ascending list." << endl;
+        cout << "Choose '2' for descending list." << endl;
+        cout << "Enter a number to continue: ";
+        cin >> choice;
+        if(!((choice == '1') ||(choice == '2')))
+        {
+            cout << "Invalid choice" << endl;
+        }
+        else
+        {
+            counter = 1;
+        }
+    }while(counter == 0);
+        return choice;
 }
 void ConsoleUI::displayJoin()
 {
@@ -791,25 +826,17 @@ void ConsoleUI::addJoin()
 }
 void ConsoleUI::removeJoin()
 {
-    int choice;
-    cout << "1 sID or 2 cID: " << endl;
-    cin >> choice;
-    if (choice == 1)
+    vector<RelationsID> pf = _data.viewJoin();
+    for(size_t i = 0; i < pf.size(); i++)
     {
-        string sId = "SID";
-        int id;
-        cout << "Enter Scientist ID: ";
-        cin >> id;
-        _data.removeJoin(sId, id);
+        qDebug().noquote().nospace() << pf[i].get_id() << "\t\t" << pf[i].get_SName() << "\t\t" << pf[i].get_cName();
     }
-    if (choice == 2)
-    {
-        string cId = "CID";
-        int id;
-        cout << "Enter Computer ID: ";
-        cin >> id;
-        _data.removeJoin(cId, id);
-    }
+    int id;
+    cout << "Enter ID: ";
+    cin >> id;
+    _data.removeJoin(id);
+
+
 }
 
 int ConsoleUI::checkInput()
