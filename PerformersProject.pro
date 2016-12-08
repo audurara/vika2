@@ -16,7 +16,8 @@ SOURCES += main.cpp \
     performer.cpp \
     dataaccess.cpp \
     computers.cpp \
-    relations.cpp
+    relations.cpp \
+    relationsid.cpp
 
 HEADERS += \
     consoleui.h \
@@ -24,4 +25,5 @@ HEADERS += \
     performer.h \
     dataaccess.h \
     computers.h \
-    relations.h
+    relations.h \
+    relationsid.h
