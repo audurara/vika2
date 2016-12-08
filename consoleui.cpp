@@ -142,12 +142,13 @@ void ConsoleUI::run()
         }
         else if (command == "join")
         {
-            int choice;
+
             cout << "Choose '1' to see join list" << endl;
             cout << "Choose '2' to add to join" << endl;
             cout << "Choose '3' to remove join" << endl << endl;
             cout << "Enter a number: ";
-            cin >> choice;
+
+            int choice = checkInput(0,4);
             cout << endl;
 
             if(choice == 1)
@@ -775,12 +776,12 @@ void ConsoleUI::displayChoice()
 }
 void ConsoleUI::displayJoin()
 {
-    int number;
+
     cout << "choose '1' to see wich Scientist made wich Computer." << endl;
     cout << "choose '2' to see wich computer was made by wich Scientist" << endl << endl;
     cout << "Enter a number: ";
-    cin >> number;
-    cout << endl;
+
+    int number = checkInput(0,3);
     if(number == 1)
     {
         vector<RelationsTable2> S = _data.viewScientist();
