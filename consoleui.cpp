@@ -552,11 +552,10 @@ void ConsoleUI::sortComputers()
     cout << "Enter a number to continue: ";
     cin >> choice;
     cout << endl;
+
     if(choice == 1)
     {
-        int number;
-        displayChoice();
-        cin >> number;
+        int number = displayChoice();
         if(number == 1)
         {
             string ASC = "ASC";
@@ -574,9 +573,7 @@ void ConsoleUI::sortComputers()
     }
     else if(choice == 2)
     {
-        int number;
-        displayChoice();
-        cin >> number;
+        int number = displayChoice();
         if(number == 1)
         {
             string ASC = "ASC";
@@ -595,9 +592,7 @@ void ConsoleUI::sortComputers()
     }
     else if(choice == 3)
     {
-        int number;
-        displayChoice();
-        cin >> number;
+        int number = displayChoice();
         if(number == 1)
         {
             string ASC = "ASC";
@@ -615,9 +610,7 @@ void ConsoleUI::sortComputers()
     }
     else if(choice == 4)
     {
-        int number;
-        displayChoice();
-        cin >> number;
+        int number = displayChoice();
         if(number == 1)
         {
             string ASC = "ASC";
@@ -649,9 +642,7 @@ void ConsoleUI::sortScientists()
 
     if(choice == 1)
     {
-        int number;
-        displayChoice();
-        cin >> number;
+        int number = displayChoice();
         if(number == 1)
         {
             string ASC = "ASC";
@@ -669,9 +660,7 @@ void ConsoleUI::sortScientists()
     }
     else if(choice == 2)
     {
-        int number;
-        displayChoice();
-        cin >> number;
+        int number = displayChoice();
         if(number == 1)
         {
             string ASC = "ASC";
@@ -689,9 +678,7 @@ void ConsoleUI::sortScientists()
     }
     else if(choice == 3)
     {
-        int number;
-        displayChoice();
-        cin >> number;
+        int number = displayChoice();
         if(number == 1)
         {
             string ASC = "ASC";
@@ -709,9 +696,7 @@ void ConsoleUI::sortScientists()
     }
     else if(choice == 4)
     {
-        int number;
-        displayChoice();
-        cin >> number;
+        int number = displayChoice();
         if(number == 1)
         {
             string ASC = "ASC";
@@ -729,9 +714,7 @@ void ConsoleUI::sortScientists()
     }
     else if(choice == 5)
     {
-        int number;
-        displayChoice();
-        cin >> number;
+        int number = displayChoice();
         if(number == 1)
         {
             string ASC = "ASC";
@@ -749,9 +732,12 @@ void ConsoleUI::sortScientists()
     }
 }
 
-void ConsoleUI::displayChoice()
+int ConsoleUI::displayChoice()
 {
+    int number;
     cout << "Choose '1' for ascending list." << endl;
     cout << "Choose '2' for descending list." << endl;
     cout << "Enter a number to continue: ";
+    cin >> number;
+        return number;
 }
