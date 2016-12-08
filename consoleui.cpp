@@ -57,30 +57,38 @@ void ConsoleUI::run()
         }
         else if (command == "add")
         {
+            cin.ignore();
             int counter = 0;
+            string choice;
+
             do
             {
-                char choice;
                 cout << "Add Computer Scientist choose '1'" << endl << "Add Computer choose '2'" << endl;
                 cout << "Choice: ";
-                cin >> choice;
-                if(choice == '1')
+                getline(cin, choice);
+
+                if(choice.length() != 1)
                 {
-                    counter = 1;
-                    _data.writeData();
+                    cout << "Invalid choice" << endl;
                 }
-                else if(choice == '2')
-                {
-                    counter = 1;
-                    _data.addCpu();
-                }
-                else
-                {
-                    cout << "Invalid choice!" << endl;
+                else{
+                    char a = choice[0];
+
+                    if(a == '1')
+                    {
+                        counter = 1;
+                        _data.writeData();
+                    }
+                    else if(a == '2')
+                    {
+                        counter = 1;
+                        _data.addCpu();
+                    }
                 }
             }while(counter == 0);
 
-        }
+     }
+
         else if (command == "search")
         {
             displaySearch();
@@ -626,6 +634,7 @@ void ConsoleUI::sortComputers()
             displayComputers(pf);
         }
     }
+
 }
 void ConsoleUI::sortScientists()
 {
@@ -639,7 +648,12 @@ void ConsoleUI::sortScientists()
 
     cin >> choice;
     cout << endl;
-
+    while(choice > 5 || choice < 1)
+    {
+        cout << "Invalid command!";
+        cout << "Enter a number to continue: ";
+        cin >> choice;
+    }
     if(choice == 1)
     {
         int number = displayChoice();

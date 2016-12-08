@@ -64,7 +64,6 @@ void DataAccess::writeData () //Með þessu falli má skrifa streng inn í skrá
 {
 
         string name, gender, bYear, dYear, nation;
-        cin.ignore();
         cout << "Name: ";
         getline(cin, name);
         cout << "Gender: ";
@@ -99,7 +98,6 @@ void DataAccess::addCpu () //Með þessu falli má skrifa streng inn í skrána
 {
 
     string name, buildy, brand, constr;
-    cin.ignore();
     cout << "Name: ";
     getline(cin, name);
     cout << "Build year: ";
