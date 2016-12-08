@@ -67,3 +67,24 @@ vector<Relations> PerformerService::startJoin(string CS,int id)
 
     return join;
 }
+
+vector<RelationsTable2> PerformerService::viewScientist(int counter)
+{
+    vector<RelationsTable2> pf;
+    if(counter == 1)
+    {
+        vector<RelationsTable2> pf = _data.viewScientist();
+        return pf;
+    }
+    else if(counter == 2)
+    {
+        vector<RelationsTable2> pf = _data.viewComputer();
+        return pf;
+    }
+
+    return pf;
+}
+void PerformerService::addRelations(int sId, int cId)
+{
+    _data.addRelations(sId, cId);
+}

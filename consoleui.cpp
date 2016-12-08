@@ -767,13 +767,13 @@ void ConsoleUI::sortScientists()
         }
     }
 }
-
 void ConsoleUI::displayChoice()
 {
     cout << "Choose '1' for ascending list." << endl;
     cout << "Choose '2' for descending list." << endl;
     cout << "Enter a number to continue: ";
 }
+
 void ConsoleUI::displayJoin()
 {
 
@@ -784,12 +784,8 @@ void ConsoleUI::displayJoin()
     int number = checkInput(0,3);
     if(number == 1)
     {
-        vector<RelationsTable2> S = _data.viewScientist();
-        tableLook();
-        for(size_t i = 0; i < S.size(); i++)
-        {
-            qDebug().noquote().nospace() << S[i].getSId() << "\t\t" << S[i].getSName();
-        }
+        int counter = 1;
+        tableLook(counter);
         string sId = "S.id";
         int id;
         cout << endl << "Enter Scientist ID: ";
@@ -814,12 +810,8 @@ void ConsoleUI::displayJoin()
     }
     else if(number == 2)
     {
-        vector<RelationsTable2> S = _data.viewComputer();
-        tableLook();
-        for(size_t i = 0; i < S.size(); i++)
-        {
-            qDebug().noquote().nospace() << S[i].getSId() << "\t\t" << S[i].getSName();
-        }
+        int counter = 2;
+        tableLook(counter);
         string cId = "C.id";
         int id;
         cout << endl << "Enter Computer ID: ";
@@ -850,7 +842,7 @@ void ConsoleUI::addJoin()
     cin >> sId;
     cout << "enter ID of computer: ";
     cin >> cId;
-    _data.addRelations(sId, cId);
+    _service.addRelations(sId, cId);
 }
 void ConsoleUI::removeJoin()
 {
@@ -866,6 +858,7 @@ void ConsoleUI::removeJoin()
 
 
 }
+
 void ConsoleUI::displayTable()
 {
     vector<RelationsTable> pf = _data.readData();
@@ -881,7 +874,6 @@ void ConsoleUI::displayTable()
         qDebug().noquote().nospace() << pf[i].getSId() << "\t\t\t" << pf[i].getSName()  << "\t\t\t" << pf[i].getCId() << "\t\t\t" << pf[i].getCName();
     }
 }
-
 int ConsoleUI::checkInput(int val1, int val2)
 {
     //cin.ignore();
@@ -911,14 +903,19 @@ int ConsoleUI::checkInput(int val1, int val2)
 
         return value;
 }
-void ConsoleUI::tableLook()
+void ConsoleUI::tableLook(int counter)
 {
+    vector<RelationsTable2> S = _service.viewScientist(counter);
     cout << "ID\t\tNAME" << endl;
     for(int i = 0; i < 24 * 2; i++)
     {
         cout << "=";
     }
     cout << endl;
+    for(size_t i = 0; i < S.size(); i++)
+    {
+        qDebug().noquote().nospace() << S[i].getSId() << "\t\t" << S[i].getSName();
+    }
 }
 void ConsoleUI::tableLook2()
 {
