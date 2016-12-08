@@ -803,6 +803,7 @@ void ConsoleUI::displayJoin()
 
         else
         {
+            tableLook2();
             for(size_t i = 0; i < pf.size(); i++)
             {
                 qDebug().noquote().nospace() << pf[i].getSName() << "\t\t" << pf[i].getCName();
@@ -831,6 +832,7 @@ void ConsoleUI::displayJoin()
         }
         else
         {
+            tableLook2();
             for(size_t i = 0; i < pf.size(); i++)
             {
                 qDebug().noquote().nospace() << pf[i].getSName() << "\t\t" << pf[i].getCName();
@@ -912,6 +914,15 @@ int ConsoleUI::checkInput(int val1, int val2)
 void ConsoleUI::tableLook()
 {
     cout << "ID\t\tNAME" << endl;
+    for(int i = 0; i < 24 * 2; i++)
+    {
+        cout << "=";
+    }
+    cout << endl;
+}
+void ConsoleUI::tableLook2()
+{
+    cout << "NAME\t\tTYPE" << endl;
     for(int i = 0; i < 24 * 2; i++)
     {
         cout << "=";
