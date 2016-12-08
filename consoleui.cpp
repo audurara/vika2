@@ -563,14 +563,13 @@ void ConsoleUI::displayTopComputers()
 }
 void ConsoleUI::sortComputers()
 {
-    int choice;
     cout << "Choose '1' to display a list sorted in alphabetical order" << endl;
     cout << "Choose '2' to display a list sorted by build year" << endl;
     cout << "Choose '3' to display a list sorted by brand" << endl;
     cout << "Choose '4' to display a list sorted by constructor" << endl;
     cout << "Enter a number to continue: ";
-    cin >> choice;
-    cout << endl;
+
+    int choice = checkInput(0,5);
 
     if(choice == 1)
     {
