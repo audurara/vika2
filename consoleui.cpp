@@ -485,8 +485,8 @@ void ConsoleUI::intro() //Fall sem útprentar upphafsskilaboð
     cout << "This program is designed to keep track of some details on known computer scientists. " << endl;
     cout << "The user is able to enter known persons from the history of computer science into a database." << endl;
     cout << "The user can remove persons from the database." << endl;
-    cout << "The program can display a list of the characters that have been entered into the database." << endl;
-    cout << "The user is able to enter known characters from the history of computer science into a database." << endl;
+    cout << "The program can display a list of the numbers that have been entered into the database." << endl;
+    cout << "The user is able to enter known numbers from the history of computer science into a database." << endl;
     cout << "The program can display a list of the persons that have been entered into the database." << endl;
     cout << "The program can sort a list by the user's preferences" << endl;
     cout << "It is possible for the user to perform a search of a specific person from the list." << endl << endl;
@@ -563,15 +563,16 @@ void ConsoleUI::sortComputers()
 
     if(choice == 1)
     {
-        int number = displayChoice();
-        if(number == 1)
+        char number = displayChoice();
+
+        if(number == '1')
         {
             string ASC = "ASC";
             string name = "name";
             vector <computers> pf = _data.sortCpu(name, ASC);
             displayComputers(pf);
         }
-        if(number == 2)
+        if(number == '2')
         {
             string DESC = "DESC";
             string name = "name";
@@ -581,8 +582,9 @@ void ConsoleUI::sortComputers()
     }
     else if(choice == 2)
     {
-        int number = displayChoice();
-        if(number == 1)
+        char number = displayChoice();
+
+        if(number == '1')
         {
             string ASC = "ASC";
             string buildY = "buildy";
@@ -590,7 +592,7 @@ void ConsoleUI::sortComputers()
             displayComputers(pf);
 
         }
-        if(number == 2)
+        if(number == '2')
         {
             string DESC = "DESC";
             string buildY = "buildy";
@@ -600,15 +602,16 @@ void ConsoleUI::sortComputers()
     }
     else if(choice == 3)
     {
-        int number = displayChoice();
-        if(number == 1)
+        char number = displayChoice();
+
+        if(number == '1')
         {
             string ASC = "ASC";
             string brand = "type";
             vector <computers> pf = _data.sortCpu(brand, ASC);
             displayComputers(pf);
         }
-        if(number == 2)
+        if(number == '2')
         {
             string DESC = "DESC";
             string brand = "type";
@@ -618,15 +621,16 @@ void ConsoleUI::sortComputers()
     }
     else if(choice == 4)
     {
-        int number = displayChoice();
-        if(number == 1)
+        char number = displayChoice();
+
+        if(number == '1')
         {
             string ASC = "ASC";
             string constr = "constr";
             vector <computers> pf = _data.sortCpu(constr, ASC);
             displayComputers(pf);
         }
-        if(number == 2)
+        if(number == '2')
         {
             string DESC = "DESC";
             string constr = "constr";
@@ -648,23 +652,24 @@ void ConsoleUI::sortScientists()
 
     cin >> choice;
     cout << endl;
-    while(choice > 5 || choice < 1)
+    while(choice > 5 || choice < 1 || isalpha(choice))
     {
-        cout << "Invalid command!";
+        cout << "Invalid command!" << endl;
         cout << "Enter a number to continue: ";
         cin >> choice;
     }
     if(choice == 1)
     {
-        int number = displayChoice();
-        if(number == 1)
+        char number = displayChoice();
+
+        if(number == '1')
         {
             string ASC = "ASC";
             string name = "name";
             vector<Performer> pf = _data.sortScientists(name, ASC);
             displayListOfPerformers(pf);
         }
-        if(number == 2)
+        if(number == '2')
         {
             string DESC = "DESC";
             string name = "name";
@@ -674,15 +679,15 @@ void ConsoleUI::sortScientists()
     }
     else if(choice == 2)
     {
-        int number = displayChoice();
-        if(number == 1)
+        char number = displayChoice();
+        if(number == '1')
         {
             string ASC = "ASC";
             string gender = "gender";
             vector<Performer> pf = _data.sortScientists(gender, ASC);
             displayListOfPerformers(pf);
         }
-        if(number == 2)
+        if(number == '2')
         {
             string DESC = "DESC";
             string gender = "gender";
@@ -692,8 +697,8 @@ void ConsoleUI::sortScientists()
     }
     else if(choice == 3)
     {
-        int number = displayChoice();
-        if(number == 1)
+        char number = displayChoice();
+        if(number == '1')
         {
             string ASC = "ASC";
             string bYear = "byear";
@@ -710,7 +715,8 @@ void ConsoleUI::sortScientists()
     }
     else if(choice == 4)
     {
-        int number = displayChoice();
+        char number = displayChoice();
+
         if(number == 1)
         {
             string ASC = "ASC";
@@ -728,7 +734,8 @@ void ConsoleUI::sortScientists()
     }
     else if(choice == 5)
     {
-        int number = displayChoice();
+        char number = displayChoice();
+
         if(number == 1)
         {
             string ASC = "ASC";
@@ -746,14 +753,27 @@ void ConsoleUI::sortScientists()
     }
 }
 
-int ConsoleUI::displayChoice()
+char ConsoleUI::displayChoice()
 {
-    int number;
-    cout << "Choose '1' for ascending list." << endl;
-    cout << "Choose '2' for descending list." << endl;
-    cout << "Enter a number to continue: ";
-    cin >> number;
-        return number;
+    int counter =0;
+    char choice;
+    do
+    {
+        counter = 0;
+        cout << "Choose '1' for ascending list." << endl;
+        cout << "Choose '2' for descending list." << endl;
+        cout << "Enter a number to continue: ";
+        cin >> choice;
+        if(!((choice == '1') ||(choice == '2')))
+        {
+            cout << "Invalid choice" << endl;
+        }
+        else
+        {
+            counter = 1;
+        }
+    }while(counter == 0);
+        return choice;
 }
 void ConsoleUI::displayJoin()
 {
