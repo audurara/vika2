@@ -127,7 +127,7 @@ void DataAccess::addCpu () //Með þessu falli má skrifa streng inn í skrána
 }
 void DataAccess::removeDataScientist(string name) //Þetta fall tekur út tölvunarfræðing sem inniheldur ákveðið nafn
 {
-    string str =  "DELETE FROM \"Scientists\" where name = \"" + name + "\" ";
+    string str =  "DELETE FROM \"Scientists\" where name = \"" + name;
     QString qstr = QString::fromStdString(str);
     QSqlQuery query;
     query.exec(qstr);
@@ -150,6 +150,19 @@ void DataAccess::openSqlFiles()
         qDebug();
     }
 }
+void DataAccess::addRelations(int sId, int cId)
+{
+    QString QsId = QString::number(sId);
+    QString QcId = QString::number(cId);
+
+    QSqlQuery query;
+    query.prepare("INSERT INTO \"Relations\" (SID, CID) VALUES (:SID, :CID)");
+        query.bindValue(":SID", QsId);
+        query.bindValue(":CID", QcId);
+
+        query.exec();
+}
+
 vector<computers> DataAccess::sortCpu(string input, string input2)
 {
     vector<computers> sort;
@@ -261,4 +274,13 @@ vector<Performer> DataAccess::sortScientists(string input, string input2)
     }
 
     return sort;
+}
+void DataAccess::removeJoin(string CS, int id) //Þetta fall tekur út tölvunarfræðing sem inniheldur ákveðið nafn
+{
+    std::string s = std::to_string(id);
+    string str =  "DELETE FROM \"Relations\" where " + CS + " = " + s;
+    QString qstr = QString::fromStdString(str);
+    QSqlQuery query;
+    query.exec(qstr);
+
 }

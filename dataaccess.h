@@ -19,6 +19,8 @@ public:
     void addCpu();
     void removeDataScientist(string name);//Þetta fall tekur út strenginn sem inniheldur ákveðið nafn
     void removeDataComputer(string name);
+    void addRelations(int sId, int cId);
+    void removeJoin(string CS,int id);
     vector<Relations> joinScientists(string CS, int id);
 
     DataAccess();
