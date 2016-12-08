@@ -217,7 +217,7 @@ void ConsoleUI::displaySearch() //Prentar út leitarniðurstöður
 
     if(choice == '1')
     {
-            cout << "Enter full name of computer scientist (the search is case-sensitive): ";
+            cout << "Enter full name of computer scientist: ";
             cin.ignore();
             getline(cin, input);
             QString name = QString::fromStdString(input);
@@ -261,7 +261,7 @@ void ConsoleUI::displaySearch() //Prentar út leitarniðurstöður
     }
      if(choice == '2')
      {
-         cout << "Enter the name of the computer (the search is case-sensitive): ";
+         cout << "Enter the name of the computer: ";
          cin.ignore();
          getline(cin, input);
          QString name = QString::fromStdString(input);
@@ -435,10 +435,11 @@ string ConsoleUI::inputNation() //Setur inn þjóðerni
 void ConsoleUI::commandHelp()
 {
     cout << "-------- The commands are case-sensitive! --------" << endl << endl;
-    cout << "list   - Choose to list all Computer Scientist or all Computers" << endl;
+    cout << "list   - Choose to list all Computer Scientists or all Computers" << endl;
     cout << "add    - Choose to add a Computer Scientist or to add a Computer" << endl;
     cout << "search - Searches for a given computer scientist" << endl;
     cout << "delete - This will remove the entry from the list" << endl;
+    cout << "join   - To add and see joined Computers and Computer Scientists" << endl;
     cout << "help   - Displays list of commands" << endl;
     cout << "exit   - This will close the application" << endl;
 }
