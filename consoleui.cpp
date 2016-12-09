@@ -892,15 +892,18 @@ void ConsoleUI::displayJoin()
 }
 void ConsoleUI::addJoin()
 {
+    vector<RelationsTable2> S = _service.viewScientist(1);
+    vector<RelationsTable2> C = _service.viewScientist(2);
+
     int sId;
     int cId;
     cout << endl;
     cout << "--- Please choose the ID of a Scientist and a Computer to join them ---";
     cout << endl << endl;
     cout << "Enter ID of scientist: ";
-    cin >> sId;
+    sId = checkID(S);
     cout << "Enter ID of computer: ";
-    cin >> cId;
+    cId = checkID(C);
     _service.addRelations(sId, cId);
 }
 void ConsoleUI::removeJoin()
@@ -958,6 +961,41 @@ int ConsoleUI::checkInput(int val1, int val2)
         else {
             cout << "Invalid input, try again:";
         }
+
+    } while (!found);
+
+        return value;
+}
+int ConsoleUI::checkID(vector<RelationsTable2> info)
+{
+    //cin.ignore();
+    bool found = false;
+    bool found2 = false;
+    int value;
+
+    do {
+        string choice;
+        getline(cin, choice);
+        value = atoi(choice.c_str());
+
+        for(size_t i = 0; i < info.size(); i++)
+        {
+            if(info[i].getSId() == value)
+            {
+                found = true;
+                found2 = true;
+            }
+        }
+
+        if(choice.length() > 2)
+        {
+            cout << "Invalid input, try again:";
+        }
+        else if(!found2) {
+
+            cout << "Invalid input, try againdafsdfasdf:";
+        }
+
 
     } while (!found);
 
