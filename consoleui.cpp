@@ -232,17 +232,15 @@ void ConsoleUI::displaySearch() //Prentar út leitarniðurstöður
             if(val == "Yes")
             {
                 commandAdd();
-            }
+            }  
+        }
+        if(newVector.size() > 0)
+        {
+            cout << endl;
+            cout << "                            " << "---- Result of your search in the system ----" << endl;
+            cout << endl;
 
-
-            if(newVector.size() > 0)
-            {
-                cout << endl;
-                cout << "                            " << "---- Result of your search in the system ----" << endl;
-                cout << endl;
-
-                displayListOfPerformers(newVector);
-            }
+            displayListOfPerformers(newVector);
         }
     }
     if(choice == 2)
