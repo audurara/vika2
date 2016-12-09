@@ -33,7 +33,7 @@ void ConsoleUI::run()
             {
                 bool found = false;
                 cin.ignore();
-                cout << "Do you want to display list of scientist or computers." << endl;
+                cout << "Do you want to display list of scientist or computers? " << endl;
                 cout << "Type '1' for scientists" << endl << "Type '2' for computers" << endl << endl;
                 cout << "Select: ";
                 do
