@@ -8,15 +8,7 @@ PerformerService::PerformerService() //Tómur smiður
 {
 
 }
-/*
-vector<Performer> PerformerService::getPerformers() //Nær í gögn úr skrá og skilar þeim í vector
-{
 
-   vector<Performer> getPerformers = _data.readData();
-
-   return getPerformers;
-}
-*/
 vector <Performer> PerformerService:: searchpeople(QString name) //Leitar að ákveðnu nafni í listanum
 {
     vector<Performer> newVector = _data.searchScientist(name);
@@ -97,4 +89,18 @@ vector<Performer> PerformerService::sortScientists(string i1, string i2)
 {
     vector<Performer> pf = _data.sortScientists(i1, i2);
     return pf;
+}
+vector<RelationsID> PerformerService::viewJoin()
+{
+    vector<RelationsID> pf = _data.viewJoin();
+    return pf;
+}
+vector<RelationsTable> PerformerService::readData()
+{
+    vector<RelationsTable> pf = _data.readData();
+    return pf;
+}
+void PerformerService::removeJoin(int id)
+{
+    _data.removeJoin(id);
 }

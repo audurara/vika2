@@ -24,7 +24,7 @@ void ConsoleUI::run()
 
     do
     {
-        cout << endl << "Enter a command to continue: ";
+        cout << endl << "Enter a command to continue ('help' for list of commands): ";
         cin >> command;
         cout << endl;
 
@@ -511,7 +511,6 @@ void ConsoleUI::commandAdd() //Fall sem bætir við tölvunarfræðingum
 void ConsoleUI::addComputer()
 {
     string brand, constr;
-    cout << "Enter name of computer: ";
     string name = inputCname();
     cout << "Enter build year of computer: ";
     int buildy = inputYear(0,2017);
@@ -833,13 +832,14 @@ void ConsoleUI::displayJoin()
 {
 
     cout << "choose '1' to see connection from a Scientist to Computers." << endl;
-    cout << "choose '2' to see connection from a Computer to Scientists" << endl << endl;
+    cout << "choose '2' to see connection from a Computer to Scientists" << endl;
+    cout << "choose '3' to see all connections" << endl << endl;
     cout << "Enter a number:";
 
-    int number = checkInput(0,3);
+    int number = checkInput(0,4);
     if(number == 1)
     {
-
+        vector<RelationsTable2> S = _service.viewScientist(1);
         int counter = 1;
         tableLook(counter);
         string sId = "S.id";
@@ -847,7 +847,7 @@ void ConsoleUI::displayJoin()
         cout << endl << endl;
         cout << "--- Please enter a ID of a Scientist to see connection with computers ---" << endl;
         cout << endl << "Enter Scientist ID: ";
-        cin >> id;
+        id = checkID(S);
         cout << endl;
         vector<Relations> pf = _service.startJoin(sId, id);
         if(pf.size() == 0)
@@ -857,17 +857,15 @@ void ConsoleUI::displayJoin()
 
         else
         {
-            tableLook2();
-            for(size_t i = 0; i < pf.size(); i++)
-            {
-                qDebug().noquote().nospace() << pf[i].getSName() << "\t\t" << pf[i].getCName();
-            }
+            tableLook2(pf);
+
         }
 
 
     }
     else if(number == 2)
     {
+        vector<RelationsTable2> C = _service.viewScientist(2);
         int counter = 2;
         tableLook(counter);
         string cId = "C.id";
@@ -875,7 +873,7 @@ void ConsoleUI::displayJoin()
         cout << endl << endl;
         cout << "--- Please enter a ID of a Computer to see connection with Scientists ---" << endl;
         cout << endl << "Enter Computer ID: ";
-        cin >> id;
+        id = checkID(C);
 
 
 
@@ -893,47 +891,46 @@ void ConsoleUI::displayJoin()
         }
         else
         {
-            tableLook2();
-            for(size_t i = 0; i < pf.size(); i++)
-            {
-                qDebug().noquote().nospace() << pf[i].getSName() << "\t\t" << pf[i].getCName();
-            }
+            tableLook2(pf);
+
         }
 
+    }
+    else if(number == 3)
+    {
+        tableLook3();
     }
 }
 void ConsoleUI::addJoin()
 {
+    vector<RelationsTable2> S = _service.viewScientist(1);
+    vector<RelationsTable2> C = _service.viewScientist(2);
+
     int sId;
     int cId;
     cout << endl;
     cout << "--- Please choose the ID of a Scientist and a Computer to join them ---";
     cout << endl << endl;
     cout << "Enter ID of scientist: ";
-    cin >> sId;
+    sId = checkID(S);
     cout << "Enter ID of computer: ";
-    cin >> cId;
+    cId = checkID(C);
     _service.addRelations(sId, cId);
 }
 void ConsoleUI::removeJoin()
 {
-    vector<RelationsID> pf = _data.viewJoin();
     tableLook3();
-    for(size_t i = 0; i < pf.size(); i++)
-    {
-        qDebug().noquote().nospace() << pf[i].get_id() << "\t\t" << pf[i].get_SName() << "\t\t" << pf[i].get_cName();
-    }
     int id;
     cout << endl << "Enter ID of a connection to remove from the database: ";
     cin >> id;
-    _data.removeJoin(id);
+    _service.removeJoin(id);
 
 
 }
 
 void ConsoleUI::displayTable()
 {
-    vector<RelationsTable> pf = _data.readData();
+    vector<RelationsTable> pf = _service.readData();
 
     cout << "ID\t\t\tNAME\t\t\t\tID\t\t\tNAME" << endl;
     for(int i = 0; i < 52 * 2; i++)
@@ -943,7 +940,18 @@ void ConsoleUI::displayTable()
     cout << endl;
     for(size_t i = 0; i < pf.size(); i++)
     {
-        qDebug().noquote().nospace() << pf[i].getSId() << "\t\t\t" << pf[i].getSName()  << "\t\t\t" << pf[i].getCId() << "\t\t\t" << pf[i].getCName();
+        if(pf[i].getSName().length() > 16)
+        {
+            qDebug().noquote().nospace() << pf[i].getSId() << "\t\t\t" << pf[i].getSName()  << "\t\t" << pf[i].getCId() << "\t\t\t" << pf[i].getCName();
+        }
+        else if(pf[i].getSName().length() < 16 && pf[i].getSName().length() > 7)
+        {
+            qDebug().noquote().nospace() << pf[i].getSId() << "\t\t\t" << pf[i].getSName()  << "\t\t\t" << pf[i].getCId() << "\t\t\t" << pf[i].getCName();
+        }
+        else if(pf[i].getSName().length() <= 7)
+        {
+            qDebug().noquote().nospace() << pf[i].getSId() << "\t\t\t" << pf[i].getSName()  << "\t\t\t\t" << pf[i].getCId() << "\t\t\t" << pf[i].getCName();
+        }
     }
 }
 int ConsoleUI::checkInput(int val1, int val2)
@@ -975,6 +983,41 @@ int ConsoleUI::checkInput(int val1, int val2)
 
         return value;
 }
+int ConsoleUI::checkID(vector<RelationsTable2> info)
+{
+    //cin.ignore();
+    bool found = false;
+    bool found2 = false;
+    int value;
+
+    do {
+        string choice;
+        getline(cin, choice);
+        value = atoi(choice.c_str());
+
+        for(size_t i = 0; i < info.size(); i++)
+        {
+            if(info[i].getSId() == value)
+            {
+                found = true;
+                found2 = true;
+            }
+        }
+
+        if(choice.length() > 2)
+        {
+            cout << "Invalid input, try again:";
+        }
+        else if(!found2) {
+
+            cout << "Invalid input, try againdafsdfasdf:";
+        }
+
+
+    } while (!found);
+
+        return value;
+}
 void ConsoleUI::tableLook(int counter)
 {
     vector<RelationsTable2> S = _service.viewScientist(counter);
@@ -989,7 +1032,7 @@ void ConsoleUI::tableLook(int counter)
         qDebug().noquote().nospace() << S[i].getSId() << "\t\t" << S[i].getSName();
     }
 }
-void ConsoleUI::tableLook2()
+void ConsoleUI::tableLook2(vector<Relations> pf)
 {
     cout << "NAME\t\tTYPE" << endl;
     for(int i = 0; i < 24 * 2; i++)
@@ -997,13 +1040,17 @@ void ConsoleUI::tableLook2()
         cout << "=";
     }
     cout << endl;
+    for(size_t i = 0; i < pf.size(); i++)
+    {
+        qDebug().noquote().nospace() << pf[i].getSName() << "\t\t" << pf[i].getCName();
+    }
 }
 
 
 string ConsoleUI::inputCname()
 {
     string name;
-    cout << "Enter full name: ";
+    cout << "Enter name/type of Computer: ";
     getline(cin, name);
 
     if(name[0] == ' ')
@@ -1015,12 +1062,29 @@ string ConsoleUI::inputCname()
 }
 void ConsoleUI::tableLook3()
 {
+    vector<RelationsID> pf = _service.viewJoin();
     cout << "ID\t\tNAME\t\t\tTYPE" << endl;
     for(int i = 0; i < 24 * 2; i++)
     {
         cout << "=";
     }
     cout << endl;
+    for(size_t i = 0; i < pf.size(); i++)
+    {
+        if(pf[i].get_SName().length() > 16)
+        {
+            qDebug().noquote().nospace() << pf[i].get_id() << "\t\t" << pf[i].get_SName() << "\t" << pf[i].get_cName();
+        }
+        else if(pf[i].get_SName().length() < 16 && pf[i].get_SName().length() > 7)
+        {
+            qDebug().noquote().nospace() << pf[i].get_id() << "\t\t" << pf[i].get_SName() << "\t\t" << pf[i].get_cName();
+        }
+        else if(pf[i].get_SName().length() <= 7)
+        {
+            qDebug().noquote().nospace() << pf[i].get_id() << "\t\t" << pf[i].get_SName() << "\t\t\t" << pf[i].get_cName();
+        }
+
+    }
 }
 void ConsoleUI::displayTopInfo()// einfalt fall sem þarf að endurtaka oft!
 {
