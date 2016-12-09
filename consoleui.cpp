@@ -251,15 +251,17 @@ void ConsoleUI::displaySearch() //Prentar út leitarniðurstöður
                 cout << "Do you want to add " << input << " to the database?(y/n): ";
                 cin >> val;
 
-                        int a = val;
-
-                        if(a == 'y')
+                         if(val == 'y' || val == 'Y')
                         {
                             commandAdd();
                         }
-                        else if(a == 'n')
+                        else if(val == 'n' || val == 'N')
                         {
-                            cout << "You can do this later" << endl;
+                            cout << "You can do this later with 'add' command." << endl;
+                        }
+                        else
+                        {
+                            cout << "Invalid input, please try again (y/n): ";
                         }
                     }
 
@@ -274,7 +276,7 @@ void ConsoleUI::displaySearch() //Prentar út leitarniðurstöður
     }
      if(choice == 2)
      {
-         cout << "Enter the name of the computer: ";
+         cout << "Enter name of computer: ";
          cin.ignore();
          getline(cin, input);
          QString name = QString::fromStdString(input);
@@ -283,25 +285,28 @@ void ConsoleUI::displaySearch() //Prentar út leitarniðurstöður
          vector <computers> newVector = _service.searchcomputer(name);
          if(newVector.size() == 0)
          {
-             char val;
+             char val2;
 
              cout << endl;
              cout << "No match found in database." << endl;
              cout << endl;
              cout << "Do you want to add " << input << " to the database?(y/n): ";
-             cin >> val;
+             cin >> val2;
 
-                     int a = val;
-
-                     if(a == 'y')
-                     {
-                         addComputer();
-                     }
-                     else if(a == 'n')
-                     {
-                            cout << "You can do this later" << endl;
-                     }
-                 }
+             if(val2 == 'y' || val2 == 'Y')
+             {
+                 addComputer();
+             }
+             else if(val2 == 'n' || val2 == 'N')
+             {
+                 cout << "You can do this later with 'add' command." << endl;
+             }
+             else
+             {
+                 cout << "Invalid input, please try again (y/n): ";
+             }
+             return;
+         }
 
          if(newVector.size() > 0)
          {
@@ -830,7 +835,7 @@ void ConsoleUI::displayJoin()
     int number = checkInput(0,4);
     if(number == 1)
     {
-
+        vector<RelationsTable2> S = _service.viewScientist(1);
         int counter = 1;
         tableLook(counter);
         string sId = "S.id";
@@ -838,7 +843,7 @@ void ConsoleUI::displayJoin()
         cout << endl << endl;
         cout << "--- Please enter a ID of a Scientist to see connection with computers ---" << endl;
         cout << endl << "Enter Scientist ID: ";
-        cin >> id;
+        id = checkID(S);
         cout << endl;
         vector<Relations> pf = _service.startJoin(sId, id);
         if(pf.size() == 0)
@@ -856,6 +861,7 @@ void ConsoleUI::displayJoin()
     }
     else if(number == 2)
     {
+        vector<RelationsTable2> C = _service.viewScientist(2);
         int counter = 2;
         tableLook(counter);
         string cId = "C.id";
@@ -863,7 +869,7 @@ void ConsoleUI::displayJoin()
         cout << endl << endl;
         cout << "--- Please enter a ID of a Computer to see connection with Scientists ---" << endl;
         cout << endl << "Enter Computer ID: ";
-        cin >> id;
+        id = checkID(C);
 
 
 
@@ -893,15 +899,18 @@ void ConsoleUI::displayJoin()
 }
 void ConsoleUI::addJoin()
 {
+    vector<RelationsTable2> S = _service.viewScientist(1);
+    vector<RelationsTable2> C = _service.viewScientist(2);
+
     int sId;
     int cId;
     cout << endl;
     cout << "--- Please choose the ID of a Scientist and a Computer to join them ---";
     cout << endl << endl;
     cout << "Enter ID of scientist: ";
-    cin >> sId;
+    sId = checkID(S);
     cout << "Enter ID of computer: ";
-    cin >> cId;
+    cId = checkID(C);
     _service.addRelations(sId, cId);
 }
 void ConsoleUI::removeJoin()
@@ -964,6 +973,41 @@ int ConsoleUI::checkInput(int val1, int val2)
         else {
             cout << "Invalid input, try again:";
         }
+
+    } while (!found);
+
+        return value;
+}
+int ConsoleUI::checkID(vector<RelationsTable2> info)
+{
+    //cin.ignore();
+    bool found = false;
+    bool found2 = false;
+    int value;
+
+    do {
+        string choice;
+        getline(cin, choice);
+        value = atoi(choice.c_str());
+
+        for(size_t i = 0; i < info.size(); i++)
+        {
+            if(info[i].getSId() == value)
+            {
+                found = true;
+                found2 = true;
+            }
+        }
+
+        if(choice.length() > 2)
+        {
+            cout << "Invalid input, try again:";
+        }
+        else if(!found2) {
+
+            cout << "Invalid input, try againdafsdfasdf:";
+        }
+
 
     } while (!found);
 
