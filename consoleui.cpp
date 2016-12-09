@@ -388,11 +388,12 @@ string ConsoleUI::inputDeath() //Setur inn dánarár
     string death;
     cout << "Enter year of death or enter '--' if person is alive: ";
     getline(cin, death);
-    int value = atoi(death.c_str());
+
     if(death == "--")
     {
         return death;
     }
+    int value = atoi(death.c_str());
     int deathLength = death.length();
 
     for(int i = 0;i < deathLength;i++)
@@ -459,6 +460,7 @@ void ConsoleUI::commandAdd() //Fall sem bætir við tölvunarfræðingum
     value = atoi(birth.c_str()); // Breytir strengnum í birth í tölu
     value2 = atoi(death.c_str()); // Breytir strengnum í death í tölu
     }
+
     while(value2 < value) //Passar að talan í dánarári getur ekki verið minni en í fæðingarári
     {
         cout << "Death year can not be less than birth year! Please try again. " << endl;
