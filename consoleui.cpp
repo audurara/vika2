@@ -834,7 +834,7 @@ void ConsoleUI::displayJoin()
     int number = checkInput(0,4);
     if(number == 1)
     {
-
+        vector<RelationsTable2> S = _service.viewScientist(1);
         int counter = 1;
         tableLook(counter);
         string sId = "S.id";
@@ -842,7 +842,7 @@ void ConsoleUI::displayJoin()
         cout << endl << endl;
         cout << "--- Please enter a ID of a Scientist to see connection with computers ---" << endl;
         cout << endl << "Enter Scientist ID: ";
-        cin >> id;
+        id = checkID(S);
         cout << endl;
         vector<Relations> pf = _service.startJoin(sId, id);
         if(pf.size() == 0)
@@ -860,6 +860,7 @@ void ConsoleUI::displayJoin()
     }
     else if(number == 2)
     {
+        vector<RelationsTable2> C = _service.viewScientist(2);
         int counter = 2;
         tableLook(counter);
         string cId = "C.id";
@@ -867,7 +868,7 @@ void ConsoleUI::displayJoin()
         cout << endl << endl;
         cout << "--- Please enter a ID of a Computer to see connection with Scientists ---" << endl;
         cout << endl << "Enter Computer ID: ";
-        cin >> id;
+        id = checkID(C);
 
 
 
