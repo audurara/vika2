@@ -33,7 +33,7 @@ void ConsoleUI::run()
             {
                 bool found = false;
                 cin.ignore();
-                cout << "Do you want to display list of scientist or computers." << endl;
+                cout << "Do you want to display list of scientist or computers? " << endl;
                 cout << "Type '1' for scientists" << endl << "Type '2' for computers" << endl << endl;
                 cout << "Select: ";
                 do
@@ -58,11 +58,11 @@ void ConsoleUI::run()
                     if(choice.length() != 1)
                     {
 
-                        cout << "Invalid choice, try again:";
+                        cout << "Invalid input, please try again: ";
                     }
                     else
                     {
-                        cout << "Invalid choice, try again:";
+                        cout << "Invalid input, please try again: ";
                     }
                 }while(!found);
 
@@ -83,7 +83,7 @@ void ConsoleUI::run()
 
                 if(choice.length() != 1)
                 {
-                    cout << "Invalid choice" << endl;
+                    cout << "Invalid input, please try again: " << endl;
                 }
                 else{
                     char a = choice[0];
@@ -148,7 +148,7 @@ void ConsoleUI::run()
                 }
                 else
                 {
-                    cout << "Invalid choice!" << endl;
+                    cout << "Invalid input, please try again: " << endl;
                 }
             }while(counter == 0);
             cout << "Delete succesfull." << endl;
@@ -277,7 +277,6 @@ void ConsoleUI::displaySearch() //Prentar út leitarniðurstöður
      if(choice == 2)
      {
          cout << "Enter name of computer: ";
-         cin.ignore();
          getline(cin, input);
          QString name = QString::fromStdString(input);
 
@@ -363,7 +362,7 @@ string ConsoleUI::inputGender() //Setur inn kyn
         }
         else
         {
-            cout << "Invalid input, please try again." << endl;
+            cout << "Invalid input, please try again: " << endl;
             cout << "Enter gender (Male or Female): ";
         }
     }while(1 == 1);
@@ -384,7 +383,7 @@ int ConsoleUI::inputYear(int val1, int val2) //Setur inn ár
 
         if(length < 0 || length > 4)
         {
-            cout << "Invalid input, try again:";
+            cout << "Invalid input, please try again: ";
         }
 
         else if(value > val1 && value < val2)
@@ -392,7 +391,7 @@ int ConsoleUI::inputYear(int val1, int val2) //Setur inn ár
             found = true;
         }
         else {
-            cout << "Invalid, try again:";
+            cout << "Invalid input, please try again: ";
         }
 
     } while (!found);
@@ -878,12 +877,10 @@ void ConsoleUI::displayJoin()
         cout << endl << "Enter Computer ID: ";
         id = checkID(C);
 
-
-
         vector<RelationsTable2> S = _service.viewScientist(counter);
         if(id > static_cast<int>(S.size()) || id < 0)
         {
-            cout << "Invalid ";
+            cout << "Invalid input, please try again: ";
         }
 
         cout << endl;
@@ -971,7 +968,7 @@ int ConsoleUI::checkInput(int val1, int val2)
 
         if(choice.length() != 1)
         {
-            cout << "Invalid input, try again:";
+            cout << "Invalid input, please try again: ";
         }
 
         else if(value > val1 && value < val2)
@@ -979,7 +976,7 @@ int ConsoleUI::checkInput(int val1, int val2)
             found = true;
         }
         else {
-            cout << "Invalid input, try again:";
+            cout << "Invalid input, please try again: ";
         }
 
     } while (!found);
@@ -1009,11 +1006,11 @@ int ConsoleUI::checkID(vector<RelationsTable2> info)
 
         if(choice.length() > 2)
         {
-            cout << "Invalid input, try again:";
+            cout << "Invalid input, please try again: ";
         }
         else if(!found2) {
 
-            cout << "Invalid input, try again:";
+            cout << "Invalid input, please try again: ";
         }
 
 
@@ -1045,11 +1042,11 @@ int ConsoleUI::checkRID(vector<RelationsID> info)
 
         if(choice.length() > 2)
         {
-            cout << "Invalid input, try again:";
+            cout << "Invalid input, please try again: ";
         }
         else if(!found2) {
 
-            cout << "Invalid input, try again:";
+            cout << "Invalid input, please try again: ";
         }
 
 
@@ -1089,11 +1086,13 @@ string ConsoleUI::inputCname()
 {
     string name;
     cout << "Enter name/type of Computer: ";
+    cin.ignore();
     getline(cin, name);
 
     if(name[0] == ' ')
     {
         cout << "Invalid input, please try again: ";
+        cin.ignore();
         getline(cin, name);
     }
     return name;
