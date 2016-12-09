@@ -306,7 +306,6 @@ string ConsoleUI::inputName() //Setur inn nafn
 {
     string name;
     cout << "Enter full name: ";
-    cin.ignore();
     getline(cin, name);
 
     int nameLength = name.length();
@@ -316,7 +315,7 @@ string ConsoleUI::inputName() //Setur inn nafn
         while(!isalpha(name[i]) && name[i] != ' ') //Passar að inntak fyrir nafn sé ekki tala eða tómt
                {
                    cout << "Invalid input, please try again: ";
-                   cin.ignore();
+                   //cin.ignore();
                    getline(cin, name);
                    nameLength = name.length();
                 }
