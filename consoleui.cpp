@@ -439,9 +439,9 @@ void ConsoleUI::commandHelp()
     cout << "-------- The commands are case-sensitive! --------" << endl << endl;
     cout << "list   - Choose to list all Computer Scientists or all Computers" << endl;
     cout << "add    - Choose to add a Computer Scientist or to add a Computer" << endl;
-    cout << "search - Searches for a given computer scientist" << endl;
-    cout << "delete - This will remove the entry from the list" << endl;
-    cout << "join   - To add and see joined Computers and Computer Scientists" << endl;
+    cout << "search - Searches for a given Computer Scientist or Computer" << endl;
+    cout << "delete - To delete entry from Computer Scientists or Computers" << endl;
+    cout << "join   - To add, list and remove joined Computers and Computer Scientists" << endl;
     cout << "help   - Displays list of commands" << endl;
     cout << "exit   - This will close the application" << endl;
 }
@@ -778,18 +778,21 @@ void ConsoleUI::displayChoice()
 void ConsoleUI::displayJoin()
 {
 
-    cout << "choose '1' to see wich Scientist made wich Computer." << endl;
-    cout << "choose '2' to see wich computer was made by wich Scientist" << endl << endl;
+    cout << "choose '1' to see connection from a Scientist to Computers." << endl;
+    cout << "choose '2' to see connection from a Computer to Scientists" << endl << endl;
     cout << "Enter a number:";
 
     int number = checkInput(0,3);
     cout << number;
     if(number == 1)
     {
+
         int counter = 1;
         tableLook(counter);
         string sId = "S.id";
         int id;
+        cout << endl << endl;
+        cout << "--- Please enter a ID of a Scientist to see connection with computers ---" << endl;
         cout << endl << "Enter Scientist ID: ";
         cin >> id;
         cout << endl;
@@ -816,6 +819,8 @@ void ConsoleUI::displayJoin()
         tableLook(counter);
         string cId = "C.id";
         int id;
+        cout << endl << endl;
+        cout << "--- Please enter a ID of a Computer to see connection with Scientists ---" << endl;
         cout << endl << "Enter Computer ID: ";
         cin >> id;
         vector<RelationsTable2> S = _service.viewScientist(counter);
@@ -846,9 +851,11 @@ void ConsoleUI::addJoin()
     int sId;
     int cId;
     cout << endl;
-    cout << "enter ID of scientist: ";
+    cout << "--- Please choose the ID of a Scientist and a Computer to join them ---";
+    cout << endl << endl;
+    cout << "Enter ID of scientist: ";
     cin >> sId;
-    cout << "enter ID of computer: ";
+    cout << "Enter ID of computer: ";
     cin >> cId;
     _service.addRelations(sId, cId);
 }
@@ -861,7 +868,7 @@ void ConsoleUI::removeJoin()
         qDebug().noquote().nospace() << pf[i].get_id() << "\t\t" << pf[i].get_SName() << "\t\t" << pf[i].get_cName();
     }
     int id;
-    cout << endl << "Enter ID: ";
+    cout << endl << "Enter ID of a connection to remove from the database: ";
     cin >> id;
     _data.removeJoin(id);
 
