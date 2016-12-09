@@ -33,10 +33,15 @@ private:
     void displayTopInfo();//mjög lítið fall sem endurtekur cout skipun.
     void subIntro();
     string deleteElement();//Eyðir staki úr vektor
-    string inputName();//tekur inn nafn og villu tjékkar það
-    string inputGender();//tekur inn gender og villu tjékkar fyrir gender
-    string inputBirth();//tekur inn og villutjékkar fyrir BIRTH
-    string inputDeath();//tekur inn og villutjékkar fyrir DEATH
+
+    string inputName();
+    string inputCname();
+    string inputGender();
+    int inputYear(int val1, int val2);
+    string inputDeath();
+
+
+
     string inputNation();
     void displayChoice();
     int checkInput(int val1, int val2);
