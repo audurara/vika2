@@ -497,7 +497,6 @@ void ConsoleUI::commandAdd() //Fall sem bætir við tölvunarfræðingum
 void ConsoleUI::addComputer()
 {
     string brand, constr;
-    cout << "Enter name of computer: ";
     string name = inputCname();
     cout << "Enter build year of computer: ";
     int buildy = inputYear(0,2017);
@@ -991,7 +990,7 @@ void ConsoleUI::tableLook2()
 string ConsoleUI::inputCname()
 {
     string name;
-    cout << "Enter full name: ";
+    cout << "Enter name/type of Computer: ";
     getline(cin, name);
 
     if(name[0] == ' ')
