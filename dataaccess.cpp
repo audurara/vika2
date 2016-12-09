@@ -19,7 +19,6 @@ vector<RelationsTable> DataAccess::readData() //Les upplýsingar úr skrá og se
 {
     vector<RelationsTable> logs;
 
-
     QSqlQuery query;
     query.exec("SELECT S.id, S.name,C.id, C.name From Scientists S LEFT OUTER JOIN Computers C on C.id = S.id ");
     while (query.next())
@@ -32,16 +31,13 @@ vector<RelationsTable> DataAccess::readData() //Les upplýsingar úr skrá og se
 
         RelationsTable P(sId, sName, cId, cName);
         logs.push_back(P);
-
     }
 
     return logs;
 }
+
 void DataAccess::writeData (string name, string gender, string bYear, string dYear, string nation) //Með þessu falli má skrifa streng inn í skrána
 {
-
-
-
         QString Qname = QString::fromStdString(name);
         QString Qgender = QString::fromStdString(gender);
         QString QbYear = QString::fromStdString(bYear);
@@ -58,6 +54,7 @@ void DataAccess::writeData (string name, string gender, string bYear, string dYe
             query.bindValue(":nation", Qnation);
             query.exec();
 }
+
 void DataAccess::addCpu (string name, string buildy, string brand, string constr) //Með þessu falli má skrifa streng inn í skrána
 {
     QString Qname = QString::fromStdString(name);
@@ -74,16 +71,16 @@ void DataAccess::addCpu (string name, string buildy, string brand, string constr
         query.bindValue(":constr", Qconstr);
 
         query.exec();
-
 }
+
 void DataAccess::removeDataScientist(string name) //Þetta fall tekur út tölvunarfræðing sem inniheldur ákveðið nafn
 {
     string str =  "DELETE FROM \"Scientists\" WHERE ID = " + name;
     QString qstr = QString::fromStdString(str);
     QSqlQuery query;
     query.exec(qstr);
-
 }
+
 void DataAccess::removeDataComputer(string name)
 {
     string str =  "DELETE FROM \"Computers\" where name = \"" + name + "\" ";
@@ -132,12 +129,11 @@ vector<computers> DataAccess::sortCpu(string input, string input2)
 
         computers P(id, name, buildy, brand, constr);
         sort.push_back(P);
-
-
     }
 
     return sort;
 }
+
 vector<Relations> DataAccess::joinScientists(string CS, int id)
 {
     vector<Relations> join;
@@ -153,8 +149,10 @@ vector<Relations> DataAccess::joinScientists(string CS, int id)
         Relations P(sName, cName);
         join.push_back(P);
     }
+
     return join;
 }
+
 vector<Performer> DataAccess::searchScientist(QString name) //Les upplýsingar úr skrá og setur í vektor
 {
     vector<Performer> newVector;
@@ -173,11 +171,11 @@ vector<Performer> DataAccess::searchScientist(QString name) //Les upplýsingar �
 
         Performer P(id, name, gender, bYear, dYear, nation);
         newVector.push_back(P);
-
     }
 
     return newVector;
 }
+
 vector<computers> DataAccess::searchComputer(QString name)
 {
     vector<computers> newVector;
@@ -196,11 +194,11 @@ vector<computers> DataAccess::searchComputer(QString name)
 
         computers P(id, name, buildY, type, constr);
         newVector.push_back(P);
-
     }
 
     return newVector;
 }
+
 vector<Performer> DataAccess::sortScientists(string input, string input2)
 {
     vector<Performer> sort;
@@ -217,15 +215,13 @@ vector<Performer> DataAccess::sortScientists(string input, string input2)
         QString dYear = query.value(4).toString();
         QString nation = query.value(5).toString();
 
-
         Performer P(id, name, gender, bYear, dYear, nation);
         sort.push_back(P);
-
-
     }
 
     return sort;
 }
+
 void DataAccess::removeJoin(int id) //Þetta fall tekur út tölvunarfræðing sem inniheldur ákveðið nafn
 {
     std::string s = std::to_string(id);
@@ -233,8 +229,8 @@ void DataAccess::removeJoin(int id) //Þetta fall tekur út tölvunarfræðing s
     QString qstr = QString::fromStdString(str);
     QSqlQuery query;
     query.exec(qstr);
-
 }
+
 vector<RelationsID> DataAccess::viewJoin()
 {
     vector<RelationsID> sort;
@@ -248,20 +244,16 @@ vector<RelationsID> DataAccess::viewJoin()
         QString sName = query.value(1).toString();
         QString cName = query.value(2).toString();
 
-
-
         RelationsID P(id, sName, cName);
         sort.push_back(P);
-
-
     }
 
     return sort;
 }
+
 vector<RelationsTable2> DataAccess::viewScientist()
 {
     vector<RelationsTable2> logs;
-
 
     QSqlQuery query;
     query.exec("SELECT id, name FROM \"Scientists\" ");
@@ -270,18 +262,16 @@ vector<RelationsTable2> DataAccess::viewScientist()
         int sId = query.value(0).toInt();
         QString sName = query.value(1).toString();
 
-
         RelationsTable2 P(sId, sName);
         logs.push_back(P);
-
     }
 
     return logs;
 }
+
 vector<RelationsTable2> DataAccess::viewComputer()
 {
     vector<RelationsTable2> logs;
-
 
     QSqlQuery query;
     query.exec("SELECT id, name FROM \"Computers\" ");
@@ -290,10 +280,8 @@ vector<RelationsTable2> DataAccess::viewComputer()
         int sId = query.value(0).toInt();
         QString sName = query.value(1).toString();
 
-
         RelationsTable2 P(sId, sName);
         logs.push_back(P);
-
     }
 
     return logs;

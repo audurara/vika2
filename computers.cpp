@@ -5,7 +5,6 @@ computers::computers()
 
 }
 
-
 computers::computers(int id, QString name, QString buildy, QString brand, QString constr)
 {
    _id = id;
