@@ -156,9 +156,9 @@ void ConsoleUI::run()
         else if (command == "join")
         {
 
-            cout << "Choose '1' to see join list" << endl;
-            cout << "Choose '2' to add to join" << endl;
-            cout << "Choose '3' to remove join" << endl << endl;
+            cout << "Choose '1' To see list of joined Computer Scientists and Computers" << endl;
+            cout << "Choose '2' To join a Computer Scientist and a Computer" << endl;
+            cout << "Choose '3' To remove a joined connection" << endl << endl;
             cout << "Enter a number: ";
             cin.ignore();
             int choice = checkInput(0,4);
