@@ -105,17 +105,20 @@ void ConsoleUI::run()
             displaySearch();
         }
         else if (command == "delete")
-        {            
+        {
+
             string namedel; //Ná í strenginn sem á að eyða
             int counter = 0;
             int krona = 0;
             do
             {
-                char choice;
+                int choice;
+
                 cout << "Remove Computer Scientist choose '1'" << endl << "Remove Computer choose '2'" << endl;
                 cout << "Choice: ";
-                cin >> choice;
-                if(choice == '1')
+                choice = checkInput(0,3);
+                cout << endl;
+                if(choice == 1)
                 {
                     krona = 1;
                     tableLook(krona);
@@ -127,7 +130,7 @@ void ConsoleUI::run()
                     counter = 1;
                     _service.removeScientist(namedel); //Eyða völdu nafni með removeElement fallinu
                 }
-                else if(choice == '2')
+                else if(choice == 2)
                 {
                     krona = 2;
                     tableLook(krona);
@@ -222,13 +225,12 @@ void ConsoleUI::displayListOfPerformers(vector<Performer> pf) //Prentar lista af
 void ConsoleUI::displaySearch() //Prentar út leitarniðurstöður
 {
     string input;
-    char choice;
-
     cout << "Please type '1' for scientist." << endl;
     cout << "Please type '2' for computer." << endl;
-    cin >> choice;
+    cin.ignore();
+    int choice = checkInput(0,3);
 
-    if(choice == '1')
+    if(choice == 1)
     {
             cout << "Please type name of computer scientist to search for: ";
             cin.ignore();
@@ -268,7 +270,7 @@ void ConsoleUI::displaySearch() //Prentar út leitarniðurstöður
                 displayListOfPerformers(newVector);
             }
     }
-     if(choice == '2')
+     if(choice == 2)
      {
          cout << "Enter the name of the computer: ";
          cin.ignore();
@@ -407,11 +409,11 @@ string ConsoleUI::inputDeath() //Setur inn dánarár
     for(int i = 0;i < deathLength;i++)
      {
         while(!isdigit(death[i])) //Ef dánarár er ekki tala fæst villa
-               {
-                   cout << "Invalid input, please try again: ";
-                   getline(cin, death);
-                   deathLength = death.length();
-               }
+        {
+        cout << "Invalid input, please try again: ";
+        getline(cin, death);
+        deathLength = death.length();
+        }
     }
     while(value < 0 || value > 2016) //Ef dánarár er undir 0 eða yfir 2016 fæst villa
     {
@@ -954,7 +956,7 @@ int ConsoleUI::checkInput(int val1, int val2)
             found = true;
         }
         else {
-            cout << "Invalid, try again:";
+            cout << "Invalid input, try again:";
         }
 
     } while (!found);
