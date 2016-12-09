@@ -33,6 +33,7 @@ private:
     string deleteElement();//Eyðir staki úr vektor
     string inputName();
     string inputCname();
+    string inputCbuildy();
     string inputGender();
     int inputYear(int val1, int val2);
     string inputDeath();
