@@ -32,7 +32,6 @@ void ConsoleUI::run()
         {
             {
                 bool found = false;
-                //cin.ignore();
                 cout << "Do you want to display list of scientist or computers? " << endl;
                 cout << "Type '1' for scientists" << endl << "Type '2' for computers" << endl << endl;
                 cout << "Select: ";
@@ -64,28 +63,29 @@ void ConsoleUI::run()
                         cout << "Invalid input, please try again: ";
                     }
 
-                }while(!found);
+                }
+                while(!found);
             }
         }
         else if (command == "add")
         {
-             cout << "Add Computer Scientist choose '1'" << endl << "Add Computer choose '2'" << endl;
-             cout << "Choice: ";
-             string choice;
-             ostringstream convert;
-             int choice1 = checkInput(0,3);
-             convert << choice;
-             choice = convert.str();
+            cout << "Add Computer Scientist choose '1'" << endl << "Add Computer choose '2'" << endl;
+            cout << "Choice: ";
+            string choice;
+            ostringstream convert;
+            int choice1 = checkInput(0,3);
+            convert << choice;
+            choice = convert.str();
 
-             if(choice1 == 1)
-             {
+            if(choice1 == 1)
+            {
                 commandAdd();
-             }
-             else if(choice1 == 2)
-             {
-                 addComputer();
-             }
-     }
+            }
+            else if(choice1 == 2)
+            {
+                addComputer();
+            }
+        }
         else if (command == "search")
         {
             displaySearch();
@@ -132,7 +132,8 @@ void ConsoleUI::run()
                     cout << "Invalid input, please try again: " << endl;
                 }
 
-            }while(counter == 0);
+            }
+            while(counter == 0);
 
             cout << "Delete succesfull." << endl;
         }
@@ -150,7 +151,6 @@ void ConsoleUI::run()
             cout << "Choose '2' To join a Computer Scientist and a Computer" << endl;
             cout << "Choose '3' To remove a joined connection" << endl << endl;
             cout << "Enter a number: ";
-            cin.ignore();
             int choice = checkInput(0,4);
             cout << endl;
 
@@ -174,34 +174,35 @@ void ConsoleUI::run()
             cout << "Enter 'help' to see list of commands" << endl;
         }
 
-    }while (command != "exit");
+    }
+    while (command != "exit");
 }
 void ConsoleUI::displayListOfPerformers(vector<Performer> pf) //Prentar lista af tölvunarfræðingum
 {
     displayTopTable();
 
     for (size_t i = 0; i < pf.size(); ++i) //Prentar út listann miðað við lengd nafns svo það passi sem best
-        {
+    {
 
-            if(pf[i].getName().length() > 16)
-            {
+        if(pf[i].getName().length() > 16)
+        {
             qDebug().noquote().nospace() << pf[i].getId() << "\t" << pf[i].getName() << "\t" << pf[i].getGender()
                                          << "\t\t" << pf[i].getbYear() << "\t\t\t" << pf[i].getdYear()
                                          << "\t\t\t" << pf[i].getNation();
-            }
-            else if(pf[i].getName().length() < 16 && pf[i].getName().length() > 7)
-            {
+        }
+        else if(pf[i].getName().length() < 16 && pf[i].getName().length() > 7)
+        {
             qDebug().noquote().nospace() << pf[i].getId() << "\t" << pf[i].getName() << "\t\t" << pf[i].getGender()
                                          << "\t\t" << pf[i].getbYear() << "\t\t\t" << pf[i].getdYear()
                                          << "\t\t\t" << pf[i].getNation();
-            }
-            else if(pf[i].getName().length() <= 7)
-            {
+        }
+        else if(pf[i].getName().length() <= 7)
+        {
             qDebug().noquote().nospace() << pf[i].getId() << "\t" << pf[i].getName() << "\t\t\t" << pf[i].getGender()
                                          << "\t\t" << pf[i].getbYear() << "\t\t\t" << pf[i].getdYear()
                                          << "\t\t\t" << pf[i].getNation();
-            }
         }
+    }
 }
 
 void ConsoleUI::displaySearch() //Prentar út leitarniðurstöður
@@ -209,28 +210,29 @@ void ConsoleUI::displaySearch() //Prentar út leitarniðurstöður
     string input;
     cout << "Please type '1' for scientist." << endl;
     cout << "Please type '2' for computer." << endl;
+    cout << "Choose number: ";
     int choice = checkInput(0,3);
 
     if(choice == 1)
     {
-            cout << "Please type name of computer scientist to search for: ";
-            getline(cin, input);
-            QString name = QString::fromStdString(input);
+        cout << "Please type name of computer scientist to search for: ";
+        getline(cin, input);
+        QString name = QString::fromStdString(input);
 
-            vector <Performer> newVector = _service.searchpeople(name);
-            if(newVector.size() == 0)
+        vector <Performer> newVector = _service.searchpeople(name);
+        if(newVector.size() == 0)
+        {
+
+            cout << endl;
+            cout << "No match found in database." << endl;
+            cout << endl;
+            cout << "Do you want to add " << input << " to the database?(y/n): ";
+            string val = yesNo();
+
+            if(val == "Yes")
             {
-
-                cout << endl;
-                cout << "No match found in database." << endl;
-                cout << endl;
-                cout << "Do you want to add " << input << " to the database?(y/n): ";
-                string val = yesNo();
-
-                         if(val == "Yes")
-                        {
-                            commandAdd();
-                        }
+                commandAdd();
+            }
 
 
             if(newVector.size() > 0)
@@ -241,8 +243,8 @@ void ConsoleUI::displaySearch() //Prentar út leitarniðurstöður
 
                 displayListOfPerformers(newVector);
             }
-     }
- }
+        }
+    }
     if(choice == 2)
     {
         cout << "Please type name of computer to search for: ";
@@ -259,11 +261,11 @@ void ConsoleUI::displaySearch() //Prentar út leitarniðurstöður
             cout << "Do you want to add " << input << " to the database?(y/n): ";
             string val2 = yesNo();
 
-                     if(val2 == "Yes")
-                    {
-                        addComputer();
-                    }
+            if(val2 == "Yes")
+            {
+                addComputer();
             }
+        }
 
 
         if(newVector.size() > 0)
@@ -274,26 +276,25 @@ void ConsoleUI::displaySearch() //Prentar út leitarniðurstöður
 
             displayComputers(newVector);
         }
-}
+    }
 }
 
 string ConsoleUI::inputName() //Setur inn nafn
 {
     string name;
     cout << "Enter full name: ";
-    //cin.ignore();
     getline(cin, name);
 
     int nameLength = name.length();
 
-    for(int i = 0;i < nameLength;i++)
-     {
+    for(int i = 0; i < nameLength; i++)
+    {
         while(!isalpha(name[i]) && name[i] != ' ') //Passar að inntak fyrir nafn sé ekki tala eða tómt
-               {
-                   cout << "Invalid input, please try again: ";
-                   getline(cin, name);
-                   nameLength = name.length();
-                }
+        {
+            cout << "Invalid input, please try again: ";
+            getline(cin, name);
+            nameLength = name.length();
+        }
     }
 
     return name;
@@ -304,7 +305,6 @@ string ConsoleUI::inputGender() //Setur inn kyn
     cout << "Enter gender (Male or Female): ";
     do //Passar að öll prentuð kyn séu annaðhvort "Male" eða "Female"
     {
-        //cin.ignore();
         getline(cin, gender);
         if(gender == "Male")
         {
@@ -329,17 +329,18 @@ string ConsoleUI::inputGender() //Setur inn kyn
             cout << "Invalid input, please try again: " << endl;
             cout << "Enter gender (Male or Female): ";
         }
-    }while(1 == 1);
+    }
+    while(1 == 1);
     return gender;
 }
 
 int ConsoleUI::inputYear(int val1, int val2) //Setur inn ár
 {
-    //cin.ignore();
     bool found = false;
     int value;
 
-    do {
+    do
+    {
         string choice;
         getline(cin, choice);
         value = atoi(choice.c_str());
@@ -353,13 +354,15 @@ int ConsoleUI::inputYear(int val1, int val2) //Setur inn ár
         {
             found = true;
         }
-        else {
+        else
+        {
             cout << "Invalid input, please try again: ";
         }
 
-    } while (!found);
+    }
+    while (!found);
 
-        return value;
+    return value;
 }
 string ConsoleUI::inputDeath() //Setur inn dánarár
 {
@@ -374,13 +377,13 @@ string ConsoleUI::inputDeath() //Setur inn dánarár
     int value = atoi(death.c_str());
     int deathLength = death.length();
 
-    for(int i = 0;i < deathLength;i++)
-     {
+    for(int i = 0; i < deathLength; i++)
+    {
         while(!isdigit(death[i])) //Ef dánarár er ekki tala fæst villa
         {
-        cout << "Invalid input, please try again: ";
-        getline(cin, death);
-        deathLength = death.length();
+            cout << "Invalid input, please try again: ";
+            getline(cin, death);
+            deathLength = death.length();
         }
     }
     while(value < 0 || value > 2016) //Ef dánarár er undir 0 eða yfir 2016 fæst villa
@@ -401,14 +404,14 @@ string ConsoleUI::inputNation() //Setur inn þjóðerni
     getline(cin, nation);
     int nationLength = nation.length();
 
-    for(int i = 0;i < nationLength;i++)
-     {
+    for(int i = 0; i < nationLength; i++)
+    {
         while(!isalpha(nation[i])) //Ef þjóðerni er ekki bókstafur fæst villa
-               {
-                   cout << "Invalid input, please try again: ";
-                   getline(cin, nation);
-                   nationLength = nation.length();
-               }
+        {
+            cout << "Invalid input, please try again: ";
+            getline(cin, nation);
+            nationLength = nation.length();
+        }
     }
 
     return nation;
@@ -442,8 +445,8 @@ void ConsoleUI::commandAdd() //Fall sem bætir við tölvunarfræðingum
 
     if(death != "--")
     {
-    value = atoi(birthyear.c_str()); // Breytir strengnum í birth í tölu
-    value2 = atoi(death.c_str()); // Breytir strengnum í death í tölu
+        value = atoi(birthyear.c_str()); // Breytir strengnum í birth í tölu
+        value2 = atoi(death.c_str()); // Breytir strengnum í death í tölu
     }
 
     while(value2 < value) //Passar að talan í dánarári getur ekki verið minni en í fæðingarári
@@ -461,24 +464,22 @@ void ConsoleUI::commandAdd() //Fall sem bætir við tölvunarfræðingum
     cout << endl;
     cout << name << " has been added to the database!" << endl;
     cout << "Do you want to connect this scientist to a computer in the database?(Y/N): ";
-        char yN;
-        cin >> yN;
-        if(yN == 'y' || yN == 'Y')
-        {
-            displayTable();
-            addJoin();
-        }
+    string yN = yesNo();
+    if(yN == "Yes")
+    {
+        displayTable();
+        addJoin();
+    }
 }
 string ConsoleUI::inputCname()
 {
     string name;
-    cout << "Enter name/type of Computer: ";
+    cout << "Enter name of Computer: ";
     getline(cin, name);
 
     if(name[0] == ' ')
     {
         cout << "Invalid input, please try again: ";
-        cin.ignore();
         getline(cin, name);
     }
     return name;
@@ -487,20 +488,19 @@ string ConsoleUI::inputCbuildy() //Setur inn byggingarár tölvu
 {
     string buildy;
     cout << "Enter year of build: ";
-    cin.ignore();
     getline(cin, buildy);
 
 
     int value = atoi(buildy.c_str());
     int buildyLength = buildy.length();
 
-    for(int i = 0;i < buildyLength;i++)
-     {
+    for(int i = 0; i < buildyLength; i++)
+    {
         while(!isdigit(buildy[i]))
         {
-        cout << "Invalid input, please try again: ";
-        getline(cin, buildy);
-        buildyLength = buildy.length();
+            cout << "Invalid input, please try again: ";
+            getline(cin, buildy);
+            buildyLength = buildy.length();
         }
     }
     while(value < 0 || value > 2016)
@@ -523,8 +523,8 @@ void ConsoleUI::addComputer()
 
     do
     {
-            cout << "was it built or not?(Yes/No): ";
-            getline(cin, constr);
+        cout << "was it built or not?(Yes/No): ";
+        getline(cin, constr);
         if (constr == "Yes" || constr == "yes")
         {
             buildy = inputCbuildy();
@@ -545,7 +545,8 @@ void ConsoleUI::addComputer()
         {
             cout << "Invalid input " << endl;
         }
-    }while(counter ==0);
+    }
+    while(counter ==0);
 
     _service.addComputer(name, birthyear, brand, constr);
 }
@@ -578,7 +579,8 @@ void ConsoleUI::subIntro() //Fall sem útprentar leiðbeiningar
     cout << endl;
     cout <<"You are limited to the commands from the command list above." << endl
          << "You can always type 'help' if you do not remember the commands. ";
-    cout << endl;    cout << endl;
+    cout << endl;
+    cout << endl;
 }
 void ConsoleUI::displayTopTable() //Fall sem prentar lista yfir alla tölvunarfræðinga í skránni
 {
@@ -608,23 +610,23 @@ void ConsoleUI::displayComputers(vector<computers> pc)
     cout << endl;
 
     for (size_t i = 0; i < pc.size(); ++i) //Prentar út listann miðað við lengd nafns svo það passi sem best
+    {
+        if(pc[i].getName().length() > 16)
         {
-            if(pc[i].getName().length() > 16)
-            {
-                qDebug().noquote().nospace() << i+1 << "\t" << pc[i].getName() << "\t" << pc[i].getBuildy()
+            qDebug().noquote().nospace() << i+1 << "\t" << pc[i].getName() << "\t" << pc[i].getBuildy()
                                          << "\t\t\t" << pc[i].getBrand() << "\t\t" << pc[i].getConstr();
-            }
-            else if(pc[i].getName().length() < 16 && pc[i].getName().length() > 7)
-            {
-                qDebug().noquote().nospace() << i+1 << "\t" << pc[i].getName() << "\t\t" << pc[i].getBuildy()
+        }
+        else if(pc[i].getName().length() < 16 && pc[i].getName().length() > 7)
+        {
+            qDebug().noquote().nospace() << i+1 << "\t" << pc[i].getName() << "\t\t" << pc[i].getBuildy()
                                          << "\t\t\t" << pc[i].getBrand() << "\t\t" << pc[i].getConstr();
-            }
-            else if(pc[i].getName().length() <= 7)
-            {
-                qDebug().noquote().nospace() << i+1 << "\t" << pc[i].getName() << "\t\t\t" << pc[i].getBuildy()
+        }
+        else if(pc[i].getName().length() <= 7)
+        {
+            qDebug().noquote().nospace() << i+1 << "\t" << pc[i].getName() << "\t\t\t" << pc[i].getBuildy()
                                          << "\t\t\t" << pc[i].getBrand() << "\t\t" << pc[i].getConstr();
-            }
-       }
+        }
+    }
 }
 
 void ConsoleUI::sortComputers()
@@ -979,7 +981,8 @@ int ConsoleUI::checkInput(int val1, int val2)
     bool found = false;
     int value;
 
-    do {
+    do
+    {
         string choice;
         getline(cin, choice);
         value = atoi(choice.c_str());
@@ -993,23 +996,25 @@ int ConsoleUI::checkInput(int val1, int val2)
         {
             found = true;
         }
-        else {
+        else
+        {
             cout << "Invalid input, please try again: ";
         }
 
-    } while (!found);
+    }
+    while (!found);
 
-        return value;
+    return value;
 }
 
 int ConsoleUI::checkID(vector<RelationsTable2> info)
 {
-    //cin.ignore();
     bool found = false;
     bool found2 = false;
     int value;
 
-    do {
+    do
+    {
         string choice;
         getline(cin, choice);
         value = atoi(choice.c_str());
@@ -1027,15 +1032,17 @@ int ConsoleUI::checkID(vector<RelationsTable2> info)
         {
             cout << "Invalid input, please try again: ";
         }
-        else if(!found2) {
+        else if(!found2)
+        {
 
             cout << "Invalid input, please try again: ";
         }
 
 
-    } while (!found);
+    }
+    while (!found);
 
-        return value;
+    return value;
 }
 
 int ConsoleUI::checkRID(vector<RelationsID> info)
@@ -1044,7 +1051,8 @@ int ConsoleUI::checkRID(vector<RelationsID> info)
     bool found2 = false;
     int value;
 
-    do {
+    do
+    {
         string choice;
         getline(cin, choice);
         value = atoi(choice.c_str());
@@ -1062,13 +1070,15 @@ int ConsoleUI::checkRID(vector<RelationsID> info)
         {
             cout << "Invalid input, please try again: ";
         }
-        else if(!found2) {
+        else if(!found2)
+        {
 
             cout << "Invalid input, please try again: ";
         }
-    } while (!found);
+    }
+    while (!found);
 
-        return value;
+    return value;
 }
 
 void ConsoleUI::tableLook(int counter)
@@ -1159,7 +1169,8 @@ string ConsoleUI::yesNo()
             cout << "Invalid input, please try again: ";
             getline(cin,input);
         }
-    }while(counter == 0);
+    }
+    while(counter == 0);
 
     return output;
 
