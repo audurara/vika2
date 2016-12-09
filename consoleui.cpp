@@ -437,8 +437,8 @@ void ConsoleUI::commandAdd() //Fall sem bætir við tölvunarfræðingum
     int value = 0;
     int value2 = 0;
     string birthyear;
-    ostringstream convert;
-    convert << birth;
+    ostringstream convert; //til að geta breytt string i integer
+    convert << birth;      //breyta string i integer
     birthyear = convert.str();
 
     if(death != "--")
@@ -526,16 +526,16 @@ void ConsoleUI::addComputer()
         if (constr == "Yes" || constr == "yes")
         {
             buildy = inputCbuildy();
-            ostringstream convert;
-            convert << buildy;
+            ostringstream convert;  //til að geta breytt streng í integer
+            convert << buildy;      //breyta streng í integer
             birthyear = convert.str();
             counter = 1;
         }
         else if(constr == "No" || constr == "no")
         {
             buildy = "--";
-            ostringstream convert;
-            convert << buildy;
+            ostringstream convert;   //til að geta breytt streng í integer
+            convert << buildy;      //breyta streng í integer
             birthyear = convert.str();
             counter = 1;
         }
@@ -867,7 +867,7 @@ void ConsoleUI::displayJoin()
     int number = checkInput(0,4);
     if(number == 1)
     {
-        vector<RelationsTable2> S = _service.viewScientist(1);
+        vector<RelationsTable2> S = _service.viewScientist(1); //sendum 1 inn til að fá tölvunarfræðinga
         int counter = 1;
         tableLook(counter);
         string sId = "S.id";
@@ -890,7 +890,7 @@ void ConsoleUI::displayJoin()
     }
     else if(number == 2)
     {
-        vector<RelationsTable2> C = _service.viewScientist(2);
+        vector<RelationsTable2> C = _service.viewScientist(2); //sendum 2 inn til að fá tölvur
         int counter = 2;
         tableLook(counter);
         string cId = "C.id";
@@ -926,8 +926,8 @@ void ConsoleUI::displayJoin()
 
 void ConsoleUI::addJoin()
 {
-    vector<RelationsTable2> S = _service.viewScientist(1);
-    vector<RelationsTable2> C = _service.viewScientist(2);
+    vector<RelationsTable2> S = _service.viewScientist(1); //sendum 1 inn til að fá tölvunarfræðinga
+    vector<RelationsTable2> C = _service.viewScientist(2); //sendum 2 inn til að fá tölvur
     int sId;
     int cId;
     cout << endl;
@@ -945,7 +945,7 @@ void ConsoleUI::removeJoin()
     vector<RelationsID> R = _service.viewJoin();
     int id;
     cout << endl << "Enter ID of a connection to remove from the database: ";
-    id = checkRID(R);
+    id = checkRID(R);           //athugum fyrst hvort id sé í R
     _service.removeJoin(id);
 }
 
