@@ -9,7 +9,6 @@ public:
     void run();
 
 private:
-
     void displayListOfPerformers(vector<Performer> pf); //Prentar lista af tölvunarfræðingum eins og þeir eru í skránni.
     void displaySearch(); // Prentar niðurstöður leitar
     void tableLook(int counter);
@@ -32,21 +31,16 @@ private:
     void displayTopInfo();//mjög lítið fall sem endurtekur cout skipun.
     void subIntro();
     string deleteElement();//Eyðir staki úr vektor
-
     string inputName();
     string inputCname();
     string inputGender();
     int inputYear(int val1, int val2);
     string inputDeath();
-
-
-
     string inputNation();
     void displayChoice();
     int checkInput(int val1, int val2);
     int checkID(vector<RelationsTable2> info);
     int checkRID(vector<RelationsID> info);
-
 
 private: //Eftirfarandi breytur sækja upplýsingar og leyfa virkni sitthvort úr PerformerService og DataAccess.
     PerformerService _service;
