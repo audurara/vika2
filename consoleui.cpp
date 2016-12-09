@@ -893,7 +893,7 @@ void ConsoleUI::displayJoin()
     }
     else if(number == 3)
     {
-        displayTable();
+        tableLook3();
     }
 }
 void ConsoleUI::addJoin()
