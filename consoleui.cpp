@@ -69,36 +69,22 @@ void ConsoleUI::run()
         }
         else if (command == "add")
         {
-            //cin.ignore();
-            int counter = 0;
-            string choice;
+             cout << "Add Computer Scientist choose '1'" << endl << "Add Computer choose '2'" << endl;
+             cout << "Choice: ";
+             string choice;
+             ostringstream convert;
+             int choice1 = checkInput(0,3);
+             convert << choice;
+             choice = convert.str();
 
-            do
-            {
-                cout << "Add Computer Scientist choose '1'" << endl << "Add Computer choose '2'" << endl;
-                cout << "Choice: ";
-                getline(cin, choice);
-
-                if(choice.length() != 1)
-                {
-                    cout << "Invalid input, please try again: " << endl;
-                }
-                else{
-                    char a = choice[0];
-
-                    if(a == '1')
-                    {
-                        counter = 1;
-                        commandAdd();
-                    }
-                    else if(a == '2')
-                    {
-                        counter = 1;
-                        addComputer();
-                    }
-                }
-
-            }while(counter == 0);
+             if(choice1 == 1)
+             {
+                commandAdd();
+             }
+             else if(choice1 == 2)
+             {
+                 addComputer();
+             }
      }
         else if (command == "search")
         {
@@ -483,21 +469,84 @@ void ConsoleUI::commandAdd() //Fall sem bætir við tölvunarfræðingum
             addJoin();
         }
 }
+string ConsoleUI::inputCname()
+{
+    string name;
+    cout << "Enter name/type of Computer: ";
+    getline(cin, name);
+
+    if(name[0] == ' ')
+    {
+        cout << "Invalid input, please try again: ";
+        cin.ignore();
+        getline(cin, name);
+    }
+    return name;
+}
+string ConsoleUI::inputCbuildy() //Setur inn byggingarár tölvu
+{
+    string buildy;
+    cout << "Enter year of build: ";
+    cin.ignore();
+    getline(cin, buildy);
+
+
+    int value = atoi(buildy.c_str());
+    int buildyLength = buildy.length();
+
+    for(int i = 0;i < buildyLength;i++)
+     {
+        while(!isdigit(buildy[i]))
+        {
+        cout << "Invalid input, please try again: ";
+        getline(cin, buildy);
+        buildyLength = buildy.length();
+        }
+    }
+    while(value < 0 || value > 2016)
+    {
+        cout << "That's not a valid year" << endl;
+        cout << "Enter build year: ";
+        getline(cin, buildy);
+        value = atoi(buildy.c_str());
+    }
+    return buildy;
+}
 
 void ConsoleUI::addComputer()
 {
-    string brand, constr;
+    string brand, constr, buildy, birthyear;
+    int counter = 0;
     string name = inputCname();
-    cout << "Enter build year of computer: ";
-    int buildy = inputYear(0,2017);
-    string birthyear;
-    ostringstream convert;
-    convert << buildy;
-    birthyear = convert.str();
     cout << "Enter type of computer: ";
-    cin >> brand;
-    cout << "Was it built or not?(Yes/No): ";
-    cin >> constr;
+    getline (cin, brand);
+
+    do
+    {
+            cout << "was it built or not?(Yes/No): ";
+            getline(cin, constr);
+        if (constr == "Yes" || constr == "yes")
+        {
+            buildy = inputCbuildy();
+            ostringstream convert;
+            convert << buildy;
+            birthyear = convert.str();
+            counter = 1;
+        }
+        else if(constr == "No" || constr == "no")
+        {
+            buildy = "--";
+            ostringstream convert;
+            convert << buildy;
+            birthyear = convert.str();
+            counter = 1;
+        }
+        else
+        {
+            cout << "Invalid input " << endl;
+        }
+    }while(counter ==0);
+
     _service.addComputer(name, birthyear, brand, constr);
 }
 void ConsoleUI::intro() //Fall sem útprentar upphafsskilaboð
@@ -595,7 +644,6 @@ void ConsoleUI::sortComputers()
     {
         displayChoice();
         int number = checkInput(0,3);
-
 
         if(number == 1)
         {
@@ -1052,20 +1100,7 @@ void ConsoleUI::tableLook2(vector<Relations> pf)
     }
 }
 
-string ConsoleUI::inputCname()
-{
-    string name;
-    cout << "Enter name/type of Computer: ";
-    getline(cin, name);
 
-    if(name[0] == ' ')
-    {
-        cout << "Invalid input, please try again: ";
-        cin.ignore();
-        getline(cin, name);
-    }
-    return name;
-}
 
 void ConsoleUI::tableLook3()
 {
