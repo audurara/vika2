@@ -25,9 +25,12 @@ public:
     void addPerformer(string name, string gender, string birth, string death, string nation); //Bætir nýjum tölvunarfræðingi inn í skrána
     void addComputer(string name, string buildy, string brand, string constr);
     void addRelations(int sId, int cId);
+    void removeJoin(int id);
     vector<RelationsTable2> viewScientist(int counter);
     vector<computers> sortComputers(string i1, string i2);
     vector<Performer> sortScientists(string i1, string i2);
+    vector<RelationsID> viewJoin();
+    vector<RelationsTable> readData();
 private:
     DataAccess _data;// Sækir upplýsingar og leyfir virkni úr DataAccess.
 };

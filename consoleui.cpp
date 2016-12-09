@@ -24,7 +24,7 @@ void ConsoleUI::run()
 
     do
     {
-        cout << endl << "Enter a command to continue: ";
+        cout << endl << "Enter a command to continue ('help' for list of commands): ";
         cin >> command;
         cout << endl;
 
@@ -33,8 +33,9 @@ void ConsoleUI::run()
             {
                 bool found = false;
                 cin.ignore();
-                cout << "List Computer Scientists choose '1'" << endl << "List Computers choose '2'" << endl;
-                cout << "Choice:";
+                cout << "Do you want to display list of scientist or computers." << endl;
+                cout << "Type '1' for scientists" << endl << "Type '2' for computers" << endl;
+                cout << "Select: ";
                 do
                 {
                     string choice;
@@ -49,7 +50,7 @@ void ConsoleUI::run()
                     }
                     else if(value == 2)
                     {
-                        sortComputers();
+                        //sortComputers();
                         found = true;
                         break;
                     }
@@ -448,13 +449,13 @@ string ConsoleUI::inputNation() //Setur inn þjóðerni
 void ConsoleUI::commandHelp()
 {
     cout << "-------- List of commands for the database --------" << endl << endl;
-    cout << "list   - Choose to list all Computer Scientists or all Computers" << endl;
-    cout << "add    - Choose to add a Computer Scientist or to add a Computer" << endl;
-    cout << "search - Searches for a given Computer Scientist or Computer" << endl;
-    cout << "delete - To delete entry from Computer Scientists or Computers" << endl;
-    cout << "join   - To add, list and remove joined Computers and Computer Scientists" << endl;
-    cout << "help   - Displays list of commands" << endl;
-    cout << "exit   - This will close the application" << endl;
+    cout << "Type   'list'   to display a complete list by categories in the database." << endl;
+    cout << "Type   'add'    to add a Computer Scientist or a Computer" << endl;
+    cout << "Type   'search' to perform a thorough search of the database" << endl;
+    cout << "Type   'delete' to delete item from the database" << endl;
+    cout << "Type   'join'   to see or update connetions between scientists and computers" << endl;
+    cout << "Type   'help'   to displays list of commands" << endl;
+    cout << "Type   'exit'   to close the application" << endl << endl;
     cout << "Note that the commands are case-sensitive!" << endl << endl;
 
 }
@@ -493,11 +494,18 @@ void ConsoleUI::commandAdd() //Fall sem bætir við tölvunarfræðingum
     _service.addPerformer(name, gender, birthyear, death, nation);
     cout << endl;
     cout << name << " has been added to the database!" << endl;
+    cout << "Do you want to connect this scientist to a computer in the database?(Y/N): ";
+        char yN;
+        cin >> yN;
+        if(yN == 'y' || yN == 'Y')
+        {
+            displayTable();
+            addJoin();
+        }
 }
 void ConsoleUI::addComputer()
 {
     string brand, constr;
-    cout << "Enter name of computer: ";
     string name = inputCname();
     cout << "Enter build year of computer: ";
     int buildy = inputYear(0,2017);
@@ -517,14 +525,14 @@ void ConsoleUI::intro() //Fall sem útprentar upphafsskilaboð
     cout << endl;
     cout << "It is recommended to extend the console when using this program" << endl;
     cout << endl;
-    cout << "This program is designed to keep track of some details on known computer scientists. " << endl;
-    cout << "The user is able to enter known persons from the history of computer science into a database." << endl;
-    cout << "The user can remove persons from the database." << endl;
+    cout << "This program is designed to keep track of some details from the history of the computer. " << endl;
+    cout << "The user is able to enter known persons from the history of computer science into the database." << endl;
+    cout << "The user can update the database by removing from or add to the database." << endl;
     cout << "The program can display a list of the numbers that have been entered into the database." << endl;
-    cout << "The user is able to enter known numbers from the history of computer science into a database." << endl;
-    cout << "The program can display a list of the persons that have been entered into the database." << endl;
+    cout << "The user is able to add computers from the history of computer science into the database." << endl;
+    cout << "The program can display a list of items that have been entered into the database." << endl;
     cout << "The program can sort a list by the user's preferences" << endl;
-    cout << "It is possible for the user to perform a search of a specific person from the list." << endl << endl;
+    cout << "It is possible for the user to perform a search of a specific persons or computers in the database." << endl << endl;
     for (int i = 0; i < 54*2; ++i)
     {
         cout << "=";
@@ -535,13 +543,11 @@ void ConsoleUI::intro() //Fall sem útprentar upphafsskilaboð
 void ConsoleUI::subIntro() //Fall sem útprentar leiðbeiningar
 {
     cout << endl << "This database contains two categories, computers and scientists. " << endl
-         << "You can either search for any particular computer or some specific scientist" << endl;
-    cout << "from computer history. Please feel free to make changes to update the database" << endl;
+         << "Please feel free to make changes to update the database." << endl
+         << "To help us make it bigger and better." << endl;
     cout << endl;
-    cout << "Type 'search' to perform a thorough search of the database" << endl
-         << "Type 'list' to display a complete list by categories in the database." << endl
-         << "You are limited to the commands in the command list above"
-         << "You can always type 'help' if you do not remember the commands ";
+    cout <<"You are limited to the commands from the command list above." << endl
+         << "You can always type 'help' if you do not remember the commands. ";
     cout << endl;    cout << endl;
 }
 void ConsoleUI::displayTopTable() //Fall sem prentar lista yfir alla tölvunarfræðinga í skránni
@@ -821,10 +827,11 @@ void ConsoleUI::displayJoin()
 {
 
     cout << "choose '1' to see connection from a Scientist to Computers." << endl;
-    cout << "choose '2' to see connection from a Computer to Scientists" << endl << endl;
+    cout << "choose '2' to see connection from a Computer to Scientists" << endl;
+    cout << "choose '3' to see all connections" << endl << endl;
     cout << "Enter a number:";
 
-    int number = checkInput(0,3);
+    int number = checkInput(0,4);
     if(number == 1)
     {
 
@@ -845,11 +852,8 @@ void ConsoleUI::displayJoin()
 
         else
         {
-            tableLook2();
-            for(size_t i = 0; i < pf.size(); i++)
-            {
-                qDebug().noquote().nospace() << pf[i].getSName() << "\t\t" << pf[i].getCName();
-            }
+            tableLook2(pf);
+
         }
 
 
@@ -881,13 +885,14 @@ void ConsoleUI::displayJoin()
         }
         else
         {
-            tableLook2();
-            for(size_t i = 0; i < pf.size(); i++)
-            {
-                qDebug().noquote().nospace() << pf[i].getSName() << "\t\t" << pf[i].getCName();
-            }
+            tableLook2(pf);
+
         }
 
+    }
+    else if(number == 3)
+    {
+        displayTable();
     }
 }
 void ConsoleUI::addJoin()
@@ -908,23 +913,18 @@ void ConsoleUI::addJoin()
 }
 void ConsoleUI::removeJoin()
 {
-    vector<RelationsID> pf = _data.viewJoin();
     tableLook3();
-    for(size_t i = 0; i < pf.size(); i++)
-    {
-        qDebug().noquote().nospace() << pf[i].get_id() << "\t\t" << pf[i].get_SName() << "\t\t" << pf[i].get_cName();
-    }
     int id;
     cout << endl << "Enter ID of a connection to remove from the database: ";
     cin >> id;
-    _data.removeJoin(id);
+    _service.removeJoin(id);
 
 
 }
 
 void ConsoleUI::displayTable()
 {
-    vector<RelationsTable> pf = _data.readData();
+    vector<RelationsTable> pf = _service.readData();
 
     cout << "ID\t\t\tNAME\t\t\t\tID\t\t\tNAME" << endl;
     for(int i = 0; i < 52 * 2; i++)
@@ -934,7 +934,18 @@ void ConsoleUI::displayTable()
     cout << endl;
     for(size_t i = 0; i < pf.size(); i++)
     {
-        qDebug().noquote().nospace() << pf[i].getSId() << "\t\t\t" << pf[i].getSName()  << "\t\t\t" << pf[i].getCId() << "\t\t\t" << pf[i].getCName();
+        if(pf[i].getSName().length() > 16)
+        {
+            qDebug().noquote().nospace() << pf[i].getSId() << "\t\t\t" << pf[i].getSName()  << "\t\t" << pf[i].getCId() << "\t\t\t" << pf[i].getCName();
+        }
+        else if(pf[i].getSName().length() < 16 && pf[i].getSName().length() > 7)
+        {
+            qDebug().noquote().nospace() << pf[i].getSId() << "\t\t\t" << pf[i].getSName()  << "\t\t\t" << pf[i].getCId() << "\t\t\t" << pf[i].getCName();
+        }
+        else if(pf[i].getSName().length() <= 7)
+        {
+            qDebug().noquote().nospace() << pf[i].getSId() << "\t\t\t" << pf[i].getSName()  << "\t\t\t\t" << pf[i].getCId() << "\t\t\t" << pf[i].getCName();
+        }
     }
 }
 int ConsoleUI::checkInput(int val1, int val2)
@@ -1015,7 +1026,7 @@ void ConsoleUI::tableLook(int counter)
         qDebug().noquote().nospace() << S[i].getSId() << "\t\t" << S[i].getSName();
     }
 }
-void ConsoleUI::tableLook2()
+void ConsoleUI::tableLook2(vector<Relations> pf)
 {
     cout << "NAME\t\tTYPE" << endl;
     for(int i = 0; i < 24 * 2; i++)
@@ -1023,13 +1034,17 @@ void ConsoleUI::tableLook2()
         cout << "=";
     }
     cout << endl;
+    for(size_t i = 0; i < pf.size(); i++)
+    {
+        qDebug().noquote().nospace() << pf[i].getSName() << "\t\t" << pf[i].getCName();
+    }
 }
 
 
 string ConsoleUI::inputCname()
 {
     string name;
-    cout << "Enter full name: ";
+    cout << "Enter name/type of Computer: ";
     getline(cin, name);
 
     if(name[0] == ' ')
@@ -1041,12 +1056,29 @@ string ConsoleUI::inputCname()
 }
 void ConsoleUI::tableLook3()
 {
+    vector<RelationsID> pf = _service.viewJoin();
     cout << "ID\t\tNAME\t\t\tTYPE" << endl;
     for(int i = 0; i < 24 * 2; i++)
     {
         cout << "=";
     }
     cout << endl;
+    for(size_t i = 0; i < pf.size(); i++)
+    {
+        if(pf[i].get_SName().length() > 16)
+        {
+            qDebug().noquote().nospace() << pf[i].get_id() << "\t\t" << pf[i].get_SName() << "\t" << pf[i].get_cName();
+        }
+        else if(pf[i].get_SName().length() < 16 && pf[i].get_SName().length() > 7)
+        {
+            qDebug().noquote().nospace() << pf[i].get_id() << "\t\t" << pf[i].get_SName() << "\t\t" << pf[i].get_cName();
+        }
+        else if(pf[i].get_SName().length() <= 7)
+        {
+            qDebug().noquote().nospace() << pf[i].get_id() << "\t\t" << pf[i].get_SName() << "\t\t\t" << pf[i].get_cName();
+        }
+
+    }
 }
 void ConsoleUI::displayTopInfo()// einfalt fall sem þarf að endurtaka oft!
 {

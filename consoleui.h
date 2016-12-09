@@ -13,7 +13,7 @@ private:
     void displayListOfPerformers(vector<Performer> pf); //Prentar lista af tölvunarfræðingum eins og þeir eru í skránni.
     void displaySearch(); // Prentar niðurstöður leitar
     void tableLook(int counter);
-    void tableLook2();
+    void tableLook2(vector<Relations> pf);
     void tableLook3();
     void displaySort(vector<Performer> newVector);//Prentar út raðaða lista
     void chooseSort(); //Velur eftir hverju á að raða
