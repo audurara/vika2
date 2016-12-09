@@ -31,6 +31,7 @@ private:
     void addComputer();
     void displayTable();
     void displayTopInfo();//mjög lítið fall sem endurtekur cout skipun.
+    void subIntro();
     string deleteElement();//Eyðir staki úr vektor
     string inputName();//tekur inn nafn og villu tjékkar það
     string inputGender();//tekur inn gender og villu tjékkar fyrir gender
