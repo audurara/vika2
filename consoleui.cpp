@@ -1,4 +1,7 @@
 #include <iostream>
+#include <iomanip>
+#include <locale>
+#include <sstream>
 #include "consoleui.h"
 #include "performer.h"
 #include "dataaccess.h"
@@ -315,13 +318,13 @@ string ConsoleUI::inputName() //Setur inn nafn
         while(!isalpha(name[i]) && name[i] != ' ') //Passar að inntak fyrir nafn sé ekki tala eða tómt
                {
                    cout << "Invalid input, please try again: ";
-                   //cin.ignore();
                    getline(cin, name);
                    nameLength = name.length();
                 }
     }
     return name;
 }
+
 string ConsoleUI::inputGender() //Setur inn kyn
 {
     string gender;
@@ -355,32 +358,35 @@ string ConsoleUI::inputGender() //Setur inn kyn
     }while(1 == 1);
     return gender;
 }
-string ConsoleUI::inputBirth() //Setur inn fæðingarár
+int ConsoleUI::inputYear(int val1, int val2) //Setur inn ár
 {
-    string birth;
-    cout << "Enter year of birth: ";
-    getline(cin, birth);
-    int value = atoi(birth.c_str());
-    int birthLength = birth.length();
+    //cin.ignore();
+    bool found = false;
+    int value;
 
-    for(int i = 0;i < birthLength;i++)
-     {
-        while(!isdigit(birth[i])) //Ef fæðingarár er ekki tala fæst villa
-               {
-                   cout << "Invalid input, please try again: ";
-                   getline(cin, birth);
-                   birthLength = birth.length();
-               }
-    }
 
-    while(value < 0 || value > 2016) //Ef fæðingarár er undir 0 eða yfir 2016 fæst villa
-    {
-        cout << "That is not a valid year" << endl;
-        cout << "Enter year of birth: ";
-        getline(cin, birth);
-        value = atoi(birth.c_str()); //Breytir strengnum fyrir fæðingarár í tölu.
-    }
-    return birth;
+    do {
+        string choice;
+        getline(cin, choice);
+        value = atoi(choice.c_str());
+        int length = static_cast<int>(choice.length());
+
+        if(length < 0 || length > 4)
+        {
+            cout << "Invalid input, try again:";
+        }
+
+        else if(value > val1 && value < val2)
+        {
+            found = true;
+        }
+        else {
+            cout << "Invalid, try again:";
+        }
+
+    } while (!found);
+
+        return value;
 }
 string ConsoleUI::inputDeath() //Setur inn dánarár
 {
@@ -449,14 +455,19 @@ void ConsoleUI::commandAdd() //Fall sem bætir við tölvunarfræðingum
 {
     string name = inputName();
     string gender = inputGender();
-    string birth = inputBirth();
+    cout << "Enter year of birth: ";
+    int birth = inputYear(0,2017);
     string death = inputDeath();
     int value = 0;
     int value2 = 0;
+    string birthyear;
+    ostringstream convert;
+    convert << birth;
+    birthyear = convert.str();
 
     if(death != "--")
     {
-    value = atoi(birth.c_str()); // Breytir strengnum í birth í tölu
+    value = atoi(birthyear.c_str()); // Breytir strengnum í birth í tölu
     value2 = atoi(death.c_str()); // Breytir strengnum í death í tölu
     }
 
@@ -472,22 +483,26 @@ void ConsoleUI::commandAdd() //Fall sem bætir við tölvunarfræðingum
 
     }
     string nation = inputNation();
-    _service.addPerformer(name, gender, birth, death, nation);
+    _service.addPerformer(name, gender, birthyear, death, nation);
     cout << endl;
     cout << name << " has been added to the database!" << endl;
 }
 void ConsoleUI::addComputer()
 {
-    string name, buildy, brand, constr;
+    string brand, constr;
     cout << "Enter name of computer: ";
-    cin >> name;
+    string name = inputCname();
     cout << "Enter build year of computer: ";
-    cin >> buildy;
+    int buildy = inputYear(0,2017);
+    string birthyear;
+    ostringstream convert;
+    convert << buildy;
+    birthyear = convert.str();
     cout << "Enter type of computer: ";
     cin >> brand;
     cout << "was it built or not?(Yes/No): ";
     cin >> constr;
-    _service.addComputer(name, buildy, brand, constr);
+    _service.addComputer(name, birthyear, brand, constr);
 }
 
 void ConsoleUI::intro() //Fall sem útprentar upphafsskilaboð
@@ -933,4 +948,18 @@ void ConsoleUI::tableLook2()
         cout << "=";
     }
     cout << endl;
+}
+
+string ConsoleUI::inputCname()
+{
+    string name;
+    cout << "Enter full name: ";
+    getline(cin, name);
+
+    if(name[0] == ' ')
+    {
+        cout << "Invalid input, please try again: ";
+        getline(cin, name);
+    }
+    return name;
 }

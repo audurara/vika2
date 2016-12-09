@@ -31,8 +31,9 @@ private:
     void displayTable();
     string deleteElement();//Eyðir staki úr vektor
     string inputName();
+    string inputCname();
     string inputGender();
-    string inputBirth();
+    int inputYear(int val1, int val2);
     string inputDeath();
     string inputNation();
     void displayChoice();
