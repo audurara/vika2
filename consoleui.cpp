@@ -69,36 +69,23 @@ void ConsoleUI::run()
         }
         else if (command == "add")
         {
-            //cin.ignore();
-            int counter = 0;
-            string choice;
+             cout << "Add Computer Scientist choose '1'" << endl << "Add Computer choose '2'" << endl;
+             cout << "Choice: ";
+             string choice;
+             ostringstream convert;
+             int choice1 = checkInput(0,3);
+             convert << choice;
+             choice = convert.str();
 
-            do
-            {
-                cout << "Add Computer Scientist choose '1'" << endl << "Add Computer choose '2'" << endl;
-                cout << "Choice: ";
-                getline(cin, choice);
+             if(choice1 == 1)
+             {
+                commandAdd();
+             }
+             else if(choice1 == 2)
+             {
+                 addComputer();
+             }
 
-                if(choice.length() != 1)
-                {
-                    cout << "Invalid input, please try again: " << endl;
-                }
-                else{
-                    char a = choice[0];
-
-                    if(a == '1')
-                    {
-                        counter = 1;
-                        commandAdd();
-                    }
-                    else if(a == '2')
-                    {
-                        counter = 1;
-                        addComputer();
-                    }
-                }
-
-            }while(counter == 0);
      }
         else if (command == "search")
         {
@@ -603,7 +590,6 @@ void ConsoleUI::sortComputers()
     {
         displayChoice();
         int number = checkInput(0,3);
-
 
         if(number == 1)
         {
