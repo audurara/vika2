@@ -628,7 +628,7 @@ void ConsoleUI::displayComputers(vector<computers> pc)
     }
 }
 
-void ConsoleUI::sortComputers()
+void ConsoleUI::sortComputers() //Birtir valmynd fyriri röðun á tölvum.
 {
     cout << "Please set your prefernces of displaying the list" << endl;
     cout << endl;
@@ -725,7 +725,7 @@ void ConsoleUI::sortComputers()
 
 }
 
-void ConsoleUI::sortScientists()
+void ConsoleUI::sortScientists() //Birtir valmynd fyriri röðun á vísindamönnum
 {
     cout << "Please set your prefernces of displaying the list" << endl;
     cout << endl;
@@ -846,7 +846,7 @@ void ConsoleUI::sortScientists()
     }
 }
 
-void ConsoleUI::displayChoice()
+void ConsoleUI::displayChoice() //birtir valmynd um það hvort maður vill raða vaxandi eða minnkandi.
 {
     cout << "Please set your prefernces of displaying the list" << endl;
     cout << endl;
@@ -855,7 +855,7 @@ void ConsoleUI::displayChoice()
     cout << "Enter a number to continue: ";
 }
 
-void ConsoleUI::displayJoin()
+void ConsoleUI::displayJoin() //birtir valmynd fyrir það tengsl
 {
     cout << "Please set your prefernces of displaying the list" << endl;
     cout << endl;
@@ -924,7 +924,7 @@ void ConsoleUI::displayJoin()
     }
 }
 
-void ConsoleUI::addJoin()
+void ConsoleUI::addJoin() //Fall til að bæta við tengslum á tölvum og vísindamönnum.
 {
     vector<RelationsTable2> S = _service.viewScientist(1);
     vector<RelationsTable2> C = _service.viewScientist(2);
@@ -951,7 +951,7 @@ void ConsoleUI::removeJoin()
 
 void ConsoleUI::displayTable()
 {
-    vector<RelationsTable> pf = _service.readData();
+    vector<RelationsTable> pf = _service.readData(); //Sækir og birtir lista yfir tengsl á tölvum og vísindamönnum
     cout << "ID\t\t\tNAME\t\t\t\tID\t\t\tNAME" << endl;
     for(int i = 0; i < 52 * 2; i++)
     {
@@ -975,7 +975,7 @@ void ConsoleUI::displayTable()
     }
 }
 
-int ConsoleUI::checkInput(int val1, int val2)
+int ConsoleUI::checkInput(int val1, int val2) // athugar input og skrifar villuskilaboð.
 {
     bool found = false;
     int value;
