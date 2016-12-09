@@ -58,11 +58,11 @@ void ConsoleUI::run()
                     if(choice.length() != 1)
                     {
 
-                        cout << "Invalid choice, try again:";
+                        cout << "Invalid input, please try again: ";
                     }
                     else
                     {
-                        cout << "Invalid choice, try again:";
+                        cout << "Invalid input, please try again: ";
                     }
                 }while(!found);
 
@@ -83,7 +83,7 @@ void ConsoleUI::run()
 
                 if(choice.length() != 1)
                 {
-                    cout << "Invalid choice" << endl;
+                    cout << "Invalid input, please try again: " << endl;
                 }
                 else{
                     char a = choice[0];
@@ -148,7 +148,7 @@ void ConsoleUI::run()
                 }
                 else
                 {
-                    cout << "Invalid choice!" << endl;
+                    cout << "Invalid input, please try again: " << endl;
                 }
             }while(counter == 0);
             cout << "Delete succesfull." << endl;
@@ -362,7 +362,7 @@ string ConsoleUI::inputGender() //Setur inn kyn
         }
         else
         {
-            cout << "Invalid input, please try again." << endl;
+            cout << "Invalid input, please try again: " << endl;
             cout << "Enter gender (Male or Female): ";
         }
     }while(1 == 1);
@@ -383,7 +383,7 @@ int ConsoleUI::inputYear(int val1, int val2) //Setur inn ár
 
         if(length < 0 || length > 4)
         {
-            cout << "Invalid input, try again:";
+            cout << "Invalid input, please try again: ";
         }
 
         else if(value > val1 && value < val2)
@@ -391,7 +391,7 @@ int ConsoleUI::inputYear(int val1, int val2) //Setur inn ár
             found = true;
         }
         else {
-            cout << "Invalid, try again:";
+            cout << "Invalid input, please try again: ";
         }
 
     } while (!found);
@@ -870,12 +870,10 @@ void ConsoleUI::displayJoin()
         cout << endl << "Enter Computer ID: ";
         id = checkID(C);
 
-
-
         vector<RelationsTable2> S = _service.viewScientist(counter);
         if(id > static_cast<int>(S.size()) || id < 0)
         {
-            cout << "Invalid ";
+            cout << "Invalid input, please try again: ";
         }
 
         cout << endl;
@@ -963,7 +961,7 @@ int ConsoleUI::checkInput(int val1, int val2)
 
         if(choice.length() != 1)
         {
-            cout << "Invalid input, try again:";
+            cout << "Invalid input, please try again: ";
         }
 
         else if(value > val1 && value < val2)
@@ -971,7 +969,7 @@ int ConsoleUI::checkInput(int val1, int val2)
             found = true;
         }
         else {
-            cout << "Invalid input, try again:";
+            cout << "Invalid input, please try again: ";
         }
 
     } while (!found);
@@ -1001,11 +999,11 @@ int ConsoleUI::checkID(vector<RelationsTable2> info)
 
         if(choice.length() > 2)
         {
-            cout << "Invalid input, try again:";
+            cout << "Invalid input, please try again: ";
         }
         else if(!found2) {
 
-            cout << "Invalid input, try again:";
+            cout << "Invalid input, please try again: ";
         }
 
 
@@ -1037,11 +1035,11 @@ int ConsoleUI::checkRID(vector<RelationsID> info)
 
         if(choice.length() > 2)
         {
-            cout << "Invalid input, try again:";
+            cout << "Invalid input, please try again: ";
         }
         else if(!found2) {
 
-            cout << "Invalid input, try again:";
+            cout << "Invalid input, please try again: ";
         }
 
 
