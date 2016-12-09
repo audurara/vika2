@@ -228,7 +228,6 @@ void ConsoleUI::displaySearch() //Prentar út leitarniðurstöður
     if(choice == 1)
     {
             cout << "Please type name of computer scientist to search for: ";
-            //cin.ignore();
             getline(cin, input);
             QString name = QString::fromStdString(input);
 
@@ -256,49 +255,42 @@ void ConsoleUI::displaySearch() //Prentar út leitarniðurstöður
 
                 displayListOfPerformers(newVector);
             }
-    }
-     if(choice == 2)
-     {
-         cout << "Enter name of computer: ";
-         getline(cin, input);
-         QString name = QString::fromStdString(input);
-
-         vector <computers> newVector = _service.searchcomputer(name);
-         if(newVector.size() == 0)
-         {
-             char val2;
-
-             cout << endl;
-             cout << "No match found in database." << endl;
-             cout << endl;
-             cout << "Do you want to add " << input << " to the database?(y/n): ";
-             cin >> val2;
-
-             if(val2 == 'y' || val2 == 'Y')
-             {
-                 addComputer();
-             }
-             else if(val2 == 'n' || val2 == 'N')
-             {
-                 cout << "You can do this later with 'add' command." << endl;
-             }
-             else
-             {
-                 cout << "Invalid input, please try again (y/n): ";
-             }
-
-         }
-
-         if(newVector.size() > 0)
-         {
-             cout << endl;
-             cout << "                            " << "---- Result of your search in the system ----" << endl;
-             cout << endl;
-             displayComputers(newVector);
-         }
      }
+ }
+    if(choice == 2)
+    {
+        cout << "Please type name of computer to search for: ";
+        getline(cin, input);
+        QString name = QString::fromStdString(input);
+
+        vector <computers> newVector = _service.searchcomputer(name);
+        if(newVector.size() == 0)
+        {
+
+            cout << endl;
+            cout << "No match found in database." << endl;
+            cout << endl;
+            cout << "Do you want to add " << input << " to the database?(y/n): ";
+            string val2 = yesNo();
+
+                     if(val2 == "Yes")
+                    {
+                        addComputer();
+                    }
+            }
+
+
+        if(newVector.size() > 0)
+        {
+            cout << endl;
+            cout << "                            " << "---- Result of your search in the system ----" << endl;
+            cout << endl;
+
+            displayComputers(newVector);
+        }
 }
 }
+
 string ConsoleUI::inputName() //Setur inn nafn
 {
     string name;
@@ -1137,3 +1129,4 @@ string ConsoleUI::yesNo()
     return output;
 
 }
+
