@@ -480,6 +480,14 @@ void ConsoleUI::commandAdd() //Fall sem bætir við tölvunarfræðingum
     _service.addPerformer(name, gender, birth, death, nation);
     cout << endl;
     cout << name << " has been added to the database!" << endl;
+    cout << "do you want to add this Scientist to a computer?(Y/N): ";
+    char yN;
+    cin >> yN;
+    if(yN == 'y' || yN == 'Y')
+    {
+        displayTable();
+        addJoin();
+    }
 }
 void ConsoleUI::addComputer()
 {
@@ -804,10 +812,11 @@ void ConsoleUI::displayJoin()
 {
 
     cout << "choose '1' to see connection from a Scientist to Computers." << endl;
-    cout << "choose '2' to see connection from a Computer to Scientists" << endl << endl;
+    cout << "choose '2' to see connection from a Computer to Scientists" << endl;
+    cout << "choose '3' to see all connections" << endl << endl;
     cout << "Enter a number:";
 
-    int number = checkInput(0,3);
+    int number = checkInput(0,4);
     if(number == 1)
     {
 
@@ -828,11 +837,8 @@ void ConsoleUI::displayJoin()
 
         else
         {
-            tableLook2();
-            for(size_t i = 0; i < pf.size(); i++)
-            {
-                qDebug().noquote().nospace() << pf[i].getSName() << "\t\t" << pf[i].getCName();
-            }
+            tableLook2(pf);
+
         }
 
 
@@ -864,13 +870,14 @@ void ConsoleUI::displayJoin()
         }
         else
         {
-            tableLook2();
-            for(size_t i = 0; i < pf.size(); i++)
-            {
-                qDebug().noquote().nospace() << pf[i].getSName() << "\t\t" << pf[i].getCName();
-            }
+            tableLook2(pf);
+
         }
 
+    }
+    else if(number == 3)
+    {
+        displayTable();
     }
 }
 void ConsoleUI::addJoin()
@@ -888,23 +895,18 @@ void ConsoleUI::addJoin()
 }
 void ConsoleUI::removeJoin()
 {
-    vector<RelationsID> pf = _data.viewJoin();
     tableLook3();
-    for(size_t i = 0; i < pf.size(); i++)
-    {
-        qDebug().noquote().nospace() << pf[i].get_id() << "\t\t" << pf[i].get_SName() << "\t\t" << pf[i].get_cName();
-    }
     int id;
     cout << endl << "Enter ID of a connection to remove from the database: ";
     cin >> id;
-    _data.removeJoin(id);
+    _service.removeJoin(id);
 
 
 }
 
 void ConsoleUI::displayTable()
 {
-    vector<RelationsTable> pf = _data.readData();
+    vector<RelationsTable> pf = _service.readData();
 
     cout << "ID\t\t\tNAME\t\t\t\tID\t\t\tNAME" << endl;
     for(int i = 0; i < 52 * 2; i++)
@@ -914,7 +916,18 @@ void ConsoleUI::displayTable()
     cout << endl;
     for(size_t i = 0; i < pf.size(); i++)
     {
-        qDebug().noquote().nospace() << pf[i].getSId() << "\t\t\t" << pf[i].getSName()  << "\t\t\t" << pf[i].getCId() << "\t\t\t" << pf[i].getCName();
+        if(pf[i].getSName().length() > 16)
+        {
+            qDebug().noquote().nospace() << pf[i].getSId() << "\t\t\t" << pf[i].getSName()  << "\t\t" << pf[i].getCId() << "\t\t\t" << pf[i].getCName();
+        }
+        else if(pf[i].getSName().length() < 16 && pf[i].getSName().length() > 7)
+        {
+            qDebug().noquote().nospace() << pf[i].getSId() << "\t\t\t" << pf[i].getSName()  << "\t\t\t" << pf[i].getCId() << "\t\t\t" << pf[i].getCName();
+        }
+        else if(pf[i].getSName().length() <= 7)
+        {
+            qDebug().noquote().nospace() << pf[i].getSId() << "\t\t\t" << pf[i].getSName()  << "\t\t\t\t" << pf[i].getCId() << "\t\t\t" << pf[i].getCName();
+        }
     }
 }
 int ConsoleUI::checkInput(int val1, int val2)
@@ -960,7 +973,7 @@ void ConsoleUI::tableLook(int counter)
         qDebug().noquote().nospace() << S[i].getSId() << "\t\t" << S[i].getSName();
     }
 }
-void ConsoleUI::tableLook2()
+void ConsoleUI::tableLook2(vector<Relations> pf)
 {
     cout << "NAME\t\tTYPE" << endl;
     for(int i = 0; i < 24 * 2; i++)
@@ -968,15 +981,36 @@ void ConsoleUI::tableLook2()
         cout << "=";
     }
     cout << endl;
+    for(size_t i = 0; i < pf.size(); i++)
+    {
+        qDebug().noquote().nospace() << pf[i].getSName() << "\t\t" << pf[i].getCName();
+    }
 }
 void ConsoleUI::tableLook3()
 {
+    vector<RelationsID> pf = _service.viewJoin();
     cout << "ID\t\tNAME\t\t\tTYPE" << endl;
     for(int i = 0; i < 24 * 2; i++)
     {
         cout << "=";
     }
     cout << endl;
+    for(size_t i = 0; i < pf.size(); i++)
+    {
+        if(pf[i].get_SName().length() > 16)
+        {
+            qDebug().noquote().nospace() << pf[i].get_id() << "\t\t" << pf[i].get_SName() << "\t" << pf[i].get_cName();
+        }
+        else if(pf[i].get_SName().length() < 16 && pf[i].get_SName().length() > 7)
+        {
+            qDebug().noquote().nospace() << pf[i].get_id() << "\t\t" << pf[i].get_SName() << "\t\t" << pf[i].get_cName();
+        }
+        else if(pf[i].get_SName().length() <= 7)
+        {
+            qDebug().noquote().nospace() << pf[i].get_id() << "\t\t" << pf[i].get_SName() << "\t\t\t" << pf[i].get_cName();
+        }
+
+    }
 }
 void ConsoleUI::displayTopInfo()// einfalt fall sem þarf að endurtaka oft!
 {
