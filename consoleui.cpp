@@ -277,7 +277,6 @@ void ConsoleUI::displaySearch() //Prentar út leitarniðurstöður
      if(choice == 2)
      {
          cout << "Enter name of computer: ";
-         cin.ignore();
          getline(cin, input);
          QString name = QString::fromStdString(input);
 
@@ -1082,11 +1081,13 @@ string ConsoleUI::inputCname()
 {
     string name;
     cout << "Enter name/type of Computer: ";
+    cin.ignore();
     getline(cin, name);
 
     if(name[0] == ' ')
     {
         cout << "Invalid input, please try again: ";
+        cin.ignore();
         getline(cin, name);
     }
     return name;
