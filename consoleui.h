@@ -14,6 +14,7 @@ private:
     void displaySearch(); // Prentar niðurstöður leitar
     void tableLook(int counter);
     void tableLook2();
+    void tableLook3();
     void displaySort(vector<Performer> newVector);//Prentar út raðaða lista
     void chooseSort(); //Velur eftir hverju á að raða
     void commandHelp();// Prentar út lista af skipunum
@@ -29,12 +30,21 @@ private:
     void removeJoin();
     void addComputer();
     void displayTable();
+    void displayTopInfo();//mjög lítið fall sem endurtekur cout skipun.
+    void subIntro();
     string deleteElement();//Eyðir staki úr vektor
+<<<<<<< HEAD
     string inputName();
     string inputCname();
     string inputGender();
     int inputYear(int val1, int val2);
     string inputDeath();
+=======
+    string inputName();//tekur inn nafn og villu tjékkar það
+    string inputGender();//tekur inn gender og villu tjékkar fyrir gender
+    string inputBirth();//tekur inn og villutjékkar fyrir BIRTH
+    string inputDeath();//tekur inn og villutjékkar fyrir DEATH
+>>>>>>> 28dc1c6e543132de1cf3b7ba8d91163d43fa2b57
     string inputNation();
     void displayChoice();
     int checkInput(int val1, int val2);
