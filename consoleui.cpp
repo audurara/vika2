@@ -34,12 +34,13 @@ void ConsoleUI::run()
                 bool found = false;
                 cin.ignore();
                 cout << "Do you want to display list of scientist or computers." << endl;
-                cout << "Type '1' for scientists" << endl << "Type '2' for computers" << endl;
+                cout << "Type '1' for scientists" << endl << "Type '2' for computers" << endl << endl;
                 cout << "Select: ";
                 do
                 {
                     string choice;
                     getline(cin, choice);
+                    cout << endl;
                     int value = atoi(choice.c_str());
 
                     if(value == 1)
@@ -50,7 +51,7 @@ void ConsoleUI::run()
                     }
                     else if(value == 2)
                     {
-                        //sortComputers();
+                        sortComputers();
                         found = true;
                         break;
                     }
@@ -250,15 +251,17 @@ void ConsoleUI::displaySearch() //Prentar út leitarniðurstöður
                 cout << "Do you want to add " << input << " to the database?(y/n): ";
                 cin >> val;
 
-                        int a = val;
-
-                        if(a == 'y')
+                         if(val == 'y' || val == 'Y')
                         {
                             commandAdd();
                         }
-                        else if(a == 'n')
+                        else if(val == 'n' || val == 'N')
                         {
-                            cout << "You can do this later" << endl;
+                            cout << "You can do this later with 'add' command." << endl;
+                        }
+                        else
+                        {
+                            cout << "Invalid input, please try again (y/n): ";
                         }
                     }
 
@@ -273,7 +276,7 @@ void ConsoleUI::displaySearch() //Prentar út leitarniðurstöður
     }
      if(choice == 2)
      {
-         cout << "Enter the name of the computer: ";
+         cout << "Enter name of computer: ";
          cin.ignore();
          getline(cin, input);
          QString name = QString::fromStdString(input);
@@ -282,25 +285,28 @@ void ConsoleUI::displaySearch() //Prentar út leitarniðurstöður
          vector <computers> newVector = _service.searchcomputer(name);
          if(newVector.size() == 0)
          {
-             char val;
+             char val2;
 
              cout << endl;
              cout << "No match found in database." << endl;
              cout << endl;
              cout << "Do you want to add " << input << " to the database?(y/n): ";
-             cin >> val;
+             cin >> val2;
 
-                     int a = val;
-
-                     if(a == 'y')
-                     {
-                         addComputer();
-                     }
-                     else if(a == 'n')
-                     {
-                            cout << "You can do this later" << endl;
-                     }
-                 }
+             if(val2 == 'y' || val2 == 'Y')
+             {
+                 addComputer();
+             }
+             else if(val2 == 'n' || val2 == 'N')
+             {
+                 cout << "You can do this later with 'add' command." << endl;
+             }
+             else
+             {
+                 cout << "Invalid input, please try again (y/n): ";
+             }
+             return;
+         }
 
          if(newVector.size() > 0)
          {
@@ -330,7 +336,6 @@ string ConsoleUI::inputName() //Setur inn nafn
     }
     return name;
 }
-
 string ConsoleUI::inputGender() //Setur inn kyn
 {
     string gender;
@@ -519,7 +524,6 @@ void ConsoleUI::addComputer()
     cin >> constr;
     _service.addComputer(name, birthyear, brand, constr);
 }
-
 void ConsoleUI::intro() //Fall sem útprentar upphafsskilaboð
 {
     cout << endl;
@@ -570,7 +574,13 @@ string ConsoleUI::deleteElement()
 }
 void ConsoleUI::displayComputers(vector<computers> pc)
 {
-    displayTopComputers();
+    cout << "ID" << "\t" << "Name" << "\t\t\t" << "build Year";
+    cout << "\t\t" << "Brand" << "\t\t\t" << "Constructed" << endl;
+    for (int i = 0; i < 46*2; ++i)
+    {
+        cout << "=";
+    }
+    cout << endl;
 
     for (size_t i = 0; i < pc.size(); ++i) //Prentar út listann miðað við lengd nafns svo það passi sem best
         {
@@ -591,16 +601,7 @@ void ConsoleUI::displayComputers(vector<computers> pc)
             }
         }
 }
-void ConsoleUI::displayTopComputers()
-{
-    cout << "ID" << "\t" << "Name" << "\t\t\t" << "build Year";
-    cout << "\t\t" << "Brand" << "\t\t\t" << "Constructed" << endl;
-    for (int i = 0; i < 46*2; ++i)
-    {
-        cout << "=";
-    }
-    cout << endl;
-}
+
 void ConsoleUI::sortComputers()
 {
     cout << "Choose '1' to display a list sorted in alphabetical order" << endl;
@@ -702,7 +703,7 @@ void ConsoleUI::sortScientists()
     cout << "Choose '2' to display a list sorted by gender" << endl;
     cout << "Choose '3' to display a list sorted by birth Year" << endl;
     cout << "Choose '4' to display a list sorted by death Year" << endl;
-    cout << "Choose '5' to display a list sorted by nation" << endl;
+    cout << "Choose '5' to display a list sorted by nation" << endl << endl;
     cout << "Enter a number to continue: ";
 
     int choice = checkInput(0,6);
@@ -816,13 +817,13 @@ void ConsoleUI::sortScientists()
         }
     }
 }
+
 void ConsoleUI::displayChoice()
 {
     cout << "Choose '1' for ascending list." << endl;
-    cout << "Choose '2' for descending list." << endl;
+    cout << "Choose '2' for descending list." << endl << endl;
     cout << "Enter a number to continue: ";
 }
-
 void ConsoleUI::displayJoin()
 {
 
@@ -923,7 +924,6 @@ void ConsoleUI::removeJoin()
 
 
 }
-
 void ConsoleUI::displayTable()
 {
     vector<RelationsTable> pf = _service.readData();
@@ -1078,8 +1078,6 @@ void ConsoleUI::tableLook2(vector<Relations> pf)
         qDebug().noquote().nospace() << pf[i].getSName() << "\t\t" << pf[i].getCName();
     }
 }
-
-
 string ConsoleUI::inputCname()
 {
     string name;
