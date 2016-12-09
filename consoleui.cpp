@@ -25,14 +25,14 @@ void ConsoleUI::run()
     do
     {
         cout << endl << "Enter a command to continue ('help' for list of commands): ";
-        cin >> command;
+        getline(cin, command);
         cout << endl;
 
         if (command == "list")
         {
             {
                 bool found = false;
-                cin.ignore();
+                //cin.ignore();
                 cout << "Do you want to display list of scientist or computers? " << endl;
                 cout << "Type '1' for scientists" << endl << "Type '2' for computers" << endl << endl;
                 cout << "Select: ";
@@ -69,7 +69,7 @@ void ConsoleUI::run()
         }
         else if (command == "add")
         {
-            cin.ignore();
+            //cin.ignore();
             int counter = 0;
             string choice;
 
@@ -114,7 +114,6 @@ void ConsoleUI::run()
                 int choice;
                 cout << "Remove Computer Scientist choose '1'" << endl << "Remove Computer choose '2'" << endl;
                 cout << "Choice: ";
-                cin.ignore();
                 choice = checkInput(0,3);
                 cout << endl;
                 if(choice == 1)
@@ -224,7 +223,6 @@ void ConsoleUI::displaySearch() //Prentar út leitarniðurstöður
     string input;
     cout << "Please type '1' for scientist." << endl;
     cout << "Please type '2' for computer." << endl;
-    cin.ignore();
     int choice = checkInput(0,3);
 
     if(choice == 1)
@@ -237,27 +235,18 @@ void ConsoleUI::displaySearch() //Prentar út leitarniðurstöður
             vector <Performer> newVector = _service.searchpeople(name);
             if(newVector.size() == 0)
             {
-                char val;
 
                 cout << endl;
                 cout << "No match found in database." << endl;
                 cout << endl;
                 cout << "Do you want to add " << input << " to the database?(y/n): ";
-                cin >> val;
+                string val = yesNo();
 
-                         if(val == 'y' || val == 'Y')
+                         if(val == "Yes")
                         {
                             commandAdd();
                         }
-                        else if(val == 'n' || val == 'N')
-                        {
-                            cout << "You can do this later with 'add' command." << endl;
-                        }
-                        else
-                        {
-                            cout << "Invalid input, please try again (y/n): ";
-                        }
-                    }
+
 
             if(newVector.size() > 0)
             {
@@ -306,16 +295,16 @@ void ConsoleUI::displaySearch() //Prentar út leitarniðurstöður
              cout << endl;
              cout << "                            " << "---- Result of your search in the system ----" << endl;
              cout << endl;
-
+             displayComputers(newVector);
          }
      }
 }
-
+}
 string ConsoleUI::inputName() //Setur inn nafn
 {
     string name;
     cout << "Enter full name: ";
-    cin.ignore();
+    //cin.ignore();
     getline(cin, name);
 
     int nameLength = name.length();
@@ -564,7 +553,6 @@ void ConsoleUI::displayTopTable() //Fall sem prentar lista yfir alla tölvunarfr
 string ConsoleUI::deleteElement()
 {
     string name;
-    cin.ignore();
     getline(cin, name);
 
     return name;
@@ -1077,7 +1065,6 @@ string ConsoleUI::inputCname()
 {
     string name;
     cout << "Enter name/type of Computer: ";
-    cin.ignore();
     getline(cin, name);
 
     if(name[0] == ' ')
@@ -1121,4 +1108,33 @@ void ConsoleUI::displayTopInfo()// einfalt fall sem þarf að endurtaka oft!
     cout << endl;
     cout << "                      " << "---- List of all computer scientists in the system ----" << endl;
     cout << endl;
+}
+
+string ConsoleUI::yesNo()
+{
+    string input;
+    getline(cin,input);
+    int counter = 0;
+    string output;
+    do
+    {
+        if(input == "yes" || input == "Yes" || input == "Y" || input == "y")
+        {
+            counter = 1;
+            output = "Yes";
+        }
+        else if(input == "no" || input == "No" || input == "N" || input == "n")
+        {
+            counter = 1;
+            output = "No";
+        }
+        else
+        {
+            cout << "Invalid input, please try again: ";
+            getline(cin,input);
+        }
+    }while(counter == 0);
+
+    return output;
+
 }
