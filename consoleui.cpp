@@ -1,4 +1,7 @@
 #include <iostream>
+#include <iomanip>
+#include <locale>
+#include <sstream>
 #include "consoleui.h"
 #include "performer.h"
 #include "dataaccess.h"
@@ -103,17 +106,20 @@ void ConsoleUI::run()
             displaySearch();
         }
         else if (command == "delete")
-        {            
+        {
+
             string namedel; //Ná í strenginn sem á að eyða
             int counter = 0;
             int krona = 0;
             do
             {
-                char choice;
+                int choice;
+
                 cout << "Remove Computer Scientist choose '1'" << endl << "Remove Computer choose '2'" << endl;
                 cout << "Choice: ";
-                cin >> choice;
-                if(choice == '1')
+                choice = checkInput(0,3);
+                cout << endl;
+                if(choice == 1)
                 {
                     krona = 1;
                     tableLook(krona);
@@ -125,7 +131,7 @@ void ConsoleUI::run()
                     counter = 1;
                     _service.removeScientist(namedel); //Eyða völdu nafni með removeElement fallinu
                 }
-                else if(choice == '2')
+                else if(choice == 2)
                 {
                     krona = 2;
                     tableLook(krona);
@@ -157,9 +163,9 @@ void ConsoleUI::run()
         else if (command == "join")
         {
 
-            cout << "Choose '1' to see join list" << endl;
-            cout << "Choose '2' to add to join" << endl;
-            cout << "Choose '3' to remove join" << endl << endl;
+            cout << "Choose '1' To see list of joined Computer Scientists and Computers" << endl;
+            cout << "Choose '2' To join a Computer Scientist and a Computer" << endl;
+            cout << "Choose '3' To remove a joined connection" << endl << endl;
             cout << "Enter a number: ";
             cin.ignore();
             int choice = checkInput(0,4);
@@ -189,11 +195,6 @@ void ConsoleUI::run()
 }
 void ConsoleUI::displayListOfPerformers(vector<Performer> pf) //Prentar lista af tölvunarfræðingum
 {
-
-    cout << endl;
-    cout << "                      " << "---- List of all computer scientists in the system ----" << endl;
-    cout << endl;
-
     displayTopTable();
 
     for (size_t i = 0; i < pf.size(); ++i) //Prentar út listann miðað við lengd nafns svo það passi sem best
@@ -225,13 +226,12 @@ void ConsoleUI::displayListOfPerformers(vector<Performer> pf) //Prentar lista af
 void ConsoleUI::displaySearch() //Prentar út leitarniðurstöður
 {
     string input;
-    char choice;
-
     cout << "Please type '1' for scientist." << endl;
     cout << "Please type '2' for computer." << endl;
-    cin >> choice;
+    cin.ignore();
+    int choice = checkInput(0,3);
 
-    if(choice == '1')
+    if(choice == 1)
     {
             cout << "Please type name of computer scientist to search for: ";
             cin.ignore();
@@ -268,32 +268,10 @@ void ConsoleUI::displaySearch() //Prentar út leitarniðurstöður
                 cout << "                            " << "---- Result of your search in the system ----" << endl;
                 cout << endl;
 
-                displayTopTable();
-            }
-
-            for(size_t i = 0; i < newVector.size(); i++) //Forlykkja prentar niðurstöður miðað við lengd nafns svo það passi sem best
-            {
-                if(newVector[i].getName().length() > 16)
-                {
-                qDebug().noquote().nospace() << i+1 << "\t" << newVector[i].getName() << "\t" << newVector[i].getGender()
-                                             << "\t\t" << newVector[i].getbYear() << "\t\t\t" << newVector[i].getdYear()
-                                             << "\t\t\t" << newVector[i].getNation();
-                }
-                else if(newVector[i].getName().length() < 16 && newVector[i].getName().length() > 8)
-                {
-                qDebug().noquote().nospace() << i+1 << "\t" << newVector[i].getName() << "\t\t" << newVector[i].getGender()
-                                             << "\t\t" << newVector[i].getbYear() << "\t\t\t" << newVector[i].getdYear()
-                                             << "\t\t\t" << newVector[i].getNation();
-                }
-                else if(newVector[i].getName().length() <= 8)
-                {
-                qDebug().noquote().nospace() << i+1 << "\t" << newVector[i].getName() << "\t\t\t" << newVector[i].getGender()
-                                             << "\t\t" << newVector[i].getbYear() << "\t\t\t" << newVector[i].getdYear()
-                                             << "\t\t\t" << newVector[i].getNation();
-                }
+                displayListOfPerformers(newVector);
             }
     }
-     if(choice == '2')
+     if(choice == 2)
      {
          cout << "Enter the name of the computer: ";
          cin.ignore();
@@ -329,26 +307,7 @@ void ConsoleUI::displaySearch() //Prentar út leitarniðurstöður
              cout << endl;
              cout << "                            " << "---- Result of your search in the system ----" << endl;
              cout << endl;
-             displayTopComputers();
 
-         }
-         for(size_t i = 0; i < newVector.size(); i++) //Forlykkja prentar niðurstöður miðað við lengd nafns svo það passi sem best
-         {
-             if(newVector[i].getName().length() > 16)
-             {
-             qDebug().noquote().nospace() << i+1 << "\t" << newVector[i].getName() << "\t" << newVector[i].getBuildy()
-                                          << "\t\t" << newVector[i].getBrand() << "\t\t\t" << newVector[i].getConstr();
-             }
-             else if(newVector[i].getName().length() < 16 && newVector[i].getName().length() > 8)
-             {
-             qDebug().noquote().nospace() << i+1 << "\t" << newVector[i].getName() << "\t\t" << newVector[i].getBuildy()
-                                          << "\t\t" << newVector[i].getBrand() << "\t\t\t" << newVector[i].getConstr();
-             }
-             else if(newVector[i].getName().length() <= 8)
-             {
-             qDebug().noquote().nospace() << i+1 << "\t" << newVector[i].getName() << "\t\t\t" << newVector[i].getBuildy()
-                                          << "\t\t" << newVector[i].getBrand() << "\t\t\t" << newVector[i].getConstr();
-             }
          }
      }
 }
@@ -365,13 +324,13 @@ string ConsoleUI::inputName() //Setur inn nafn
         while(!isalpha(name[i]) && name[i] != ' ') //Passar að inntak fyrir nafn sé ekki tala eða tómt
                {
                    cout << "Invalid input, please try again: ";
-                   //cin.ignore();
                    getline(cin, name);
                    nameLength = name.length();
                 }
     }
     return name;
 }
+
 string ConsoleUI::inputGender() //Setur inn kyn
 {
     string gender;
@@ -405,32 +364,35 @@ string ConsoleUI::inputGender() //Setur inn kyn
     }while(1 == 1);
     return gender;
 }
-string ConsoleUI::inputBirth() //Setur inn fæðingarár
+int ConsoleUI::inputYear(int val1, int val2) //Setur inn ár
 {
-    string birth;
-    cout << "Enter year of birth: ";
-    getline(cin, birth);
-    int value = atoi(birth.c_str());
-    int birthLength = birth.length();
+    //cin.ignore();
+    bool found = false;
+    int value;
 
-    for(int i = 0;i < birthLength;i++)
-     {
-        while(!isdigit(birth[i])) //Ef fæðingarár er ekki tala fæst villa
-               {
-                   cout << "Invalid input, please try again: ";
-                   getline(cin, birth);
-                   birthLength = birth.length();
-               }
-    }
 
-    while(value < 0 || value > 2016) //Ef fæðingarár er undir 0 eða yfir 2016 fæst villa
-    {
-        cout << "That is not a valid year" << endl;
-        cout << "Enter year of birth: ";
-        getline(cin, birth);
-        value = atoi(birth.c_str()); //Breytir strengnum fyrir fæðingarár í tölu.
-    }
-    return birth;
+    do {
+        string choice;
+        getline(cin, choice);
+        value = atoi(choice.c_str());
+        int length = static_cast<int>(choice.length());
+
+        if(length < 0 || length > 4)
+        {
+            cout << "Invalid input, try again:";
+        }
+
+        else if(value > val1 && value < val2)
+        {
+            found = true;
+        }
+        else {
+            cout << "Invalid, try again:";
+        }
+
+    } while (!found);
+
+        return value;
 }
 string ConsoleUI::inputDeath() //Setur inn dánarár
 {
@@ -448,11 +410,11 @@ string ConsoleUI::inputDeath() //Setur inn dánarár
     for(int i = 0;i < deathLength;i++)
      {
         while(!isdigit(death[i])) //Ef dánarár er ekki tala fæst villa
-               {
-                   cout << "Invalid input, please try again: ";
-                   getline(cin, death);
-                   deathLength = death.length();
-               }
+        {
+        cout << "Invalid input, please try again: ";
+        getline(cin, death);
+        deathLength = death.length();
+        }
     }
     while(value < 0 || value > 2016) //Ef dánarár er undir 0 eða yfir 2016 fæst villa
     {
@@ -501,14 +463,19 @@ void ConsoleUI::commandAdd() //Fall sem bætir við tölvunarfræðingum
 {
     string name = inputName();
     string gender = inputGender();
-    string birth = inputBirth();
+    cout << "Enter year of birth: ";
+    int birth = inputYear(0,2017);
     string death = inputDeath();
     int value = 0;
     int value2 = 0;
+    string birthyear;
+    ostringstream convert;
+    convert << birth;
+    birthyear = convert.str();
 
     if(death != "--")
     {
-    value = atoi(birth.c_str()); // Breytir strengnum í birth í tölu
+    value = atoi(birthyear.c_str()); // Breytir strengnum í birth í tölu
     value2 = atoi(death.c_str()); // Breytir strengnum í death í tölu
     }
 
@@ -524,7 +491,7 @@ void ConsoleUI::commandAdd() //Fall sem bætir við tölvunarfræðingum
 
     }
     string nation = inputNation();
-    _service.addPerformer(name, gender, birth, death, nation);
+    _service.addPerformer(name, gender, birthyear, death, nation);
     cout << endl;
     cout << name << " has been added to the database!" << endl;
     cout << "Do you want to connect this scientist to a computer in the database?(Y/N): ";
@@ -538,16 +505,20 @@ void ConsoleUI::commandAdd() //Fall sem bætir við tölvunarfræðingum
 }
 void ConsoleUI::addComputer()
 {
-    string name, buildy, brand, constr;
+    string brand, constr;
     cout << "Enter name of computer: ";
-    cin >> name;
+    string name = inputCname();
     cout << "Enter build year of computer: ";
-    cin >> buildy;
+    int buildy = inputYear(0,2017);
+    string birthyear;
+    ostringstream convert;
+    convert << buildy;
+    birthyear = convert.str();
     cout << "Enter type of computer: ";
     cin >> brand;
     cout << "was it built or not?(Yes/No): ";
     cin >> constr;
-    _service.addComputer(name, buildy, brand, constr);
+    _service.addComputer(name, birthyear, brand, constr);
 }
 
 void ConsoleUI::intro() //Fall sem útprentar upphafsskilaboð
@@ -651,14 +622,14 @@ void ConsoleUI::sortComputers()
         {
             string ASC = "ASC";
             string name = "name";
-            vector <computers> pf = _data.sortCpu(name, ASC);
+            vector <computers> pf = _service.sortComputers(name,ASC);
             displayComputers(pf);
         }
         if(number == 2)
         {
             string DESC = "DESC";
             string name = "name";
-            vector <computers> pf = _data.sortCpu(name, DESC);
+            vector <computers> pf = _service.sortComputers(name,DESC);
             displayComputers(pf);
         }
     }
@@ -671,7 +642,7 @@ void ConsoleUI::sortComputers()
         {
             string ASC = "ASC";
             string buildY = "buildy";
-            vector <computers> pf = _data.sortCpu(buildY, ASC);
+            vector <computers> pf = _service.sortComputers(buildY,ASC);
             displayComputers(pf);
 
         }
@@ -679,7 +650,7 @@ void ConsoleUI::sortComputers()
         {
             string DESC = "DESC";
             string buildY = "buildy";
-            vector <computers> pf = _data.sortCpu(buildY, DESC);
+            vector <computers> pf = _service.sortComputers(buildY,DESC);
             displayComputers(pf);
         }
     }
@@ -692,14 +663,14 @@ void ConsoleUI::sortComputers()
         {
             string ASC = "ASC";
             string brand = "type";
-            vector <computers> pf = _data.sortCpu(brand, ASC);
+            vector <computers> pf = _service.sortComputers(brand,ASC);
             displayComputers(pf);
         }
         if(number == 2)
         {
             string DESC = "DESC";
             string brand = "type";
-            vector <computers> pf = _data.sortCpu(brand, DESC);
+            vector <computers> pf = _service.sortComputers(brand,DESC);
             displayComputers(pf);
         }
     }
@@ -712,14 +683,14 @@ void ConsoleUI::sortComputers()
         {
             string ASC = "ASC";
             string constr = "constr";
-            vector <computers> pf = _data.sortCpu(constr, ASC);
+            vector <computers> pf = _service.sortComputers(constr,ASC);
             displayComputers(pf);
         }
         if(number == 2)
         {
             string DESC = "DESC";
             string constr = "constr";
-            vector <computers> pf = _data.sortCpu(constr, DESC);
+            vector <computers> pf = _service.sortComputers(constr,DESC);
             displayComputers(pf);
         }
     }
@@ -747,14 +718,16 @@ void ConsoleUI::sortScientists()
         {
             string ASC = "ASC";
             string name = "name";
-            vector<Performer> pf = _data.sortScientists(name, ASC);
+            vector<Performer> pf = _service.sortScientists(name, ASC);
+            displayTopInfo();
             displayListOfPerformers(pf);
         }
         if(number == 2)
         {
             string DESC = "DESC";
             string name = "name";
-            vector<Performer> pf = _data.sortScientists(name, DESC);
+            vector<Performer> pf = _service.sortScientists(name, DESC);
+            displayTopInfo();
             displayListOfPerformers(pf);
         }
     }
@@ -767,14 +740,16 @@ void ConsoleUI::sortScientists()
         {
             string ASC = "ASC";
             string gender = "gender";
-            vector<Performer> pf = _data.sortScientists(gender, ASC);
+            vector<Performer> pf = _service.sortScientists(gender, ASC);
+            displayTopInfo();
             displayListOfPerformers(pf);
         }
         if(number == 2)
         {
             string DESC = "DESC";
             string gender = "gender";
-            vector<Performer> pf = _data.sortScientists(gender, DESC);
+            vector<Performer> pf = _service.sortScientists(gender, DESC);
+            displayTopInfo();
             displayListOfPerformers(pf);
         }
     }
@@ -786,14 +761,16 @@ void ConsoleUI::sortScientists()
         {
             string ASC = "ASC";
             string bYear = "byear";
-            vector<Performer> pf = _data.sortScientists(bYear, ASC);
+            vector<Performer> pf = _service.sortScientists(bYear, ASC);
+            displayTopInfo();
             displayListOfPerformers(pf);
         }
         if(number == 2)
         {
             string DESC = "DESC";
             string bYear = "byear";
-            vector<Performer> pf = _data.sortScientists(bYear, DESC);
+            vector<Performer> pf = _service.sortScientists(bYear, DESC);
+            displayTopInfo();
             displayListOfPerformers(pf);
         }
     }
@@ -805,14 +782,16 @@ void ConsoleUI::sortScientists()
         {
             string ASC = "ASC";
             string dYear = "dyear";
-            vector<Performer> pf = _data.sortScientists(dYear, ASC);
+            vector<Performer> pf = _service.sortScientists(dYear, ASC);
+            displayTopInfo();
             displayListOfPerformers(pf);
         }
         if(number == 2)
         {
             string DESC = "DESC";
             string dYear = "dyear";
-            vector<Performer> pf = _data.sortScientists(dYear, DESC);
+            vector<Performer> pf = _service.sortScientists(dYear, DESC);
+            displayTopInfo();
             displayListOfPerformers(pf);
         }
     }
@@ -824,14 +803,16 @@ void ConsoleUI::sortScientists()
         {
             string ASC = "ASC";
             string nation = "nation";
-            vector<Performer> pf = _data.sortScientists(nation, ASC);
+            vector<Performer> pf = _service.sortScientists(nation, ASC);
+            displayTopInfo();
             displayListOfPerformers(pf);
         }
         if(number == 2)
         {
             string DESC = "DESC";
             string nation = "nation";
-            vector<Performer> pf = _data.sortScientists(nation, DESC);
+            vector<Performer> pf = _service.sortScientists(nation, DESC);
+            displayTopInfo();
             displayListOfPerformers(pf);
         }
     }
@@ -982,7 +963,7 @@ int ConsoleUI::checkInput(int val1, int val2)
             found = true;
         }
         else {
-            cout << "Invalid, try again:";
+            cout << "Invalid input, try again:";
         }
 
     } while (!found);
@@ -1012,6 +993,21 @@ void ConsoleUI::tableLook2()
     }
     cout << endl;
 }
+
+
+string ConsoleUI::inputCname()
+{
+    string name;
+    cout << "Enter full name: ";
+    getline(cin, name);
+
+    if(name[0] == ' ')
+    {
+        cout << "Invalid input, please try again: ";
+        getline(cin, name);
+    }
+    return name;
+}
 void ConsoleUI::tableLook3()
 {
     cout << "ID\t\tNAME\t\t\tTYPE" << endl;
@@ -1019,5 +1015,11 @@ void ConsoleUI::tableLook3()
     {
         cout << "=";
     }
+    cout << endl;
+}
+void ConsoleUI::displayTopInfo()// einfalt fall sem þarf að endurtaka oft!
+{
+    cout << endl;
+    cout << "                      " << "---- List of all computer scientists in the system ----" << endl;
     cout << endl;
 }

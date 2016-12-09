@@ -30,12 +30,18 @@ private:
     void removeJoin();
     void addComputer();
     void displayTable();
+    void displayTopInfo();//mjög lítið fall sem endurtekur cout skipun.
     void subIntro();
     string deleteElement();//Eyðir staki úr vektor
+
     string inputName();
+    string inputCname();
     string inputGender();
-    string inputBirth();
+    int inputYear(int val1, int val2);
     string inputDeath();
+
+
+
     string inputNation();
     void displayChoice();
     int checkInput(int val1, int val2);

@@ -88,3 +88,13 @@ void PerformerService::addRelations(int sId, int cId)
 {
     _data.addRelations(sId, cId);
 }
+vector<computers> PerformerService::sortComputers(string i1, string i2)
+{
+    vector<computers> pf = _data.sortCpu(i1, i2);
+    return pf;
+}
+vector<Performer> PerformerService::sortScientists(string i1, string i2)
+{
+    vector<Performer> pf = _data.sortScientists(i1, i2);
+    return pf;
+}
