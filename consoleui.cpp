@@ -24,7 +24,7 @@ void ConsoleUI::run()
 
     do
     {
-        cout << endl << "Enter a command to continue: ";
+        cout << endl << "Enter a command to continue ('help' for list of commands): ";
         cin >> command;
         cout << endl;
 
