@@ -235,7 +235,7 @@ void ConsoleUI::displaySearch() //Prentar út leitarniðurstöður
     if(choice == 1)
     {
             cout << "Please type name of computer scientist to search for: ";
-            cin.ignore();
+            //cin.ignore();
             getline(cin, input);
             QString name = QString::fromStdString(input);
 
@@ -277,6 +277,7 @@ void ConsoleUI::displaySearch() //Prentar út leitarniðurstöður
      if(choice == 2)
      {
          cout << "Enter name of computer: ";
+         cin.ignore();
          getline(cin, input);
          QString name = QString::fromStdString(input);
 
@@ -320,6 +321,7 @@ string ConsoleUI::inputName() //Setur inn nafn
 {
     string name;
     cout << "Enter full name: ";
+    cin.ignore();
     getline(cin, name);
 
     int nameLength = name.length();
@@ -341,6 +343,7 @@ string ConsoleUI::inputGender() //Setur inn kyn
     cout << "Enter gender (Male or Female): ";
     do //Passar að öll prentuð kyn séu annaðhvort "Male" eða "Female"
     {
+        //cin.ignore();
         getline(cin, gender);
         if(gender == "Male")
         {
@@ -519,7 +522,7 @@ void ConsoleUI::addComputer()
     birthyear = convert.str();
     cout << "Enter type of computer: ";
     cin >> brand;
-    cout << "was it built or not?(Yes/No): ";
+    cout << "Was it built or not?(Yes/No): ";
     cin >> constr;
     _service.addComputer(name, birthyear, brand, constr);
 }
@@ -833,10 +836,10 @@ void ConsoleUI::displayJoin()
 {
     cout << "Please set your prefernces of displaying the list" << endl;
     cout << endl;
-    cout << "choose '1' to see connection from a Scientist to Computers." << endl;
-    cout << "choose '2' to see connection from a Computer to Scientists" << endl;
-    cout << "choose '3' to see all connections" << endl << endl;
-    cout << "Enter a number:";
+    cout << "Type '1' to see connection from a Scientist to Computers." << endl;
+    cout << "Type '2' to see connection from a Computer to Scientists" << endl;
+    cout << "Type '3' to see all connections between computers and scientists" << endl << endl;
+    cout << "Enter a number to continue:";
 
     int number = checkInput(0,4);
     if(number == 1)
@@ -847,14 +850,14 @@ void ConsoleUI::displayJoin()
         string sId = "S.id";
         int id;
         cout << endl << endl;
-        cout << "--- Please enter a ID of a Scientist to see connection with computers ---" << endl;
+        cout << "--- Please enter a ID of a Scientist to see connection to computers ---" << endl;
         cout << endl << "Enter Scientist ID: ";
         id = checkID(S);
         cout << endl;
         vector<Relations> pf = _service.startJoin(sId, id);
         if(pf.size() == 0)
         {
-            cout << "no computer listed to this scientist!" << endl;
+            cout << "No computer listed to this scientist!" << endl;
         }
 
         else
@@ -873,7 +876,7 @@ void ConsoleUI::displayJoin()
         string cId = "C.id";
         int id;
         cout << endl << endl;
-        cout << "--- Please enter a ID of a Computer to see connection with Scientists ---" << endl;
+        cout << "--- Please enter a ID of a Computer to see connection to Scientists ---" << endl;
         cout << endl << "Enter Computer ID: ";
         id = checkID(C);
 
