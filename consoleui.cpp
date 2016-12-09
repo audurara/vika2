@@ -250,15 +250,17 @@ void ConsoleUI::displaySearch() //Prentar út leitarniðurstöður
                 cout << "Do you want to add " << input << " to the database?(y/n): ";
                 cin >> val;
 
-                        int a = val;
-
-                        if(a == 'y')
+                         if(val == 'y' || val == 'Y')
                         {
                             commandAdd();
                         }
-                        else if(a == 'n')
+                        else if(val == 'n' || val == 'N')
                         {
-                            cout << "You can do this later" << endl;
+                            cout << "You can do this later with 'add' command." << endl;
+                        }
+                        else
+                        {
+                            cout << "Invalid input, please try again (y/n): ";
                         }
                     }
 
@@ -273,7 +275,7 @@ void ConsoleUI::displaySearch() //Prentar út leitarniðurstöður
     }
      if(choice == 2)
      {
-         cout << "Enter the name of the computer: ";
+         cout << "Enter name of computer: ";
          cin.ignore();
          getline(cin, input);
          QString name = QString::fromStdString(input);
@@ -282,25 +284,28 @@ void ConsoleUI::displaySearch() //Prentar út leitarniðurstöður
          vector <computers> newVector = _service.searchcomputer(name);
          if(newVector.size() == 0)
          {
-             char val;
+             char val2;
 
              cout << endl;
              cout << "No match found in database." << endl;
              cout << endl;
              cout << "Do you want to add " << input << " to the database?(y/n): ";
-             cin >> val;
+             cin >> val2;
 
-                     int a = val;
-
-                     if(a == 'y')
-                     {
-                         addComputer();
-                     }
-                     else if(a == 'n')
-                     {
-                            cout << "You can do this later" << endl;
-                     }
-                 }
+             if(val2 == 'y' || val2 == 'Y')
+             {
+                 addComputer();
+             }
+             else if(val2 == 'n' || val2 == 'N')
+             {
+                 cout << "You can do this later with 'add' command." << endl;
+             }
+             else
+             {
+                 cout << "Invalid input, please try again (y/n): ";
+             }
+             return;
+         }
 
          if(newVector.size() > 0)
          {
