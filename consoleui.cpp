@@ -69,7 +69,6 @@ void ConsoleUI::run()
         }
         else if (command == "add")
         {
-
              cout << "Add Computer Scientist choose '1'" << endl << "Add Computer choose '2'" << endl;
              cout << "Choice: ";
              string choice;
@@ -528,12 +527,12 @@ void ConsoleUI::addComputer()
     int counter = 0;
     string name = inputCname();
     cout << "Enter type of computer: ";
-    cin >> brand;
+    getline (cin, brand);
 
     do
     {
             cout << "was it built or not?(Yes/No): ";
-            cin >> constr;
+            getline(cin, constr);
         if (constr == "Yes" || constr == "yes")
         {
             buildy = inputCbuildy();
