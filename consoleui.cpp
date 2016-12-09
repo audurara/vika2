@@ -105,6 +105,7 @@ void ConsoleUI::run()
         {            
             string namedel; //Ná í strenginn sem á að eyða
             int counter = 0;
+            int krona = 0;
             do
             {
                 char choice;
@@ -113,16 +114,28 @@ void ConsoleUI::run()
                 cin >> choice;
                 if(choice == '1')
                 {
-                    cout << "Input name of scientist: ";
+                    krona = 1;
+                    tableLook(krona);
+                    cout << endl;
+                    cout << "--- Please enter ID to delete from database ---";
+                    cout << endl << endl;
+                    cout << "Input ID of a Scientist to delete: ";
                     namedel = deleteElement();
                     counter = 1;
                     _service.removeScientist(namedel); //Eyða völdu nafni með removeElement fallinu
                 }
                 else if(choice == '2')
                 {
-                    cout << "Input name of computer: ";
+                    krona = 2;
+                    tableLook(krona);
+                    cout << endl;
+                    cout << "--- Please enter ID to delete from database ---";
+                    cout << endl << endl;
+                    cout << "Input ID of a Computer to delete: ";
                     namedel = deleteElement();
                     counter = 1;
+
+
                     _service.removeComputer(namedel); //Eyða völdu nafni með removeElement fallinu
                 }
                 else
@@ -130,7 +143,7 @@ void ConsoleUI::run()
                     cout << "Invalid choice!" << endl;
                 }
             }while(counter == 0);
-            cout << namedel << " has been deleted from database." << endl;
+            cout << "Delete succesfull." << endl;
         }
         else if (command == "help")
         {
@@ -342,7 +355,6 @@ string ConsoleUI::inputName() //Setur inn nafn
 {
     string name;
     cout << "Enter full name: ";
-    cin.ignore();
     getline(cin, name);
 
     int nameLength = name.length();
@@ -352,7 +364,7 @@ string ConsoleUI::inputName() //Setur inn nafn
         while(!isalpha(name[i]) && name[i] != ' ') //Passar að inntak fyrir nafn sé ekki tala eða tómt
                {
                    cout << "Invalid input, please try again: ";
-                   cin.ignore();
+                   //cin.ignore();
                    getline(cin, name);
                    nameLength = name.length();
                 }
@@ -424,11 +436,12 @@ string ConsoleUI::inputDeath() //Setur inn dánarár
     string death;
     cout << "Enter year of death or enter '--' if person is alive: ";
     getline(cin, death);
-    int value = atoi(death.c_str());
+
     if(death == "--")
     {
         return death;
     }
+    int value = atoi(death.c_str());
     int deathLength = death.length();
 
     for(int i = 0;i < deathLength;i++)
@@ -475,9 +488,9 @@ void ConsoleUI::commandHelp()
     cout << "-------- List of commands for the database --------" << endl << endl;
     cout << "list   - Choose to list all Computer Scientists or all Computers" << endl;
     cout << "add    - Choose to add a Computer Scientist or to add a Computer" << endl;
-    cout << "search - Searches for a given computer scientist" << endl;
-    cout << "delete - This will remove the entry from the list" << endl;
-    cout << "join   - To add and see joined Computers and Computer Scientists" << endl;
+    cout << "search - Searches for a given Computer Scientist or Computer" << endl;
+    cout << "delete - To delete entry from Computer Scientists or Computers" << endl;
+    cout << "join   - To add, list and remove joined Computers and Computer Scientists" << endl;
     cout << "help   - Displays list of commands" << endl;
     cout << "exit   - This will close the application" << endl;
     cout << "Note that the commands are case-sensitive!" << endl << endl;
@@ -497,6 +510,7 @@ void ConsoleUI::commandAdd() //Fall sem bætir við tölvunarfræðingum
     value = atoi(birth.c_str()); // Breytir strengnum í birth í tölu
     value2 = atoi(death.c_str()); // Breytir strengnum í death í tölu
     }
+
     while(value2 < value) //Passar að talan í dánarári getur ekki verið minni en í fæðingarári
     {
         cout << "Death year can not be less than birth year! Please try again. " << endl;
@@ -825,18 +839,20 @@ void ConsoleUI::displayChoice()
 void ConsoleUI::displayJoin()
 {
 
-    cout << "choose '1' to see wich Scientist made wich Computer." << endl;
-    cout << "choose '2' to see wich computer was made by wich Scientist" << endl << endl;
+    cout << "choose '1' to see connection from a Scientist to Computers." << endl;
+    cout << "choose '2' to see connection from a Computer to Scientists" << endl << endl;
     cout << "Enter a number:";
 
     int number = checkInput(0,3);
-    cout << number;
     if(number == 1)
     {
+
         int counter = 1;
         tableLook(counter);
         string sId = "S.id";
         int id;
+        cout << endl << endl;
+        cout << "--- Please enter a ID of a Scientist to see connection with computers ---" << endl;
         cout << endl << "Enter Scientist ID: ";
         cin >> id;
         cout << endl;
@@ -863,13 +879,18 @@ void ConsoleUI::displayJoin()
         tableLook(counter);
         string cId = "C.id";
         int id;
+        cout << endl << endl;
+        cout << "--- Please enter a ID of a Computer to see connection with Scientists ---" << endl;
         cout << endl << "Enter Computer ID: ";
         cin >> id;
 
-        //if(id > S.size() || id < 0)
-        //{
-        //    cout << "Invalid HALLO";
-        //}
+
+
+        vector<RelationsTable2> S = _service.viewScientist(counter);
+        if(id > static_cast<int>(S.size()) || id < 0)
+        {
+            cout << "Invalid ";
+        }
 
         cout << endl;
         vector<Relations> pf = _service.startJoin(cId, id);
@@ -893,21 +914,24 @@ void ConsoleUI::addJoin()
     int sId;
     int cId;
     cout << endl;
-    cout << "enter ID of scientist: ";
+    cout << "--- Please choose the ID of a Scientist and a Computer to join them ---";
+    cout << endl << endl;
+    cout << "Enter ID of scientist: ";
     cin >> sId;
-    cout << "enter ID of computer: ";
+    cout << "Enter ID of computer: ";
     cin >> cId;
     _service.addRelations(sId, cId);
 }
 void ConsoleUI::removeJoin()
 {
     vector<RelationsID> pf = _data.viewJoin();
+    tableLook3();
     for(size_t i = 0; i < pf.size(); i++)
     {
         qDebug().noquote().nospace() << pf[i].get_id() << "\t\t" << pf[i].get_SName() << "\t\t" << pf[i].get_cName();
     }
     int id;
-    cout << "Enter ID: ";
+    cout << endl << "Enter ID of a connection to remove from the database: ";
     cin >> id;
     _data.removeJoin(id);
 
@@ -975,6 +999,15 @@ void ConsoleUI::tableLook(int counter)
 void ConsoleUI::tableLook2()
 {
     cout << "NAME\t\tTYPE" << endl;
+    for(int i = 0; i < 24 * 2; i++)
+    {
+        cout << "=";
+    }
+    cout << endl;
+}
+void ConsoleUI::tableLook3()
+{
+    cout << "ID\t\tNAME\t\t\tTYPE" << endl;
     for(int i = 0; i < 24 * 2; i++)
     {
         cout << "=";
