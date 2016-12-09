@@ -69,6 +69,7 @@ void ConsoleUI::run()
         }
         else if (command == "add")
         {
+
              cout << "Add Computer Scientist choose '1'" << endl << "Add Computer choose '2'" << endl;
              cout << "Choice: ";
              string choice;
@@ -85,7 +86,6 @@ void ConsoleUI::run()
              {
                  addComputer();
              }
-
      }
         else if (command == "search")
         {
