@@ -2,6 +2,9 @@
 #define RELATIONS_H
 #include <QtSql>
 
+//Allir klasarnir eru gerðir eins nema þeir eru allir gerðir
+//til að skila mismunandi vektorum t.d. (2 QStrings) eða (2 integer og 2 QStrings).
+//Mjög hentugt að búa þá til.
 
 class Relations
 {

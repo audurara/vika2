@@ -2,7 +2,7 @@
 #define COMPUTERS_H
 #include <QtSql>
 
-
+//sjá útskýringu í relations.h !
 
 class computers
 {

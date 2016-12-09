@@ -2,6 +2,7 @@
 #define RELATIONSID_H
 #include <QtSql>
 
+//sjá útskýringu í relations.h !
 
 class RelationsID
 {

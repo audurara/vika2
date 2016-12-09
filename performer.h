@@ -3,7 +3,7 @@
 #include <string>
 #include <QtSql>
 
-using namespace std;
+//sjá útskýringu í relations.h !
 
 class Performer
 {

@@ -19,8 +19,8 @@ public:
     vector<Performer> sortByGender(); //Ber saman kyn
     vector<Performer> sortByNationality(); //Ber saman þjóðerni og raðar þeim eftir stafrófsröð
     vector<computers> getComputers(); //vektor fyrir computers.
-    string removeScientist(string name); //Skilar til baka streng eftir að hafa eytt einu tilviki.
-    string removeComputer(string name);
+    void removeScientist(string name); //Skilar til baka streng eftir að hafa eytt einu tilviki.
+    void removeComputer(string name);
     void addPerformer(string name, string gender, string birth, string death, string nation); //Bætir nýjum tölvunarfræðingi inn í skrána
     void addComputer(string name, string buildy, string brand, string constr);
     void addRelations(int sId, int cId);

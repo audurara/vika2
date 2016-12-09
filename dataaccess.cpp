@@ -84,6 +84,7 @@ void DataAccess::removeDataComputer(string id) // þetta fall er notað til að 
     query.exec(qstr);
 
 }
+
 void DataAccess::openSqlFiles() // Þetta fall er notað til að opna database og er það fall bara kallað upp einu sinni og helst tengingin við það database út allt forritið.
 {
     QSqlDatabase db = QSqlDatabase::addDatabase("QSQLITE");
@@ -93,6 +94,7 @@ void DataAccess::openSqlFiles() // Þetta fall er notað til að opna database o
         qDebug();
     }
 }
+
 void DataAccess::addRelations(int sId, int cId) //Þetta fall er notað til þess að bæta við tengingum hjá tölvum við fræðinga og öfugt.
 {
     QString QsId = QString::number(sId);
