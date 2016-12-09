@@ -14,6 +14,7 @@ private:
     void displaySearch(); // Prentar niðurstöður leitar
     void tableLook(int counter);
     void tableLook2();
+    void tableLook3();
     void displaySort(vector<Performer> newVector);//Prentar út raðaða lista
     void chooseSort(); //Velur eftir hverju á að raða
     void commandHelp();// Prentar út lista af skipunum

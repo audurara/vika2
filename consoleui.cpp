@@ -855,12 +855,13 @@ void ConsoleUI::addJoin()
 void ConsoleUI::removeJoin()
 {
     vector<RelationsID> pf = _data.viewJoin();
+    tableLook3();
     for(size_t i = 0; i < pf.size(); i++)
     {
         qDebug().noquote().nospace() << pf[i].get_id() << "\t\t" << pf[i].get_SName() << "\t\t" << pf[i].get_cName();
     }
     int id;
-    cout << "Enter ID: ";
+    cout << endl << "Enter ID: ";
     cin >> id;
     _data.removeJoin(id);
 
@@ -928,6 +929,15 @@ void ConsoleUI::tableLook(int counter)
 void ConsoleUI::tableLook2()
 {
     cout << "NAME\t\tTYPE" << endl;
+    for(int i = 0; i < 24 * 2; i++)
+    {
+        cout << "=";
+    }
+    cout << endl;
+}
+void ConsoleUI::tableLook3()
+{
+    cout << "ID\t\tNAME\t\t\tTYPE" << endl;
     for(int i = 0; i < 24 * 2; i++)
     {
         cout << "=";
