@@ -10,8 +10,6 @@ class Performer
 public:
     Performer();
     Performer(int id, QString name, QString gender, QString bYear, QString dYear, QString nation);
-    //nafn, kyn, fæðingarár, dánarár og þjóðerni.
-
     int getId() const
     {
         return _id;
@@ -20,12 +18,10 @@ public:
     {
         return _name;
     }
-
     QString getGender() const
     {
         return _gender;
     }
-
     QString getbYear() const
     {
         return _bYear;
@@ -39,8 +35,6 @@ public:
     {
         return _nation;
     }
-    //friend bool operator ==(const Performer& p1, const Performer& p2);
-
 private:
 
     int _id;

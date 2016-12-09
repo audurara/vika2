@@ -8,12 +8,10 @@ class RelationsID
 public:
     RelationsID();
     RelationsID( int id, QString sName, QString cName);
-
     QString get_SName()
     {
         return _sName;
     }
-
     QString get_cName()
     {
         return _cName;
