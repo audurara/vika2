@@ -998,7 +998,7 @@ string ConsoleUI::inputCname()
         getline(cin, name);
     }
     return name;
-
+}
 void ConsoleUI::tableLook3()
 {
     cout << "ID\t\tNAME\t\t\tTYPE" << endl;
