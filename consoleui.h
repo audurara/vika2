@@ -22,7 +22,6 @@ private:
     void intro();//Prentar upphafsskilaboð
     void displayTopTable();//Prentar út lista af tölvunarfræðingum, sum önnur föll nota þetta fall.
     void displayComputers(vector<computers> pc);
-    void displayTopComputers();
     void sortComputers(); // sortar tölvur.
     void sortScientists(); // sortar tölvufræðinga.
     void displayJoin();
