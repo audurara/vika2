@@ -8,7 +8,6 @@ class Relations
 public:
     Relations();
     Relations(QString sName, QString cName);
-
     QString getSName()
     {
         return _sName;
@@ -17,7 +16,6 @@ public:
     {
         return _cName;
     }
-
 private:
     QString _sName;
     QString _cName;

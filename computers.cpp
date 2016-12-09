@@ -4,7 +4,6 @@ computers::computers()
 {
 
 }
-
 computers::computers(int id, QString name, QString buildy, QString brand, QString constr)
 {
    _id = id;
@@ -12,5 +11,4 @@ computers::computers(int id, QString name, QString buildy, QString brand, QStrin
    _buildy = buildy;
    _brand = brand;
    _constr = constr;
-
 }

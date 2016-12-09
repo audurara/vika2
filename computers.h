@@ -36,13 +36,11 @@ public:
         return _constr;
     }
 private:
-
     int _id;
     QString _name;
     QString _buildy;
     QString _brand;
     QString _constr;
-
 };
 
 #endif // COMPUTERS_H

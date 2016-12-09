@@ -57,17 +57,15 @@ void ConsoleUI::run()
                     }
                     if(choice.length() != 1)
                     {
-
                         cout << "Invalid input, please try again: ";
                     }
                     else
                     {
                         cout << "Invalid input, please try again: ";
                     }
+
                 }while(!found);
-
             }
-
         }
         else if (command == "add")
         {
@@ -99,8 +97,8 @@ void ConsoleUI::run()
                         addComputer();
                     }
                 }
-            }while(counter == 0);
 
+            }while(counter == 0);
      }
         else if (command == "search")
         {
@@ -108,16 +106,15 @@ void ConsoleUI::run()
         }
         else if (command == "delete")
         {
-
             string namedel; //Ná í strenginn sem á að eyða
             int counter = 0;
             int krona = 0;
             do
             {
                 int choice;
-
                 cout << "Remove Computer Scientist choose '1'" << endl << "Remove Computer choose '2'" << endl;
                 cout << "Choice: ";
+                cin.ignore();
                 choice = checkInput(0,3);
                 cout << endl;
                 if(choice == 1)
@@ -143,14 +140,15 @@ void ConsoleUI::run()
                     namedel = deleteElement();
                     counter = 1;
 
-
                     _service.removeComputer(namedel); //Eyða völdu nafni með removeElement fallinu
                 }
                 else
                 {
                     cout << "Invalid input, please try again: " << endl;
                 }
+
             }while(counter == 0);
+
             cout << "Delete succesfull." << endl;
         }
         else if (command == "help")
@@ -163,7 +161,6 @@ void ConsoleUI::run()
         }
         else if (command == "join")
         {
-
             cout << "Choose '1' To see list of joined Computer Scientists and Computers" << endl;
             cout << "Choose '2' To join a Computer Scientist and a Computer" << endl;
             cout << "Choose '3' To remove a joined connection" << endl << endl;
@@ -201,8 +198,6 @@ void ConsoleUI::displayListOfPerformers(vector<Performer> pf) //Prentar lista af
     for (size_t i = 0; i < pf.size(); ++i) //Prentar út listann miðað við lengd nafns svo það passi sem best
         {
 
-
-
             if(pf[i].getName().length() > 16)
             {
             qDebug().noquote().nospace() << pf[i].getId() << "\t" << pf[i].getName() << "\t" << pf[i].getGender()
@@ -221,9 +216,9 @@ void ConsoleUI::displayListOfPerformers(vector<Performer> pf) //Prentar lista af
                                          << "\t\t" << pf[i].getbYear() << "\t\t\t" << pf[i].getdYear()
                                          << "\t\t\t" << pf[i].getNation();
             }
-
         }
 }
+
 void ConsoleUI::displaySearch() //Prentar út leitarniðurstöður
 {
     string input;
@@ -238,7 +233,6 @@ void ConsoleUI::displaySearch() //Prentar út leitarniðurstöður
             //cin.ignore();
             getline(cin, input);
             QString name = QString::fromStdString(input);
-
 
             vector <Performer> newVector = _service.searchpeople(name);
             if(newVector.size() == 0)
@@ -281,7 +275,6 @@ void ConsoleUI::displaySearch() //Prentar út leitarniðurstöður
          getline(cin, input);
          QString name = QString::fromStdString(input);
 
-
          vector <computers> newVector = _service.searchcomputer(name);
          if(newVector.size() == 0)
          {
@@ -317,6 +310,7 @@ void ConsoleUI::displaySearch() //Prentar út leitarniðurstöður
          }
      }
 }
+
 string ConsoleUI::inputName() //Setur inn nafn
 {
     string name;
@@ -335,6 +329,7 @@ string ConsoleUI::inputName() //Setur inn nafn
                    nameLength = name.length();
                 }
     }
+
     return name;
 }
 string ConsoleUI::inputGender() //Setur inn kyn
@@ -371,12 +366,12 @@ string ConsoleUI::inputGender() //Setur inn kyn
     }while(1 == 1);
     return gender;
 }
+
 int ConsoleUI::inputYear(int val1, int val2) //Setur inn ár
 {
     //cin.ignore();
     bool found = false;
     int value;
-
 
     do {
         string choice;
@@ -388,7 +383,6 @@ int ConsoleUI::inputYear(int val1, int val2) //Setur inn ár
         {
             cout << "Invalid input, please try again: ";
         }
-
         else if(value > val1 && value < val2)
         {
             found = true;
@@ -433,12 +427,12 @@ string ConsoleUI::inputDeath() //Setur inn dánarár
 
     return death;
 }
+
 string ConsoleUI::inputNation() //Setur inn þjóðerni
 {
     string nation;
     cout << "Enter Nationality: ";
     getline(cin, nation);
-
     int nationLength = nation.length();
 
     for(int i = 0;i < nationLength;i++)
@@ -495,7 +489,6 @@ void ConsoleUI::commandAdd() //Fall sem bætir við tölvunarfræðingum
             break;
         }
         value2 = atoi(death.c_str());
-
     }
     string nation = inputNation();
     _service.addPerformer(name, gender, birthyear, death, nation);
@@ -510,6 +503,7 @@ void ConsoleUI::commandAdd() //Fall sem bætir við tölvunarfræðingum
             addJoin();
         }
 }
+
 void ConsoleUI::addComputer()
 {
     string brand, constr;
@@ -545,7 +539,8 @@ void ConsoleUI::intro() //Fall sem útprentar upphafsskilaboð
     }
     cout << endl;
     cout << endl;
-    }
+}
+
 void ConsoleUI::subIntro() //Fall sem útprentar leiðbeiningar
 {
     cout << endl << "This database contains two categories, computers and scientists. " << endl
@@ -601,7 +596,7 @@ void ConsoleUI::displayComputers(vector<computers> pc)
                 qDebug().noquote().nospace() << i+1 << "\t" << pc[i].getName() << "\t\t\t" << pc[i].getBuildy()
                                          << "\t\t\t" << pc[i].getBrand() << "\t\t" << pc[i].getConstr();
             }
-        }
+       }
 }
 
 void ConsoleUI::sortComputers()
@@ -701,6 +696,7 @@ void ConsoleUI::sortComputers()
     }
 
 }
+
 void ConsoleUI::sortScientists()
 {
     cout << "Please set your prefernces of displaying the list" << endl;
@@ -711,9 +707,7 @@ void ConsoleUI::sortScientists()
     cout << "Type '4' to display a list sorted by death Year" << endl;
     cout << "Type '5' to display a list sorted by nation" << endl << endl;
     cout << "Enter a number to continue: ";
-
     int choice = checkInput(0,6);
-
 
     if(choice == 1)
     {
@@ -832,6 +826,7 @@ void ConsoleUI::displayChoice()
     cout << "Type '2' for descending list." << endl << endl;
     cout << "Enter a number to continue: ";
 }
+
 void ConsoleUI::displayJoin()
 {
     cout << "Please set your prefernces of displaying the list" << endl;
@@ -863,10 +858,7 @@ void ConsoleUI::displayJoin()
         else
         {
             tableLook2(pf);
-
         }
-
-
     }
     else if(number == 2)
     {
@@ -895,7 +887,6 @@ void ConsoleUI::displayJoin()
         else
         {
             tableLook2(pf);
-
         }
 
     }
@@ -904,11 +895,11 @@ void ConsoleUI::displayJoin()
         tableLook3();
     }
 }
+
 void ConsoleUI::addJoin()
 {
     vector<RelationsTable2> S = _service.viewScientist(1);
     vector<RelationsTable2> C = _service.viewScientist(2);
-
     int sId;
     int cId;
     cout << endl;
@@ -928,13 +919,11 @@ void ConsoleUI::removeJoin()
     cout << endl << "Enter ID of a connection to remove from the database: ";
     id = checkRID(R);
     _service.removeJoin(id);
-
-
 }
+
 void ConsoleUI::displayTable()
 {
     vector<RelationsTable> pf = _service.readData();
-
     cout << "ID\t\t\tNAME\t\t\t\tID\t\t\tNAME" << endl;
     for(int i = 0; i < 52 * 2; i++)
     {
@@ -957,12 +946,11 @@ void ConsoleUI::displayTable()
         }
     }
 }
+
 int ConsoleUI::checkInput(int val1, int val2)
 {
-    //cin.ignore();
     bool found = false;
     int value;
-
 
     do {
         string choice;
@@ -986,6 +974,7 @@ int ConsoleUI::checkInput(int val1, int val2)
 
         return value;
 }
+
 int ConsoleUI::checkID(vector<RelationsTable2> info)
 {
     //cin.ignore();
@@ -1024,7 +1013,6 @@ int ConsoleUI::checkID(vector<RelationsTable2> info)
 
 int ConsoleUI::checkRID(vector<RelationsID> info)
 {
-    //cin.ignore();
     bool found = false;
     bool found2 = false;
     int value;
@@ -1051,8 +1039,6 @@ int ConsoleUI::checkRID(vector<RelationsID> info)
 
             cout << "Invalid input, please try again: ";
         }
-
-
     } while (!found);
 
         return value;
@@ -1072,6 +1058,7 @@ void ConsoleUI::tableLook(int counter)
         qDebug().noquote().nospace() << S[i].getSId() << "\t\t" << S[i].getSName();
     }
 }
+
 void ConsoleUI::tableLook2(vector<Relations> pf)
 {
     cout << "NAME\t\tTYPE" << endl;
@@ -1085,6 +1072,7 @@ void ConsoleUI::tableLook2(vector<Relations> pf)
         qDebug().noquote().nospace() << pf[i].getSName() << "\t\t" << pf[i].getCName();
     }
 }
+
 string ConsoleUI::inputCname()
 {
     string name;
@@ -1100,6 +1088,7 @@ string ConsoleUI::inputCname()
     }
     return name;
 }
+
 void ConsoleUI::tableLook3()
 {
     vector<RelationsID> pf = _service.viewJoin();
@@ -1126,6 +1115,7 @@ void ConsoleUI::tableLook3()
 
     }
 }
+
 void ConsoleUI::displayTopInfo()// einfalt fall sem þarf að endurtaka oft!
 {
     cout << endl;

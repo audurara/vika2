@@ -12,7 +12,6 @@ class DataAccess
 {
 
 public:
-
     void writeData(string name, string gender, string bYear, string dYear, string nation);//Með þessu falli má skrifa streng inn í skrána
     void openSqlFiles();//opnar sql files.
     void addCpu(string name, string buildy, string brand, string constr);
@@ -22,7 +21,6 @@ public:
     void removeJoin(int id);
     vector<RelationsID> viewJoin();
     vector<Relations> joinScientists(string CS, int id);
-
     DataAccess();
     vector<Performer> searchScientist(QString name);
     vector<computers> searchComputer(QString name);

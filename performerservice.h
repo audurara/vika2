@@ -9,7 +9,6 @@ class PerformerService
 {
 public:
     PerformerService();
-    //
     void openFiles();//opnar sql files um leið og forritið er keyrt, einu sinni.
     vector<Relations> startJoin(string CS, int id);
     vector<Performer> getPerformers(); //Nær í gögn úr skrá og skilar þeim í vector
