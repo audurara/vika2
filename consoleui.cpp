@@ -15,13 +15,13 @@ void ConsoleUI::run()
 {
     intro(); // Prentar upphafsskilaboð
     commandHelp(); // Prentar lista yfir skipanir
+    subIntro(); //Prentar leiðbeiningar
     _service.openFiles();
     string command;
 
     do
     {
-
-        cout << endl << "Enter a command ('help' for list of commands): ";
+        cout << endl << "Enter a command to continue: ";
         cin >> command;
         cout << endl;
 
@@ -226,13 +226,13 @@ void ConsoleUI::displaySearch() //Prentar út leitarniðurstöður
     string input;
     char choice;
 
-    cout << "To search for computer scientist press 1" << endl;
-    cout << "To search for computer press 2" << endl;
+    cout << "Please type '1' for scientist." << endl;
+    cout << "Please type '2' for computer." << endl;
     cin >> choice;
 
     if(choice == '1')
     {
-            cout << "Enter full name of computer scientist: ";
+            cout << "Please type name of computer scientist to search for: ";
             cin.ignore();
             getline(cin, input);
             QString name = QString::fromStdString(input);
@@ -241,8 +241,26 @@ void ConsoleUI::displaySearch() //Prentar út leitarniðurstöður
             vector <Performer> newVector = _service.searchpeople(name);
             if(newVector.size() == 0)
             {
-                cout << "Nothing was found! Please enter 'search' to try again" << endl;
-            }
+                char val;
+
+                cout << endl;
+                cout << "No match found in database." << endl;
+                cout << endl;
+                cout << "Do you want to add " << input << " to the database?(y/n): ";
+                cin >> val;
+
+                        int a = val;
+
+                        if(a == 'y')
+                        {
+                            commandAdd();
+                        }
+                        else if(a == 'n')
+                        {
+                            cout << "You can do this later" << endl;
+                        }
+                    }
+
             if(newVector.size() > 0)
             {
                 cout << endl;
@@ -285,8 +303,26 @@ void ConsoleUI::displaySearch() //Prentar út leitarniðurstöður
          vector <computers> newVector = _service.searchcomputer(name);
          if(newVector.size() == 0)
          {
-             cout << "Nothing was found! Please enter 'search' to try again" << endl;
-         }
+             char val;
+
+             cout << endl;
+             cout << "No match found in database." << endl;
+             cout << endl;
+             cout << "Do you want to add " << input << " to the database?(y/n): ";
+             cin >> val;
+
+                     int a = val;
+
+                     if(a == 'y')
+                     {
+                         addComputer();
+                     }
+                     else if(a == 'n')
+                     {
+                            cout << "You can do this later" << endl;
+                     }
+                 }
+
          if(newVector.size() > 0)
          {
              cout << endl;
@@ -449,7 +485,7 @@ string ConsoleUI::inputNation() //Setur inn þjóðerni
 }
 void ConsoleUI::commandHelp()
 {
-    cout << "-------- The commands are case-sensitive! --------" << endl << endl;
+    cout << "-------- List of commands for the database --------" << endl << endl;
     cout << "list   - Choose to list all Computer Scientists or all Computers" << endl;
     cout << "add    - Choose to add a Computer Scientist or to add a Computer" << endl;
     cout << "search - Searches for a given Computer Scientist or Computer" << endl;
@@ -457,6 +493,8 @@ void ConsoleUI::commandHelp()
     cout << "join   - To add, list and remove joined Computers and Computer Scientists" << endl;
     cout << "help   - Displays list of commands" << endl;
     cout << "exit   - This will close the application" << endl;
+    cout << "Note that the commands are case-sensitive!" << endl << endl;
+
 }
 void ConsoleUI::commandAdd() //Fall sem bætir við tölvunarfræðingum
 {
@@ -522,8 +560,18 @@ void ConsoleUI::intro() //Fall sem útprentar upphafsskilaboð
     }
     cout << endl;
     cout << endl;
-    cout << "Please enter one of the following commands to continue:" << endl;
+    }
+void ConsoleUI::subIntro() //Fall sem útprentar leiðbeiningar
+{
+    cout << endl << "This database contains two categories, computers and scientists. " << endl
+         << "You can either search for any particular computer or some specific scientist" << endl;
+    cout << "from computer history. Please feel free to make changes to update the database" << endl;
     cout << endl;
+    cout << "Type 'search' to perform a thorough search of the database" << endl
+         << "Type 'list' to display a complete list by categories in the database." << endl
+         << "You are limited to the commands in the command list above"
+         << "You can always type 'help' if you do not remember the commands ";
+    cout << endl;    cout << endl;
 }
 void ConsoleUI::displayTopTable() //Fall sem prentar lista yfir alla tölvunarfræðinga í skránni
 {
@@ -835,6 +883,9 @@ void ConsoleUI::displayJoin()
         cout << "--- Please enter a ID of a Computer to see connection with Scientists ---" << endl;
         cout << endl << "Enter Computer ID: ";
         cin >> id;
+
+
+
         vector<RelationsTable2> S = _service.viewScientist(counter);
         if(id > static_cast<int>(S.size()) || id < 0)
         {
