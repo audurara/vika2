@@ -85,7 +85,6 @@ void ConsoleUI::run()
              {
                  addComputer();
              }
-
      }
         else if (command == "search")
         {
