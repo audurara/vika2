@@ -10,12 +10,7 @@ DataAccess::DataAccess()
 
 }
 
-bool operator == (const Performer& p1, const Performer& p2) //Yfirskrifa samasemvirkjann
-{
-    return p1.getName() == p2.getName();
-}
-
-vector<RelationsTable> DataAccess::readData() //Les upplýsingar úr skrá og setur í vektor
+vector<RelationsTable> DataAccess::readData() //þetta fall er notað til að skila vektor samkvæmt sql skipun
 {
     vector<RelationsTable> logs;
 
@@ -73,23 +68,23 @@ void DataAccess::addCpu (string name, string buildy, string brand, string constr
         query.exec();
 }
 
-void DataAccess::removeDataScientist(string name) //Þetta fall tekur út tölvunarfræðing sem inniheldur ákveðið nafn
+void DataAccess::removeDataScientist(string id) //Þetta fall tekur út tölvunarfræðing og röð hennar/hans samkvæmt ID.
 {
-    string str =  "DELETE FROM \"Scientists\" WHERE ID = " + name;
+    string str =  "DELETE FROM \"Scientists\" WHERE ID = " + id;
     QString qstr = QString::fromStdString(str);
     QSqlQuery query;
     query.exec(qstr);
 }
 
-void DataAccess::removeDataComputer(string name)
+void DataAccess::removeDataComputer(string id) // þetta fall er notað til að eyða tölvu og röð hennar samkvæmt ID tölvu.
 {
-    string str =  "DELETE FROM \"Computers\" where name = \"" + name + "\" ";
+    string str =  "DELETE FROM \"Computers\" where ID = \"" + id + "\" ";
     QString qstr = QString::fromStdString(str);
     QSqlQuery query;
     query.exec(qstr);
 
 }
-void DataAccess::openSqlFiles()
+void DataAccess::openSqlFiles() // Þetta fall er notað til að opna database og er það fall bara kallað upp einu sinni og helst tengingin við það database út allt forritið.
 {
     QSqlDatabase db = QSqlDatabase::addDatabase("QSQLITE");
     db.setDatabaseName("database.sqlite");
@@ -98,7 +93,7 @@ void DataAccess::openSqlFiles()
         qDebug();
     }
 }
-void DataAccess::addRelations(int sId, int cId)
+void DataAccess::addRelations(int sId, int cId) //Þetta fall er notað til þess að bæta við tengingum hjá tölvum við fræðinga og öfugt.
 {
     QString QsId = QString::number(sId);
     QString QcId = QString::number(cId);
@@ -111,9 +106,9 @@ void DataAccess::addRelations(int sId, int cId)
         query.exec();
 }
 
-vector<computers> DataAccess::sortCpu(string input, string input2)
-{
-    vector<computers> sort;
+vector<computers> DataAccess::sortCpu(string input, string input2) //þetta fall er notað til að sortera tölvur eftir  nafni, árgerð, tegund og byggingu.
+{                                                                  //input = name, buildy, brand eða constr.
+    vector<computers> sort;                                        //input2 = Ascending eða descending.
     string str = "SELECT * FROM \"Computers\" ORDER BY " + input + " " + input2;
     QString qstr = QString::fromStdString(str);
     QSqlQuery query;
@@ -134,9 +129,9 @@ vector<computers> DataAccess::sortCpu(string input, string input2)
     return sort;
 }
 
-vector<Relations> DataAccess::joinScientists(string CS, int id)
-{
-    vector<Relations> join;
+vector<Relations> DataAccess::joinScientists(string CS, int id) //þetta fall er notað til að sýna bæði hvaða tölva er tengd hvaða fræðingi og öfugt.
+{                                                               //CS = scientist id eða Computer id.
+    vector<Relations> join;                                     //id = hvaða id notandi velur
     string s = std::to_string(id);
     string str =  "SELECT S.name, C.name From \"Scientists\" S Join relations R on R.Sid = S.id Join Computers C on R.cid = C.id WHERE " + CS + " = " + s;
     QString qstr = QString::fromStdString(str);
@@ -176,8 +171,8 @@ vector<Performer> DataAccess::searchScientist(QString name) //Les upplýsingar �
     return newVector;
 }
 
-vector<computers> DataAccess::searchComputer(QString name)
-{
+vector<computers> DataAccess::searchComputer(QString name) //þetta fall tekur inn QStreng til að breyta sql skipun
+{                                                          //svo að fallið skili réttum vektor samkvæmt streng "name".
     vector<computers> newVector;
 
     QString qstr = "SELECT * FROM \"Computers\" WHERE name LIKE \'%" + name + "%\'";
@@ -199,9 +194,9 @@ vector<computers> DataAccess::searchComputer(QString name)
     return newVector;
 }
 
-vector<Performer> DataAccess::sortScientists(string input, string input2)
-{
-    vector<Performer> sort;
+vector<Performer> DataAccess::sortScientists(string input, string input2)              //þetta fall tekur inn 2 strengi.
+{                                                                                      //input = name, gender, bYear, dYear eða nation.
+    vector<Performer> sort;                                                            //input2 = Ascending eða descending.
     string str = "SELECT * FROM \"Scientists\" ORDER BY " + input + " " + input2;
     QString qstr = QString::fromStdString(str);
     QSqlQuery query;
@@ -222,7 +217,7 @@ vector<Performer> DataAccess::sortScientists(string input, string input2)
     return sort;
 }
 
-void DataAccess::removeJoin(int id) //Þetta fall tekur út tölvunarfræðing sem inniheldur ákveðið nafn
+void DataAccess::removeJoin(int id) //Þetta fall tekur út tölvunarfræðing sem inniheldur ákveðið ID
 {
     std::string s = std::to_string(id);
     string str =  "DELETE FROM \"Relations\" where ID  = " + s;
@@ -231,8 +226,8 @@ void DataAccess::removeJoin(int id) //Þetta fall tekur út tölvunarfræðing s
     query.exec(qstr);
 }
 
-vector<RelationsID> DataAccess::viewJoin()
-{
+vector<RelationsID> DataAccess::viewJoin() //þetta fall er notað með vektorinn <RelationsID>.
+{                                          // fallið skilar út vektor samkvæmt sql skipun á Scientists.
     vector<RelationsID> sort;
     string str = "SELECT R.ID, S.name, C.name From \"Scientists\" S Join relations R on R.Sid = S.id Join Computers C on R.cid = C.id";
     QString qstr = QString::fromStdString(str);
@@ -251,7 +246,7 @@ vector<RelationsID> DataAccess::viewJoin()
     return sort;
 }
 
-vector<RelationsTable2> DataAccess::viewScientist()
+vector<RelationsTable2> DataAccess::viewScientist()//þetta fall er notað til að sjá id og nafn frá table scientists
 {
     vector<RelationsTable2> logs;
 
@@ -269,7 +264,7 @@ vector<RelationsTable2> DataAccess::viewScientist()
     return logs;
 }
 
-vector<RelationsTable2> DataAccess::viewComputer()
+vector<RelationsTable2> DataAccess::viewComputer()//þetta fall er notað til að sjá id og nafn frá table Computers
 {
     vector<RelationsTable2> logs;
 
