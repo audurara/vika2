@@ -915,9 +915,10 @@ void ConsoleUI::addJoin()
 void ConsoleUI::removeJoin()
 {
     tableLook3();
+    vector<RelationsID> R = _service.viewJoin();
     int id;
     cout << endl << "Enter ID of a connection to remove from the database: ";
-    cin >> id;
+    id = checkRID(R);
     _service.removeJoin(id);
 
 
@@ -1005,7 +1006,7 @@ int ConsoleUI::checkID(vector<RelationsTable2> info)
         }
         else if(!found2) {
 
-            cout << "Invalid input, try againdafsdfasdf:";
+            cout << "Invalid input, try again:";
         }
 
 
@@ -1013,6 +1014,43 @@ int ConsoleUI::checkID(vector<RelationsTable2> info)
 
         return value;
 }
+
+int ConsoleUI::checkRID(vector<RelationsID> info)
+{
+    //cin.ignore();
+    bool found = false;
+    bool found2 = false;
+    int value;
+
+    do {
+        string choice;
+        getline(cin, choice);
+        value = atoi(choice.c_str());
+
+        for(size_t i = 0; i < info.size(); i++)
+        {
+            if(info[i].get_id() == value)
+            {
+                found = true;
+                found2 = true;
+            }
+        }
+
+        if(choice.length() > 2)
+        {
+            cout << "Invalid input, try again:";
+        }
+        else if(!found2) {
+
+            cout << "Invalid input, try again:";
+        }
+
+
+    } while (!found);
+
+        return value;
+}
+
 void ConsoleUI::tableLook(int counter)
 {
     vector<RelationsTable2> S = _service.viewScientist(counter);

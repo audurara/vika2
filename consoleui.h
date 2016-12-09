@@ -46,6 +46,7 @@ private:
     void displayChoice();
     int checkInput(int val1, int val2);
     int checkID(vector<RelationsTable2> info);
+    int checkRID(vector<RelationsID> info);
 
 
 private: //Eftirfarandi breytur sækja upplýsingar og leyfa virkni sitthvort úr PerformerService og DataAccess.
