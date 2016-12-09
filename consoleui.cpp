@@ -105,6 +105,7 @@ void ConsoleUI::run()
         {            
             string namedel; //Ná í strenginn sem á að eyða
             int counter = 0;
+            int krona = 0;
             do
             {
                 char choice;
@@ -113,6 +114,8 @@ void ConsoleUI::run()
                 cin >> choice;
                 if(choice == '1')
                 {
+                    krona = 1;
+                    tableLook(krona);
                     cout << "Input name of scientist: ";
                     namedel = deleteElement();
                     counter = 1;
@@ -120,9 +123,13 @@ void ConsoleUI::run()
                 }
                 else if(choice == '2')
                 {
+                    krona = 2;
+                    tableLook(krona);
                     cout << "Input name of computer: ";
                     namedel = deleteElement();
                     counter = 1;
+
+
                     _service.removeComputer(namedel); //Eyða völdu nafni með removeElement fallinu
                 }
                 else
