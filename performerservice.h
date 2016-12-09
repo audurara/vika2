@@ -26,6 +26,8 @@ public:
     void addComputer(string name, string buildy, string brand, string constr);
     void addRelations(int sId, int cId);
     vector<RelationsTable2> viewScientist(int counter);
+    vector<computers> sortComputers(string i1, string i2);
+    vector<Performer> sortScientists(string i1, string i2);
 private:
     DataAccess _data;// Sækir upplýsingar og leyfir virkni úr DataAccess.
 };
