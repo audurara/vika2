@@ -114,6 +114,7 @@ void ConsoleUI::run()
                 int choice;
                 cout << "Remove Computer Scientist choose '1'" << endl << "Remove Computer choose '2'" << endl;
                 cout << "Choice: ";
+                cin.ignore();
                 choice = checkInput(0,3);
                 cout << endl;
                 if(choice == 1)
