@@ -72,16 +72,16 @@ void ConsoleUI::run()
             cin.ignore();
             int counter = 0;
             string choice;
+            cout << "Add Computer Scientist choose '1'" << endl << "Add Computer choose '2'" << endl;
+            cout << "Choice: ";
 
             do
             {
-                cout << "Add Computer Scientist choose '1'" << endl << "Add Computer choose '2'" << endl;
-                cout << "Choice: ";
                 getline(cin, choice);
 
                 if(choice.length() != 1)
                 {
-                    cout << "Invalid input, please try again: " << endl;
+                    cout << "Invalid input, please try again: ";
                 }
                 else{
                     char a = choice[0];
@@ -1074,7 +1074,7 @@ string ConsoleUI::inputCname()
 {
     string name;
     cout << "Enter name/type of Computer: ";
-    cin.ignore();
+    //cin.ignore();
     getline(cin, name);
 
     if(name[0] == ' ')
