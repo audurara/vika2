@@ -549,6 +549,7 @@ void ConsoleUI::addComputer()
     while(counter ==0);
 
     _service.addComputer(name, birthyear, brand, constr);
+    cout << name << " has been added to the database." << endl;
 }
 void ConsoleUI::intro() //Fall sem útprentar upphafsskilaboð
 {
