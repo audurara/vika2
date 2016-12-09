@@ -604,10 +604,13 @@ void ConsoleUI::displayComputers(vector<computers> pc)
 
 void ConsoleUI::sortComputers()
 {
-    cout << "Choose '1' to display a list sorted in alphabetical order" << endl;
-    cout << "Choose '2' to display a list sorted by build year" << endl;
-    cout << "Choose '3' to display a list sorted by brand" << endl;
-    cout << "Choose '4' to display a list sorted by constructor" << endl;
+    cout << "Please set your prefernces of displaying the list" << endl;
+    cout << endl;
+    cout << "Type '1' to display a list sorted in alphabetical order" << endl;
+    cout << "Type '2' to display a list sorted by build year" << endl;
+    cout << "Type '3' to display a list sorted by brand" << endl;
+    cout << "Type '4' to display a list sorted by constructor" << endl;
+    cout << endl;
     cout << "Enter a number to continue: ";
 
     int choice = checkInput(0,5);
@@ -698,12 +701,13 @@ void ConsoleUI::sortComputers()
 }
 void ConsoleUI::sortScientists()
 {
-
-    cout << "Choose '1' to display a list sorted in alphabetical order" << endl;
-    cout << "Choose '2' to display a list sorted by gender" << endl;
-    cout << "Choose '3' to display a list sorted by birth Year" << endl;
-    cout << "Choose '4' to display a list sorted by death Year" << endl;
-    cout << "Choose '5' to display a list sorted by nation" << endl << endl;
+    cout << "Please set your prefernces of displaying the list" << endl;
+    cout << endl;
+    cout << "Type '1' to display a list sorted in alphabetical order" << endl;
+    cout << "Type '2' to display a list sorted by gender" << endl;
+    cout << "Type '3' to display a list sorted by birth Year" << endl;
+    cout << "Type '4' to display a list sorted by death Year" << endl;
+    cout << "Type '5' to display a list sorted by nation" << endl << endl;
     cout << "Enter a number to continue: ";
 
     int choice = checkInput(0,6);
@@ -820,13 +824,16 @@ void ConsoleUI::sortScientists()
 
 void ConsoleUI::displayChoice()
 {
-    cout << "Choose '1' for ascending list." << endl;
-    cout << "Choose '2' for descending list." << endl << endl;
+    cout << "Please set your prefernces of displaying the list" << endl;
+    cout << endl;
+    cout << "Type '1' for ascending list." << endl;
+    cout << "Type '2' for descending list." << endl << endl;
     cout << "Enter a number to continue: ";
 }
 void ConsoleUI::displayJoin()
 {
-
+    cout << "Please set your prefernces of displaying the list" << endl;
+    cout << endl;
     cout << "choose '1' to see connection from a Scientist to Computers." << endl;
     cout << "choose '2' to see connection from a Computer to Scientists" << endl;
     cout << "choose '3' to see all connections" << endl << endl;
