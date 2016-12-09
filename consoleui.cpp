@@ -116,7 +116,10 @@ void ConsoleUI::run()
                 {
                     krona = 1;
                     tableLook(krona);
-                    cout << "Input name of scientist: ";
+                    cout << endl;
+                    cout << "--- Please enter ID to delete from database ---";
+                    cout << endl << endl;
+                    cout << "Input ID of a Scientist to delete: ";
                     namedel = deleteElement();
                     counter = 1;
                     _service.removeScientist(namedel); //Eyða völdu nafni með removeElement fallinu
@@ -125,7 +128,10 @@ void ConsoleUI::run()
                 {
                     krona = 2;
                     tableLook(krona);
-                    cout << "Input name of computer: ";
+                    cout << endl;
+                    cout << "--- Please enter ID to delete from database ---";
+                    cout << endl << endl;
+                    cout << "Input ID of a Computer to delete: ";
                     namedel = deleteElement();
                     counter = 1;
 
@@ -137,7 +143,7 @@ void ConsoleUI::run()
                     cout << "Invalid choice!" << endl;
                 }
             }while(counter == 0);
-            cout << namedel << " has been deleted from database." << endl;
+            cout << "Delete succesfull." << endl;
         }
         else if (command == "help")
         {
@@ -790,7 +796,6 @@ void ConsoleUI::displayJoin()
     cout << "Enter a number:";
 
     int number = checkInput(0,3);
-    cout << number;
     if(number == 1)
     {
 
