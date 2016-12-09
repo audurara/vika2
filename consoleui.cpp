@@ -40,7 +40,7 @@ void ConsoleUI::run()
                     string choice;
                     getline(cin, choice);
                     cout << endl;
-                    int value = atoi(choice.c_str());
+                    int value = atoi(choice.c_str()); //breyta c strengnum choice í integer
 
                     if(value == 1)
                     {
@@ -74,7 +74,7 @@ void ConsoleUI::run()
             string choice;
             ostringstream convert;
             int choice1 = checkInput(0,3);
-            convert << choice;
+            convert << choice;          //til að geta breytt strengnum í integer
             choice = convert.str();
 
             if(choice1 == 1)
@@ -341,7 +341,7 @@ int ConsoleUI::inputYear(int val1, int val2) //Setur inn ár
     {
         string choice;
         getline(cin, choice);
-        value = atoi(choice.c_str());
+        value = atoi(choice.c_str()); //breyta c strengnum choice í integer
         int length = static_cast<int>(choice.length());
 
         if(length < 0 || length > 4)
@@ -372,7 +372,7 @@ string ConsoleUI::inputDeath() //Setur inn dánarár
     {
         return death;
     }
-    int value = atoi(death.c_str());
+    int value = atoi(death.c_str()); //breyta c strengnum death í integer
     int deathLength = death.length();
 
     for(int i = 0; i < deathLength; i++)
@@ -443,8 +443,8 @@ void ConsoleUI::commandAdd() //Fall sem bætir við tölvunarfræðingum
 
     if(death != "--")
     {
-        value = atoi(birthyear.c_str()); // Breytir strengnum í birth í tölu
-        value2 = atoi(death.c_str()); // Breytir strengnum í death í tölu
+        value = atoi(birthyear.c_str()); // Breytir c strengnum í birth í tölu
+        value2 = atoi(death.c_str()); // Breytir c strengnum í death í tölu
     }
 
     while(value2 < value) //Passar að talan í dánarári getur ekki verið minni en í fæðingarári
@@ -534,8 +534,8 @@ void ConsoleUI::addComputer()
         else if(constr == "No" || constr == "no")
         {
             buildy = "--";
-            ostringstream convert;   //til að geta breytt streng í integer
-            convert << buildy;      //breyta streng í integer
+            ostringstream convert;
+            convert << buildy;
             birthyear = convert.str();
             counter = 1;
         }
@@ -984,7 +984,7 @@ int ConsoleUI::checkInput(int val1, int val2) // athugar input og skrifar villus
     {
         string choice;
         getline(cin, choice);
-        value = atoi(choice.c_str());
+        value = atoi(choice.c_str()); //breyta strengnum choice í integer
 
         if(choice.length() != 1)
         {
@@ -1016,7 +1016,7 @@ int ConsoleUI::checkID(vector<RelationsTable2> info)
     {
         string choice;
         getline(cin, choice);
-        value = atoi(choice.c_str());
+        value = atoi(choice.c_str()); //breyta strengnum í choica í integer
 
         for(size_t i = 0; i < info.size(); i++)
         {
@@ -1054,7 +1054,7 @@ int ConsoleUI::checkRID(vector<RelationsID> info)
     {
         string choice;
         getline(cin, choice);
-        value = atoi(choice.c_str());
+        value = atoi(choice.c_str()); //breyta strengnum choice í integer
 
         for(size_t i = 0; i < info.size(); i++)
         {
@@ -1138,7 +1138,7 @@ void ConsoleUI::tableLook3()
     }
 }
 
-void ConsoleUI::displayTopInfo()// einfalt fall sem þarf að endurtaka oft!
+void ConsoleUI::displayTopInfo()// einfalt fall sem kemur í veg fyrir endurtekningar
 {
     cout << endl;
     cout << "                      " << "---- List of all computer scientists in the system ----" << endl;
