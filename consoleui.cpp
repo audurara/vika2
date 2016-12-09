@@ -817,9 +817,10 @@ void ConsoleUI::displayJoin()
         int id;
         cout << endl << "Enter Computer ID: ";
         cin >> id;
-        if(id > S.size() || id < 0)
+        vector<RelationsTable2> S = _service.viewScientist(counter);
+        if(id > static_cast<int>(S.size()) || id < 0)
         {
-            cout << "Invalid HALLO";
+            cout << "Invalid ";
         }
 
         cout << endl;
